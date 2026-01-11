@@ -7,6 +7,10 @@ module Array =
 
     let isNotEmpty arr = not <| Array.isEmpty arr
 
+    let anyNotEmpty arrs = arrs |> Array.exists isNotEmpty
+
+    let allNotEmpty arrs = arrs |> Array.forall isNotEmpty
+
     let doesNotContain x arr = not <| Array.contains x arr
 
     let hasOne arr = arr |> Array.length |> Num.isOne

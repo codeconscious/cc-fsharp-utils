@@ -7,6 +7,10 @@ module Seq =
 
     let isNotEmpty seq = not (Seq.isEmpty seq)
 
+    let anyNotEmpty seqs = seqs |> Seq.exists isNotEmpty
+
+    let allNotEmpty seqs = seqs |> Seq.forall isNotEmpty
+
     let doesNotContain x seq = not <| Seq.contains x seq
 
     let hasOne seq = seq |> Seq.length |> Num.isOne

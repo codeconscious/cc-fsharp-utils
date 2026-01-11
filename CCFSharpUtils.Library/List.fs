@@ -7,6 +7,10 @@ module List =
 
     let isNotEmpty lst = not (List.isEmpty lst)
 
+    let anyNotEmpty lsts = lsts |> List.exists isNotEmpty
+
+    let allNotEmpty lsts = lsts |> List.forall isNotEmpty
+
     let doesNotContain x lst = not <| List.contains x lst
 
     let hasOne lst = lst |> List.length |> Num.isOne
