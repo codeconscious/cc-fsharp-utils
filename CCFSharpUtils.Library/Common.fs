@@ -1,4 +1,4 @@
-namespace CodeConsciousFSharpUtils.Library
+namespace CCFSharpUtils.Library
 
 [<AutoOpen>]
 module Common =

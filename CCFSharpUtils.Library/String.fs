@@ -1,4 +1,4 @@
-namespace CodeConsciousFSharpUtils.Library
+namespace CCFSharpUtils.Library
 
 open System
 open System.IO
