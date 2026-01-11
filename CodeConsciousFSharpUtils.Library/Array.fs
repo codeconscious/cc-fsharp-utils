@@ -9,7 +9,7 @@ module Array =
 
     let doesNotContain x arr = not <| Array.contains x arr
 
-    let hasOne arr = arr |> Array.length |> Numerics.isOne
+    let hasOne arr = arr |> Array.length |> Num.isOne
 
     let hasMultiple arr = arr |> Array.length |> (<) 1
 

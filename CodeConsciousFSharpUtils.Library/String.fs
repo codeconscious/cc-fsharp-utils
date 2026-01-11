@@ -39,7 +39,7 @@ module String =
 
     /// Pluralize text using a specified count.
     let inline pluralize ifOne ifNotOne count =
-        if Numerics.isOne count then ifOne else ifNotOne
+        if Num.isOne count then ifOne else ifNotOne
 
     /// Pluralize text including its count, such as "1 file", "30 URLs".
     let inline pluralizeWithCount ifOne ifNotOne count =
@@ -47,8 +47,8 @@ module String =
 
     let inline private fileLabeller descriptor (count: int) =
         match descriptor with
-        | None   -> $"""%s{Numerics.formatNumber count} %s{pluralize "file" "files" count}"""
-        | Some d -> $"""%s{Numerics.formatNumber count} %s{d} {pluralize "file" "files" count}"""
+        | None   -> $"""%s{Num.formatNumber count} %s{pluralize "file" "files" count}"""
+        | Some d -> $"""%s{Num.formatNumber count} %s{d} {pluralize "file" "files" count}"""
 
     /// Returns a file-count string, such as "0 files" or 1 file" or "140 files".
     let fileLabel count =

@@ -15,7 +15,7 @@ module Seq =
 
     let doesNotContain x seq = not <| Seq.contains x seq
 
-    let hasOne seq = seq |> Seq.length |> Numerics.isOne
+    let hasOne seq = seq |> Seq.length |> Num.isOne
 
     let hasMultiple seq = seq |> Seq.length |> (<) 1
 

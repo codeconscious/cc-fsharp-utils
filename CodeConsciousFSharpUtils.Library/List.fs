@@ -9,7 +9,7 @@ module List =
 
     let doesNotContain x lst = not <| List.contains x lst
 
-    let hasOne lst = lst |> List.length |> Numerics.isOne
+    let hasOne lst = lst |> List.length |> Num.isOne
 
     let hasMultiple lst = lst |> List.length |> (<) 1
 

@@ -4,7 +4,7 @@ open System
 open System.Globalization
 
 [<RequireQualifiedAccess>]
-module Numerics =
+module Num =
 
     let inline isZero (n: ^a) =
         n = LanguagePrimitives.GenericZero<'a>
