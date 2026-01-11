@@ -18,3 +18,6 @@ module Seq =
 
     let anyContainsIgnoreCase text (seqs: string seq seq) =
         seqs |> Seq.exists (containsIgnoreCase text)
+
+    /// If the seq is empty, returns None. Otherwise, wraps the seq in Some.
+    let toOption seq = if Seq.isEmpty seq then None else Some seq

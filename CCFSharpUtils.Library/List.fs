@@ -18,3 +18,6 @@ module List =
 
     let anyContainsIgnoreCase txt (lists: string list list) =
         lists |> List.exists (containsIgnoreCase txt)
+
+    /// If the list is empty, returns None. Otherwise, wraps the list in Some.
+    let toOption lst = if List.isEmpty lst then None else Some lst
