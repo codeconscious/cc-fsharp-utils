@@ -7,6 +7,12 @@
 
     <ItemGroup>
         <Compile Include="Library.fs"/>
+        <Compile Include="Common.fs" />
+        <Compile Include="Num.fs" />
+        <Compile Include="String.fs" />
+        <Compile Include="Seq.fs" />
+        <Compile Include="List.fs" />
+        <Compile Include="Array.fs" />
     </ItemGroup>
 
 </Project>
