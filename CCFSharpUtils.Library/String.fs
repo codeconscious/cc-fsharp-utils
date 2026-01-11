@@ -177,6 +177,11 @@ module String =
             '\uFEFF' // zero-width non-breaking space
         |]
 
+    let stripWhiteSpace (text: string) : string =
+        text.ToCharArray()
+        |> Array.filter (not << fun ch -> Array.contains ch whiteSpaces)
+        |> String
+
     let stripPunctuation (text: string) : string =
         text.ToCharArray()
         |> Array.filter (not << Char.IsPunctuation)
