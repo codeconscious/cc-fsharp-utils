@@ -28,7 +28,7 @@ module String =
     let textOrEmpty text =
         textOrFallback text String.Empty
 
-    let equalIgnoringCase x y =
+    let equalIgnoreCase x y =
         String.Equals(x, y, StringComparison.OrdinalIgnoreCase)
 
     let startsWithIgnoreCase startText (text: string)  =
