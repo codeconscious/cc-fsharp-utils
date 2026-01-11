@@ -1,8 +1,5 @@
 namespace CodeConsciousFSharpUtils.Library
 
-open System
-open System.Globalization
-
 [<AutoOpen>]
 module Common =
 

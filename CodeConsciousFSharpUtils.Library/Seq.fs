@@ -1,12 +1,6 @@
 namespace CodeConsciousFSharpUtils.Library
 
 open System
-open System.IO
-open System.Text
-open System.Text.Json
-open System.Text.Encodings.Web
-open System.Text.Unicode
-open System.Globalization
 
 [<RequireQualifiedAccess>]
 module Seq =
