@@ -16,7 +16,7 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <PackageReleaseNotes>Initial version!</PackageReleaseNotes>
-        <PackageTags>f# fsharp functional fp utility functions codeconscious</PackageTags>
+        <PackageTags>f# fsharp functional fp utility utilities functions codeconscious</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
