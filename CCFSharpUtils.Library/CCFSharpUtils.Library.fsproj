@@ -5,7 +5,7 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <RootNamespace>CCFSharpUtils.Library</RootNamespace>
         <PackageId>CCFSharpUtils</PackageId>
-        <Version>1.0.0</Version>
+        <Version>0.1.0</Version>
         <Authors>CodeConscious</Authors>
         <Company>CodeConscious</Company>
         <Description>This is a tiny library intended to house my F# utility functions for use across across multiple solutions.</Description>
