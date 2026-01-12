@@ -45,8 +45,8 @@ module String =
     let inline pluralizeWithCount ifOne ifNotOne count =
         sprintf "%d %s" count (pluralize ifOne ifNotOne count)
 
-    let inline private fileLabeller descriptor (count: int) =
-        match descriptor with
+    let inline private fileLabeller description (count: int) =
+        match description with
         | None   -> $"""%s{Num.formatNumber count} %s{pluralize "file" "files" count}"""
         | Some d -> $"""%s{Num.formatNumber count} %s{d} {pluralize "file" "files" count}"""
 
