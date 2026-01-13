@@ -101,17 +101,24 @@ module String =
 
     /// Formats a byte count into a human-friendly size representation using KB, MB, GB, or TB.
     let formatBytes (bytes: int64) =
-        let kilobyte = 1024L
-        let megabyte = kilobyte * 1024L
-        let gigabyte = megabyte * 1024L
-        let terabyte = gigabyte * 1024L
+        let kilobyte  = 1024L
+        let megabyte  = kilobyte * 1024L
+        let gigabyte  = megabyte * 1024L
+        let terabyte  = gigabyte * 1024L
+        let petabyte  = terabyte * 1024L
+        let exabyte   = petabyte * 1024L
 
-        match bytes with
-        | _ when bytes >= terabyte -> sprintf "%sT" ((float bytes / float terabyte) |> formatFloat)
-        | _ when bytes >= gigabyte -> sprintf "%sG" ((float bytes / float gigabyte) |> formatFloat)
-        | _ when bytes >= megabyte -> sprintf "%sM" ((float bytes / float megabyte) |> formatFloat)
-        | _ when bytes >= kilobyte -> sprintf "%sK" ((float bytes / float kilobyte) |> formatFloat)
-        | _ -> sprintf "%s bytes" (bytes |> formatInt64)
+        if bytes < 0 then
+            invalidArg (nameof(bytes)) $"Bytes cannot be negative, but %d{bytes} was passed."
+        else
+            match bytes with
+            | _ when bytes >= exabyte  -> sprintf "%sE" ((float bytes / float exabyte)  |> formatFloat)
+            | _ when bytes >= petabyte -> sprintf "%sP" ((float bytes / float petabyte) |> formatFloat)
+            | _ when bytes >= terabyte -> sprintf "%sT" ((float bytes / float terabyte) |> formatFloat)
+            | _ when bytes >= gigabyte -> sprintf "%sG" ((float bytes / float gigabyte) |> formatFloat)
+            | _ when bytes >= megabyte -> sprintf "%sM" ((float bytes / float megabyte) |> formatFloat)
+            | _ when bytes >= kilobyte -> sprintf "%sK" ((float bytes / float kilobyte) |> formatFloat)
+            | _ -> sprintf "%s bytes" (bytes |> formatInt64)
 
     /// Formats a TimeSpan to "h:mm:ss" format, where the hours ('h') are optional.
     let formatTimeSpan (timeSpan: TimeSpan) : string =
