@@ -20,7 +20,7 @@ module String =
         not (hasNoText text)
 
     let allHaveText xs =
-        xs |> List.forall hasText
+        xs |> Seq.forall hasText
 
     let firstWithTextElse alt texts =
         texts |> Seq.tryFind hasText |> Option.defaultValue alt
@@ -109,7 +109,7 @@ module String =
         let exabyte   = petabyte * 1024L
 
         if bytes < 0 then
-            invalidArg (nameof(bytes)) $"Bytes cannot be negative, but %d{bytes} was passed."
+            invalidArg (nameof bytes) $"Bytes cannot be negative, but %d{bytes} was passed."
         else
             match bytes with
             | _ when bytes >= exabyte  -> sprintf "%sE" ((float bytes / float exabyte)  |> formatFloat)
@@ -201,3 +201,7 @@ module String =
     /// Returns a file-count string with a descriptor, such as "0 audio files" or "140 deleted files".
     let fileLabelWithDesc (description: string) count =
         fileLabeller (Some (description.Trim())) count
+
+    /// If a string contains non-whitespace text, encloses it in Some. Otherwise, returns None.
+    let toOption x =
+        if hasText x then Some x else None
