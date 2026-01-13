@@ -19,6 +19,9 @@ module String =
     let hasText text =
         not (hasNoText text)
 
+    let firstWithTextElse alt texts =
+        texts |> Seq.tryFind hasText |> Option.defaultValue alt
+
     let allHaveText xs =
         xs |> List.forall hasText
 
