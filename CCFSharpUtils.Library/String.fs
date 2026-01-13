@@ -19,17 +19,17 @@ module String =
     let hasText text =
         not (hasNoText text)
 
-    let firstWithTextElse alt texts =
-        texts |> Seq.tryFind hasText |> Option.defaultValue alt
-
     let allHaveText xs =
         xs |> List.forall hasText
 
-    let textOrFallback fallback text =
-        if hasText text then text else fallback
+    let firstWithTextElse alt texts =
+        texts |> Seq.tryFind hasText |> Option.defaultValue alt
 
-    let textOrEmpty text =
-        textOrFallback text String.Empty
+    let textElse alt text =
+        if hasText text then text else alt
+
+    let textElseEmpty text =
+        textElse text String.Empty
 
     let equalIgnoreCase x y =
         String.Equals(x, y, StringComparison.OrdinalIgnoreCase)
