@@ -14,5 +14,5 @@ module Rgx =
     let capturesToSeq (m: Match) : Match seq =
         m.Captures |> Seq.cast<Match>
 
-    let fstCapture (m: Match) =
+    let fstCapture (m: Match) : Match =
         m |> capturesToSeq |> Seq.head
