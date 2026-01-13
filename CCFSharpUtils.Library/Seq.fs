@@ -13,6 +13,9 @@ module Seq =
 
     let doesNotContain x seq = not <| Seq.contains x seq
 
+    let headElse alt seq =
+        seq |> Seq.tryHead |> Option.defaultValue alt
+
     let hasOne seq = seq |> Seq.length |> Num.isOne
 
     let hasMultiple seq = seq |> Seq.length |> (<) 1

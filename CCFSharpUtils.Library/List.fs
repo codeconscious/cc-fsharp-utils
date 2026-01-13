@@ -13,6 +13,9 @@ module List =
 
     let doesNotContain x lst = not <| List.contains x lst
 
+    let headElse alt lst =
+        lst |> List.tryHead |> Option.defaultValue alt
+
     let hasOne lst = lst |> List.length |> Num.isOne
 
     let hasMultiple lst = lst |> List.length |> (<) 1

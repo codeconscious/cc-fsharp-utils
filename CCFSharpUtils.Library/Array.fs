@@ -13,6 +13,9 @@ module Array =
 
     let doesNotContain x arr = not <| Array.contains x arr
 
+    let headElse alt arr =
+        arr |> Array.tryHead |> Option.defaultValue alt
+
     let hasOne arr = arr |> Array.length |> Num.isOne
 
     let hasMultiple arr = arr |> Array.length |> (<) 1
