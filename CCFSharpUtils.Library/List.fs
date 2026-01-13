@@ -5,16 +5,16 @@ open System
 [<RequireQualifiedAccess>]
 module List =
 
-    let isNotEmpty lst = not (List.isEmpty lst)
+    let isNotEmpty lst = not <| List.isEmpty lst
 
     let anyNotEmpty lsts = lsts |> List.exists isNotEmpty
 
     let allNotEmpty lsts = lsts |> List.forall isNotEmpty
 
-    let doesNotContain x lst = not <| List.contains x lst
+    let doesNotContain x = not << List.contains x
 
-    let headElse alt lst =
-        lst |> List.tryHead |> Option.defaultValue alt
+    let headElse alt =
+        List.tryHead >> Option.defaultValue alt
 
     let hasOne lst = lst |> List.length |> Num.isOne
 
@@ -23,8 +23,8 @@ module List =
     let containsIgnoreCase text (lst: string list) : bool =
         lst |> List.exists (fun x -> String.Equals(x, text, StringComparison.OrdinalIgnoreCase))
 
-    let anyContainsIgnoreCase txt (lists: string list list) =
-        lists |> List.exists (containsIgnoreCase txt)
+    let anyContainsIgnoreCase txt =
+        List.exists (containsIgnoreCase txt)
 
     /// If the list is empty, returns None. Otherwise, wraps the list in Some.
     let toOption lst = if List.isEmpty lst then None else Some lst

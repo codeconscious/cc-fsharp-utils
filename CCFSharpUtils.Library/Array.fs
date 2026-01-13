@@ -11,10 +11,10 @@ module Array =
 
     let allNotEmpty arrs = arrs |> Array.forall isNotEmpty
 
-    let doesNotContain x arr = not <| Array.contains x arr
+    let doesNotContain x = not << Array.contains x
 
-    let headElse alt arr =
-        arr |> Array.tryHead |> Option.defaultValue alt
+    let headElse alt =
+        Array.tryHead >> Option.defaultValue alt
 
     let hasOne arr = arr |> Array.length |> Num.isOne
 
@@ -23,8 +23,8 @@ module Array =
     let containsIgnoreCase text (arr: string array) : bool =
         arr |> Array.exists (fun x -> String.Equals(x, text, StringComparison.OrdinalIgnoreCase))
 
-    let anyContainsIgnoreCase text (arrays: string array array) =
-        arrays |> Array.exists (containsIgnoreCase text)
+    let anyContainsIgnoreCase text =
+        Array.exists (containsIgnoreCase text)
 
     /// If the array is empty, returns None. Otherwise, wraps the array in Some.
     let toOption arr = if Array.isEmpty arr then None else Some arr
