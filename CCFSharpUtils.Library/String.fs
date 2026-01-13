@@ -154,7 +154,7 @@ module String =
             substrings
 
     let whiteSpaces =
-        [|
+        [
             '\u0020' // space
             '\u00A0' // non-breaking space
             '\u1680' // Ogham space mark
@@ -178,11 +178,11 @@ module String =
             '\u3000' // ideographic space (i.e., Japanese full-width space)
             '\u3164' // Hangul filler
             '\uFEFF' // zero-width non-breaking space
-        |]
+        ]
 
     let stripWhiteSpace (text: string) : string =
         text.ToCharArray()
-        |> Array.filter (not << fun ch -> Array.contains ch whiteSpaces)
+        |> Array.filter (not << fun ch -> List.contains ch whiteSpaces)
         |> String
 
     let stripPunctuation (text: string) : string =
