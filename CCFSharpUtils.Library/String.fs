@@ -112,12 +112,12 @@ module String =
             invalidArg (nameof bytes) $"Bytes cannot be negative, but %d{bytes} was passed."
         else
             match bytes with
-            | _ when bytes >= exabyte  -> sprintf "%sE" ((float bytes / float exabyte)  |> formatFloat)
-            | _ when bytes >= petabyte -> sprintf "%sP" ((float bytes / float petabyte) |> formatFloat)
-            | _ when bytes >= terabyte -> sprintf "%sT" ((float bytes / float terabyte) |> formatFloat)
-            | _ when bytes >= gigabyte -> sprintf "%sG" ((float bytes / float gigabyte) |> formatFloat)
-            | _ when bytes >= megabyte -> sprintf "%sM" ((float bytes / float megabyte) |> formatFloat)
-            | _ when bytes >= kilobyte -> sprintf "%sK" ((float bytes / float kilobyte) |> formatFloat)
+            | _ when bytes >= exabyte  -> sprintf "%sE" (float bytes / float exabyte  |> formatFloat)
+            | _ when bytes >= petabyte -> sprintf "%sP" (float bytes / float petabyte |> formatFloat)
+            | _ when bytes >= terabyte -> sprintf "%sT" (float bytes / float terabyte |> formatFloat)
+            | _ when bytes >= gigabyte -> sprintf "%sG" (float bytes / float gigabyte |> formatFloat)
+            | _ when bytes >= megabyte -> sprintf "%sM" (float bytes / float megabyte |> formatFloat)
+            | _ when bytes >= kilobyte -> sprintf "%sK" (float bytes / float kilobyte |> formatFloat)
             | _ -> sprintf "%s bytes" (bytes |> formatInt64)
 
     /// Formats a TimeSpan to "h:mm:ss" format, where the hours ('h') are optional.
