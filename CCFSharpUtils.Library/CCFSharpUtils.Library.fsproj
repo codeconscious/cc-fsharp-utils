@@ -4,7 +4,7 @@
         <TargetFramework>net10.0</TargetFramework>
         <RootNamespace>CCFSharpUtils.Library</RootNamespace>
         <PackageId>CCFSharpUtils</PackageId>
-        <Version>0.1.4</Version>
+        <Version>0.1.5</Version>
         <PackageReleaseNotes>Small update.</PackageReleaseNotes>
         <Authors>CodeConscious</Authors>
         <Company>CodeConscious</Company>
