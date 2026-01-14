@@ -138,8 +138,8 @@ module String =
         ofTry (fun _ -> JsonSerializer.Serialize(items, options))
 
     /// Removes all instances of multiple substrings from a given string.
-    let stripSubstrings (substrings: string array) (text: string) : string =
-        Array.fold
+    let stripSubstrings (substrings: string seq) (text: string) : string =
+        Seq.fold
             (fun acc x -> acc.Replace(x, String.Empty, StringComparison.InvariantCultureIgnoreCase))
             text
             substrings
