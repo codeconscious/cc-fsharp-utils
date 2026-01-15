@@ -129,13 +129,13 @@ module String =
     /// Serializes items to a formatted JSON string, returning a Result.
     /// If an exception is thrown during the underlying operation,
     /// the Error only includes its message.
-    let serializeToJson items : Result<string, string> =
+    let toJson (txt: string) : Result<string, string> =
         let options =
             JsonSerializerOptions(
                 WriteIndented = true,
                 Encoder = JavaScriptEncoder.Create UnicodeRanges.All)
 
-        ofTry (fun _ -> JsonSerializer.Serialize(items, options))
+        ofTry (fun _ -> JsonSerializer.Serialize(txt, options))
 
     /// Removes all instances of multiple substrings from a given string.
     let stripSubstrings (substrings: string seq) (text: string) : string =
