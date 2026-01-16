@@ -27,4 +27,9 @@ module Seq =
         Seq.exists (containsIgnoreCase text)
 
     /// If the seq is empty, returns None. Otherwise, wraps the seq in Some.
-    let toOption seq = if Seq.isEmpty seq then None else Some seq
+    let toOption seq =
+        if Seq.isEmpty seq then None else Some seq
+
+    /// If the seq is empty, returns an Error. Otherwise, wraps the seq in Ok.
+    let toResult err seq =
+        if Seq.isEmpty seq then Error err else Ok seq

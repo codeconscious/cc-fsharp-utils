@@ -27,4 +27,9 @@ module Array =
         Array.exists (containsIgnoreCase text)
 
     /// If the array is empty, returns None. Otherwise, wraps the array in Some.
-    let toOption arr = if Array.isEmpty arr then None else Some arr
+    let toOption arr =
+        if Array.isEmpty arr then None else Some arr
+
+    /// If the array is empty, returns an Error. Otherwise, wraps the seq in Ok.
+    let toResult err arr =
+        if Array.isEmpty arr then Error err else Ok arr
