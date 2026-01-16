@@ -129,25 +129,25 @@ module String =
     /// Serializes text to a JSON string, returning a Result.
     /// If an exception is thrown during the underlying operation,
     /// the Error only includes its message.
-    let private serializeToJson writeIndented (txt: string) : Result<string, string> =
+    let private serializeToJson writeIndented x : Result<string, string> =
         let options =
             JsonSerializerOptions(
                 WriteIndented = writeIndented,
                 Encoder = JavaScriptEncoder.Create UnicodeRanges.All)
 
-        ofTry (fun _ -> JsonSerializer.Serialize(txt, options))
+        ofTry (fun _ -> JsonSerializer.Serialize(x, options))
 
     /// Serializes text to a formatted JSON string, returning a Result.
     /// If an exception is thrown during the underlying operation,
     /// the Error only includes its message.
-    let toJson txt : Result<string, string> =
-        serializeToJson true txt
+    let toJson x : Result<string, string> =
+        serializeToJson true x
 
     /// Serializes text to a raw, unformatted JSON string, returning a Result.
     /// If an exception is thrown during the underlying operation,
     /// the Error only includes its message.
-    let toRawJson txt : Result<string, string> =
-        serializeToJson false txt
+    let toRawJson x : Result<string, string> =
+        serializeToJson false x
 
     /// Removes all instances of multiple substrings from a given string.
     let stripSubstrings (substrings: string seq) (text: string) : string =
