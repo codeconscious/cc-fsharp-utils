@@ -30,6 +30,6 @@ module Array =
     let toOption arr =
         if Array.isEmpty arr then None else Some arr
 
-    /// If the array is empty, returns an Error. Otherwise, wraps the seq in Ok.
+    /// If the array is empty, returns the specified Error. Otherwise, wraps the array in Ok.
     let toResult err arr =
         if Array.isEmpty arr then Error err else Ok arr

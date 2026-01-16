@@ -27,9 +27,8 @@ module List =
         List.exists (containsIgnoreCase txt)
 
     /// If the list is empty, returns None. Otherwise, wraps the list in Some.
-
     let toOption lst = if List.isEmpty lst then None else Some lst
 
-    /// If the list is empty, returns an Error. Otherwise, wraps the seq in Ok.
+    /// If the list is empty, returns the specified Error. Otherwise, wraps the list in Ok.
     let toResult err lst =
         if List.isEmpty lst then Error err else Ok lst

@@ -30,6 +30,6 @@ module Seq =
     let toOption seq =
         if Seq.isEmpty seq then None else Some seq
 
-    /// If the seq is empty, returns an Error. Otherwise, wraps the seq in Ok.
+    /// If the seq is empty, returns the specified Error. Otherwise, wraps the seq in Ok.
     let toResult err seq =
         if Seq.isEmpty seq then Error err else Ok seq
