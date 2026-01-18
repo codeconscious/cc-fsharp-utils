@@ -20,11 +20,29 @@ module Array =
 
     let hasMultiple arr = arr |> Array.length |> (<) 1
 
-    let containsIgnoreCase text (arr: string array) : bool =
-        arr |> Array.exists (fun x -> String.Equals(x, text, StringComparison.OrdinalIgnoreCase))
+    let ensureOne emptyErr multipleErr arr =
+        match arr with
+        | [| |]   -> Error emptyErr
+        | [| x |] -> Ok [x]
+        | _       -> Error multipleErr
 
-    let anyContainsIgnoreCase text =
-        Array.exists (containsIgnoreCase text)
+    let ensureSize targetSize tooSmallErr tooLargeErr (arr: 'a array) =
+        match compareWith targetSize arr.Length with
+        | EQ -> Ok [| arr |]
+        | LT -> Error tooSmallErr
+        | GT -> Error tooLargeErr
+
+    let tryGetSingle emptyErr multipleErr arr =
+        match arr with
+        | [| |]   -> Error emptyErr
+        | [| x |] -> Ok x
+        | _       -> Error multipleErr
+
+    let containsIgnoreCase txt (arr: string array) : bool =
+        arr |> Array.exists (fun x -> String.Equals(x, txt, StringComparison.OrdinalIgnoreCase))
+
+    let anyContainsIgnoreCase txt =
+        Array.exists (containsIgnoreCase txt)
 
     /// If the array is empty, returns None. Otherwise, wraps the array in Some.
     let toOption arr =
