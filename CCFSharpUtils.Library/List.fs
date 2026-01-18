@@ -20,8 +20,26 @@ module List =
 
     let hasMultiple lst = lst |> List.length |> (<) 1
 
-    let containsIgnoreCase text (lst: string list) : bool =
-        lst |> List.exists (fun x -> String.Equals(x, text, StringComparison.OrdinalIgnoreCase))
+    let ensureOne emptyErr multipleErr lst =
+        match lst with
+        | []  -> Error emptyErr
+        | [x] -> Ok [x]
+        | _   -> Error multipleErr
+
+    let ensureSize targetSize tooSmallErr tooLargeErr (lst: 'a list) =
+        match compareWith targetSize lst.Length with
+        | EQ -> Ok [lst]
+        | LT -> Error tooSmallErr
+        | GT -> Error tooLargeErr
+
+    let tryGetSingle emptyErr multipleErr lst =
+        match lst with
+        | []  -> Error emptyErr
+        | [x] -> Ok x
+        | _   -> Error multipleErr
+
+    let containsIgnoreCase txt (lst: string list) : bool =
+        lst |> List.exists (fun x -> String.Equals(x, txt, StringComparison.OrdinalIgnoreCase))
 
     let anyContainsIgnoreCase txt =
         List.exists (containsIgnoreCase txt)

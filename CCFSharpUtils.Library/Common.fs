@@ -11,3 +11,10 @@ module Common =
     /// Execute side effects using the given function, then returns the value unmodified.
     let inline tee fn x = x |> fn |> ignore; x
 
+    type Ordering = LT | EQ | GT
+
+    let compareWith target x =
+        match compare x target with
+        | n when n < 0 -> LT
+        | 0 -> EQ
+        | _ -> GT

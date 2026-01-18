@@ -20,6 +20,27 @@ module Seq =
 
     let hasMultiple seq = seq |> Seq.length |> (<) 1
 
+    let ensureOne emptyErr multipleErr seq =
+        if Seq.isEmpty seq then
+            Error emptyErr
+        elif hasOne seq then
+            Ok seq
+        else Error multipleErr
+
+    let ensureSize targetSize tooSmallErr tooLargeErr (seq: 'a seq) =
+        let length = Seq.length seq
+        match compareWith targetSize length with
+        | EQ -> Ok [seq]
+        | LT -> Error tooSmallErr
+        | GT -> Error tooLargeErr
+
+    let tryGetSingle emptyErr multipleErr seq =
+        if hasOne seq then
+            Ok (Seq.head seq)
+        elif hasMultiple seq then
+            Error multipleErr
+        else Error emptyErr
+
     let containsIgnoreCase text (xs: string seq) : bool =
         xs |> Seq.exists (fun x -> String.Equals(x, text, StringComparison.OrdinalIgnoreCase))
 
