@@ -5,13 +5,17 @@ open System
 [<RequireQualifiedAccess>]
 module Seq =
 
-    let isNotEmpty seq = not <| Seq.isEmpty seq
+    let isNotEmpty seq =
+        not <| Seq.isEmpty seq
 
-    let anyNotEmpty seqs = seqs |> Seq.exists isNotEmpty
+    let anyNotEmpty seqs =
+        seqs |> Seq.exists isNotEmpty
 
-    let allNotEmpty seqs = seqs |> Seq.forall isNotEmpty
+    let allNotEmpty seqs =
+        seqs |> Seq.forall isNotEmpty
 
-    let doesNotContain x = not << Seq.contains x
+    let doesNotContain x =
+        not << Seq.contains x
 
     let headElse alt =
         Seq.tryHead >> Option.defaultValue alt

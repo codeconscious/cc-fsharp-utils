@@ -5,13 +5,17 @@ open System
 [<RequireQualifiedAccess>]
 module Array =
 
-    let isNotEmpty arr = not <| Array.isEmpty arr
+    let isNotEmpty arr =
+        not <| Array.isEmpty arr
 
-    let anyNotEmpty arrays = arrays |> Array.exists isNotEmpty
+    let anyNotEmpty arrays =
+        arrays |> Array.exists isNotEmpty
 
-    let allNotEmpty arrays = arrays |> Array.forall isNotEmpty
+    let allNotEmpty arrays =
+        arrays |> Array.forall isNotEmpty
 
-    let doesNotContain x = not << Array.contains x
+    let doesNotContain x =
+        not << Array.contains x
 
     let headElse alt =
         Array.tryHead >> Option.defaultValue alt

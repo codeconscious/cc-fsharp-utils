@@ -5,13 +5,17 @@ open System
 [<RequireQualifiedAccess>]
 module List =
 
-    let isNotEmpty lst = not <| List.isEmpty lst
+    let isNotEmpty lst =
+        not <| List.isEmpty lst
 
-    let anyNotEmpty lsts = lsts |> List.exists isNotEmpty
+    let anyNotEmpty lsts =
+        lsts |> List.exists isNotEmpty
 
-    let allNotEmpty lsts = lsts |> List.forall isNotEmpty
+    let allNotEmpty lsts =
+        lsts |> List.forall isNotEmpty
 
-    let doesNotContain x = not << List.contains x
+    let doesNotContain x =
+        not << List.contains x
 
     let headElse alt =
         List.tryHead >> Option.defaultValue alt
