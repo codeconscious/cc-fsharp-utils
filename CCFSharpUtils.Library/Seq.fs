@@ -16,21 +16,23 @@ module Seq =
     let headElse alt =
         Seq.tryHead >> Option.defaultValue alt
 
-    let hasOne seq = seq |> Seq.length |> Num.isOne
+    let hasOne seq =
+        seq |> Seq.length |> Num.isOne
 
-    let hasMultiple seq = seq |> Seq.length |> (<) 1
+    let hasMultiple seq =
+        seq |> Seq.length |> (<) 1
 
-    let ensureOne emptyErr multipleErr seq =
+    let ensureOne emptyErr multipleErr (seq: 'b seq) :  Result<'b seq,'a> =
         if Seq.isEmpty seq then
             Error emptyErr
         elif hasOne seq then
             Ok seq
         else Error multipleErr
 
-    let ensureSize targetSize tooSmallErr tooLargeErr (seq: 'a seq) =
+    let ensureSize targetSize tooSmallErr tooLargeErr (seq: 'b seq) : Result<'b seq,'a> =
         let length = Seq.length seq
         match compareWith targetSize length with
-        | EQ -> Ok [seq]
+        | EQ -> Ok seq
         | LT -> Error tooSmallErr
         | GT -> Error tooLargeErr
 

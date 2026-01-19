@@ -89,8 +89,7 @@ module ListTests =
         let ``returns Ok with the original list when length equals target`` () =
             let target = 2
             match lst |> List.ensureSize target tooSmallErr tooLargeErr with
-            | Ok [returnedSeq] -> Assert.Equal<int list>(returnedSeq, lst)
-            | Ok _    -> failwith "Expected a single-element list containing the original list"
+            | Ok lst' -> Assert.Equal<int list>(lst', lst)
             | Error e -> failwithf $"Expected Ok but got Error %s{e}"
 
         [<Fact>]

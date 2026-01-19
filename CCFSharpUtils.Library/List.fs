@@ -26,9 +26,9 @@ module List =
         | [x] -> Ok [x]
         | _   -> Error multipleErr
 
-    let ensureSize targetSize tooSmallErr tooLargeErr (lst: 'a list) =
+    let ensureSize targetSize tooSmallErr tooLargeErr (lst: 'b list): Result<'b list,'a> =
         match compareWith targetSize lst.Length with
-        | EQ -> Ok [lst]
+        | EQ -> Ok lst
         | LT -> Error tooSmallErr
         | GT -> Error tooLargeErr
 

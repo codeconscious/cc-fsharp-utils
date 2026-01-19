@@ -74,8 +74,7 @@ module ArrayTests =
         let ``returns Ok with the original array when length equals target`` () =
             let target = 2
             match arr |> Array.ensureSize target tooSmallErr tooLargeErr with
-            | Ok [| returnedSeq |] -> Assert.Equal<int array>(returnedSeq, arr)
-            | Ok _    -> failwith "Expected a single-element list containing the original array"
+            | Ok arr' -> Assert.Equal<int array>(arr', arr)
             | Error e -> failwithf $"Expected Ok but got Error %s{e}"
 
         [<Fact>]

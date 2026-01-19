@@ -7,9 +7,9 @@ module Array =
 
     let isNotEmpty arr = not <| Array.isEmpty arr
 
-    let anyNotEmpty arrs = arrs |> Array.exists isNotEmpty
+    let anyNotEmpty arrays = arrays |> Array.exists isNotEmpty
 
-    let allNotEmpty arrs = arrs |> Array.forall isNotEmpty
+    let allNotEmpty arrays = arrays |> Array.forall isNotEmpty
 
     let doesNotContain x = not << Array.contains x
 
@@ -26,9 +26,9 @@ module Array =
         | [| x |] -> Ok [x]
         | _       -> Error multipleErr
 
-    let ensureSize targetSize tooSmallErr tooLargeErr (arr: 'a array) =
+    let ensureSize targetSize tooSmallErr tooLargeErr (arr: 'b array) : Result<'b array,'a> =
         match compareWith targetSize arr.Length with
-        | EQ -> Ok [| arr |]
+        | EQ -> Ok arr
         | LT -> Error tooSmallErr
         | GT -> Error tooLargeErr
 

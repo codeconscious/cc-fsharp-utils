@@ -93,8 +93,7 @@ module SeqTests =
             let target = 2
             let s = seq { 10; 20 }
             match s |> Seq.ensureSize target tooSmallErr tooLargeErr with
-            | Ok [returnedSeq] -> Assert.Equal<int seq>(returnedSeq, s)
-            | Ok _    -> failwith "Expected a single-element list containing the original sequence"
+            | Ok s'   -> Assert.Equal<int seq>(s', s)
             | Error e -> failwithf $"Expected Ok but got Error %s{e}"
 
         [<Fact>]
