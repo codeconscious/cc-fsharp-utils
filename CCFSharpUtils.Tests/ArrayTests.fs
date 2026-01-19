@@ -5,7 +5,7 @@ open CCFSharpUtils.Library
 
 module ArrayTests =
 
-    module HasMultiple =
+    module HasMultipleTests =
 
         [<Fact>]
         let ``hasMultiple returns true for array with more than one element`` () =

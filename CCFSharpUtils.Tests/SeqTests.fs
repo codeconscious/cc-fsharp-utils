@@ -6,17 +6,17 @@ open CCFSharpUtils.Library
 
 module SeqTests =
 
-    module CaseInsensitiveContainsTests =
+    module ContainsIgnoreCaseTests =
 
         [<Fact>]
-        let ``caseInsensitiveContains returns true when exact match exists`` () =
+        let ``containsIgnoreCase returns true when exact match exists`` () =
             let input = ["Hello"; "World"; "Test"]
             Assert.True <| Seq.containsIgnoreCase "Hello" input
             Assert.True <| Seq.containsIgnoreCase "World" input
             Assert.True <| Seq.containsIgnoreCase "Test" input
 
         [<Fact>]
-        let ``caseInsensitiveContains returns true when exists but case differs`` () =
+        let ``containsIgnoreCase returns true when exists but case differs`` () =
             let input = ["hello"; "WORLD"; "test"]
             Assert.True <| Seq.containsIgnoreCase "Hello" input
             Assert.True <| Seq.containsIgnoreCase "hello" input
@@ -26,22 +26,22 @@ module SeqTests =
             Assert.True <| Seq.containsIgnoreCase "TEST" input
 
         [<Fact>]
-        let ``caseInsensitiveContains returns false when text not in sequence`` () =
+        let ``containsIgnoreCase returns false when text not in sequence`` () =
             let input = ["Hello"; "World"; "Test"]
             Assert.False <| Seq.containsIgnoreCase "Missing" input
 
         [<Fact>]
-        let ``caseInsensitiveContains works with empty sequence`` () =
+        let ``containsIgnoreCase works with empty sequence`` () =
             Assert.False <| Seq.containsIgnoreCase "Any" []
 
         [<Fact>]
-        let ``caseInsensitiveContains handles null or empty strings`` () =
+        let ``containsIgnoreCase handles null or empty strings`` () =
             let input = [String.Empty; null; "Test"]
             Assert.True <| Seq.containsIgnoreCase String.Empty input
             Assert.True <| Seq.containsIgnoreCase null input
 
         [<Fact>]
-        let ``caseInsensitiveContains handles Japanese strings`` () =
+        let ``containsIgnoreCase handles Japanese strings`` () =
             let input = ["関数型プログラミング"; "楽しいぞ"]
             Assert.True <| Seq.containsIgnoreCase "関数型プログラミング" input
             Assert.False <| Seq.containsIgnoreCase "いや、楽しくないや" input
