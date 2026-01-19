@@ -44,7 +44,7 @@ module SeqTests =
         Assert.True <| Seq.containsIgnoreCase "関数型プログラミング" input
         Assert.False <| Seq.containsIgnoreCase "いや、楽しくないや" input
 
-    module ensureOneTests =
+    module EnsureOneTests =
 
         let empty = "empty error"
         let multiple = "multiple error"
@@ -73,7 +73,7 @@ module SeqTests =
             | Error e -> Assert.Equal(multiple, e)
             | Ok _ -> failwith "Expected Error for multiple-element sequence"
 
-    module ensureSizeTests =
+    module EnsureSizeTests =
 
         let tooSmall = "too small"
         let tooLarge = "too large"
@@ -104,7 +104,7 @@ module SeqTests =
             | Ok _ -> failwith "Expected Error for sequence larger than target"
 
 
-    module tryGetSingleTests =
+    module TryGetSingleTests =
 
         let empty = "empty error"
         let multiple = "multiple error"
