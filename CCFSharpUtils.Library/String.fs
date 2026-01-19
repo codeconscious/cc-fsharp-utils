@@ -193,6 +193,16 @@ module String =
         |> Array.filter (not << Char.IsPunctuation)
         |> String
 
+    /// Removes diacritics from strings -- e.g., "Ñ" -> "N".
+    /// Only works on diacritics that exist as separate characters.
+    /// Will not work on on characters where the diacritic is
+    /// an integral part of the letter's identity, like "ł".
+    let removeDiacritics (text: string) =
+        text.Normalize NormalizationForm.FormD
+        |> _.EnumerateRunes()
+        |> Seq.filter (fun r -> Rune.GetUnicodeCategory r <> UnicodeCategory.NonSpacingMark)
+        |> String.Concat
+
     /// Pluralize text using a specified count.
     let inline pluralize ifOne ifNotOne count =
         if Num.isOne count then ifOne else ifNotOne

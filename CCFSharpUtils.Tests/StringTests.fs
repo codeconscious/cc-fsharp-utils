@@ -76,51 +76,56 @@ module StringTests =
             result.ToCharArray() |> Array.iter (fun ch -> Assert.Equal(ch, '_'))
             Assert.Equal(input.Length, result.Length)
 
+    module RemoveDiacriticsTests =
+        let input = "áéíóúÁÉÍÓÚ ăĂ çÇ ñÑ ěĚ šŠ žŽ řŘ ďĎ ťŤ ůŮ"
+        let actual = String.removeDiacritics input
+        let expected = "aeiouAEIOU aA cC nN eE sS zZ rR dD tT uU"
+        Assert.Equal(expected, actual)
 
-        module FormatNumberTests =
+    module FormatNumberTests =
 
-            // A tiny custom type that implements the required ToString signature.
-            type MyCustomNum(i: int) =
-                member _.ToString(fmt: string, provider: IFormatProvider) =
-                    i.ToString(fmt, provider)
+        // A tiny custom type that implements the required ToString signature.
+        type MyCustomNum(i: int) =
+            member _.ToString(fmt: string, provider: IFormatProvider) =
+                i.ToString(fmt, provider)
 
-            [<Fact>]
-            let ``format int`` () =
-                let actual = String.formatNumber 123456
-                Assert.Equal("123,456", actual)
+        [<Fact>]
+        let ``format int`` () =
+            let actual = String.formatNumber 123456
+            Assert.Equal("123,456", actual)
 
-            [<Fact>]
-            let ``format negative int`` () =
-                let actual = String.formatNumber -1234
-                Assert.Equal("-1,234", actual)
+        [<Fact>]
+        let ``format negative int`` () =
+            let actual = String.formatNumber -1234
+            Assert.Equal("-1,234", actual)
 
-            [<Fact>]
-            let ``format zero`` () =
-                let actual = String.formatNumber 0
-                Assert.Equal("0", actual)
+        [<Fact>]
+        let ``format zero`` () =
+            let actual = String.formatNumber 0
+            Assert.Equal("0", actual)
 
-            [<Fact>]
-            let ``format int64`` () =
-                let actual = String.formatNumber 1234567890L
-                Assert.Equal("1,234,567,890", actual)
+        [<Fact>]
+        let ``format int64`` () =
+            let actual = String.formatNumber 1234567890L
+            Assert.Equal("1,234,567,890", actual)
 
-            [<Fact>]
-            let ``format decimal rounds to integer display`` () =
-                let actual = String.formatNumber 123456.78M
-                Assert.Equal("123,457", actual)
+        [<Fact>]
+        let ``format decimal rounds to integer display`` () =
+            let actual = String.formatNumber 123456.78M
+            Assert.Equal("123,457", actual)
 
-            [<Fact>]
-            let ``format float rounds to integer display`` () =
-                let actual = String.formatNumber 123456.78
-                Assert.Equal("123,457", actual)
+        [<Fact>]
+        let ``format float rounds to integer display`` () =
+            let actual = String.formatNumber 123456.78
+            Assert.Equal("123,457", actual)
 
-            [<Fact>]
-            let ``format negative float rounds to integer display`` () =
-                let actual = String.formatNumber -1234.56
-                Assert.Equal("-1,235", actual)
+        [<Fact>]
+        let ``format negative float rounds to integer display`` () =
+            let actual = String.formatNumber -1234.56
+            Assert.Equal("-1,235", actual)
 
-            [<Fact>]
-            let ``format custom numeric type`` () =
-                let myNum = MyCustomNum 1234
-                let actual = String.formatNumber myNum
-                Assert.Equal("1,234", actual)
+        [<Fact>]
+        let ``format custom numeric type`` () =
+            let myNum = MyCustomNum 1234
+            let actual = String.formatNumber myNum
+            Assert.Equal("1,234", actual)
