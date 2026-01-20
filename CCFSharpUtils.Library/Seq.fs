@@ -20,6 +20,12 @@ module Seq =
     let headElse alt =
         Seq.tryHead >> Option.defaultValue alt
 
+    let takeLast count seq =
+        seq
+        |> Seq.rev
+        |> Seq.truncate count
+        |> Seq.rev
+
     let hasOne seq =
         seq |> Seq.length |> Num.isOne
 

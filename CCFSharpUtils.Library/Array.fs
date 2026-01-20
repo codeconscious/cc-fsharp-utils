@@ -20,6 +20,12 @@ module Array =
     let headElse alt =
         Array.tryHead >> Option.defaultValue alt
 
+    let takeLast count arr =
+        arr
+        |> Array.rev
+        |> Array.truncate count
+        |> Array.rev
+
     let hasOne arr = arr |> Array.length |> Num.isOne
 
     let hasMultiple arr = arr |> Array.length |> (<) 1

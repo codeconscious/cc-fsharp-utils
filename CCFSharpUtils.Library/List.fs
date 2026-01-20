@@ -20,6 +20,12 @@ module List =
     let headElse alt =
         List.tryHead >> Option.defaultValue alt
 
+    let takeLast count lst =
+        lst
+        |> List.rev
+        |> List.truncate count
+        |> List.rev
+
     let hasOne lst = lst |> List.length |> Num.isOne
 
     let hasMultiple lst = lst |> List.length |> (<) 1
