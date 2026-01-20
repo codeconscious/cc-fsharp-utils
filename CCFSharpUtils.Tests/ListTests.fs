@@ -6,6 +6,26 @@ open CCFSharpUtils.Library
 
 module ListTests =
 
+    module AllNotEmptyTests =
+
+        [<Fact>]
+        let ``returns true when every sublist is non-empty`` () =
+            let lists = [ [1;2]; [3]; [4;5;6] ]
+            let result = List.allNotEmpty lists
+            Assert.True result
+
+        [<Fact>]
+        let ``returns false when at least one sublist is empty`` () =
+            let lists = [ [1;2]; []; [4] ]
+            let result = List.allNotEmpty lists
+            Assert.False result
+
+        [<Fact>]
+        let ``returns true for an empty list of lists (vacuous truth)`` () =
+            let lists : int list list = []
+            let result = List.allNotEmpty lists
+            Assert.True result
+
     module ContainsIgnoreCaseTests =
         [<Fact>]
         let ``containsIgnoreCase returns true when exact match exists`` () =

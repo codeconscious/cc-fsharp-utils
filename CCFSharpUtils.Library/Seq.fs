@@ -45,7 +45,8 @@ module Seq =
             Ok (Seq.head seq)
         elif hasMultiple seq then
             Error multipleErr
-        else Error emptyErr
+        else
+            Error emptyErr
 
     let containsIgnoreCase text (xs: string seq) : bool =
         xs |> Seq.exists (fun x -> String.Equals(x, text, StringComparison.OrdinalIgnoreCase))

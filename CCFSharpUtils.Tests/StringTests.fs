@@ -78,7 +78,7 @@ module StringTests =
 
     module RemoveDiacriticsTests =
         let input = "áéíóúÁÉÍÓÚ ăĂ çÇ ñÑ ěĚ šŠ žŽ řŘ ďĎ ťŤ ůŮ"
-        let actual = String.removeDiacritics input
+        let actual = String.stripDiacritics input
         let expected = "aeiouAEIOU aA cC nN eE sS zZ rR dD tT uU"
         Assert.Equal(expected, actual)
 
