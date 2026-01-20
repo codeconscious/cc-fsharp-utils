@@ -5,6 +5,14 @@ namespace CCFSharpUtils.Library
 module Rgx =
     open System.Text.RegularExpressions
 
+    let groups (m: Match) : Group seq =
+        m.Groups |> Seq.cast<Group>
+
+    let successMatches (matches: MatchCollection) : Match seq =
+        matches
+        |> Seq.cast<Match>
+        |> Seq.filter _.Success
+
     let trySuccessMatch (rgx: Regex) txt =
         let result = rgx.Match txt
         match result.Success with
