@@ -21,10 +21,13 @@ module List =
         List.tryHead >> Option.defaultValue alt
 
     let takeLast count lst =
-        lst
-        |> List.rev
-        |> List.truncate count
-        |> List.rev
+        if count <= 0 then
+            List.empty
+        else
+            lst
+            |> List.rev
+            |> List.truncate count
+            |> List.rev
 
     let hasOne lst =
         lst |> List.length |> Num.isOne

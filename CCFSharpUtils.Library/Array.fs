@@ -20,11 +20,16 @@ module Array =
     let headElse alt =
         Array.tryHead >> Option.defaultValue alt
 
-    let takeLast count arr =
-        arr
-        |> Array.rev
-        |> Array.truncate count
-        |> Array.rev
+    let takeLast count (arr: 'a array) =
+        if isNull arr then
+            nullArg (nameof arr)
+        elif count <= 0 then
+            Array.empty
+        else
+            let length = arr.Length
+            if count >= length
+            then arr
+            else Array.sub arr (length - count) count
 
     let hasOne arr =
         arr |> Array.length |> Num.isOne

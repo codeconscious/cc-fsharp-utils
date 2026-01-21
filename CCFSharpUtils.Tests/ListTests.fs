@@ -26,6 +26,36 @@ module ListTests =
             let result = List.allNotEmpty lists
             Assert.True result
 
+    module TakeLastTests =
+
+        [<Fact>]
+        let ``returns last items when enough items in the list`` () =
+            let arr = [ 1..10 ]
+            let expected = [ 6..10 ]
+            let actual = arr |> List.takeLast 5
+            Assert.Equal<int list>(expected, actual)
+
+        [<Fact>]
+        let ``returns entire list when count exceeds its length`` () =
+            let arr = [ 1..10 ]
+            let expected = arr
+            let actual = arr |> List.takeLast 1_000
+            Assert.Equal<int list>(expected, actual)
+
+        [<Fact>]
+        let ``returns empty list when no items in the list`` () =
+            let arr = List.empty<int>
+            let expected = arr
+            let actual = arr |> List.takeLast 1_000
+            Assert.Equal<int list>(expected, actual)
+
+        [<Fact>]
+        let ``returns empty list when count is negative`` () =
+            let arr = [ 1..10 ]
+            let expected = List.empty<int>
+            let actual = arr |> List.takeLast -5
+            Assert.Equal<int list>(expected, actual)
+
     module ContainsIgnoreCaseTests =
         [<Fact>]
         let ``containsIgnoreCase returns true when exact match exists`` () =

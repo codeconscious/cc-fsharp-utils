@@ -2,8 +2,43 @@ namespace CCFSharpUtils.Tests
 
 open Xunit
 open CCFSharpUtils.Library
+open System
 
 module ArrayTests =
+
+    module TakeLastTests =
+
+        [<Fact>]
+        let ``returns last items when enough items in the array`` () =
+            let arr = [| 1..10 |]
+            let expected = [| 6..10 |]
+            let actual = arr |> Array.takeLast 5
+            Assert.Equal<int array>(expected, actual)
+
+        [<Fact>]
+        let ``returns entire array when count exceeds its length`` () =
+            let arr = [| 1..10 |]
+            let expected = arr
+            let actual = arr |> Array.takeLast 1_000
+            Assert.Equal<int array>(expected, actual)
+
+        [<Fact>]
+        let ``returns empty array when no items in the array`` () =
+            let arr = Array.empty<int>
+            let expected = arr
+            let actual = arr |> Array.takeLast 1_000
+            Assert.Equal<int array>(expected, actual)
+
+        [<Fact>]
+        let ``returns empty array when count is negative`` () =
+            let arr = [| 1..10 |]
+            let expected = Array.empty<int>
+            let actual = arr |> Array.takeLast -5
+            Assert.Equal<int array>(expected, actual)
+
+        [<Fact>]
+        let ``throws when array is null`` () =
+            Assert.Throws<ArgumentNullException>(fun _ -> null |> Array.takeLast 1 |> ignore)
 
     module HasMultipleTests =
 

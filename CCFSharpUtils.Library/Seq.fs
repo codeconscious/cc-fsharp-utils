@@ -21,10 +21,13 @@ module Seq =
         Seq.tryHead >> Option.defaultValue alt
 
     let takeLast count seq =
-        seq
-        |> Seq.rev
-        |> Seq.truncate count
-        |> Seq.rev
+        if count <= 0 then
+            Seq.empty
+        else
+            seq
+            |> Array.ofSeq
+            |> Array.takeLast count
+            |> Seq.ofArray
 
     let hasOne seq =
         seq |> Seq.length |> Num.isOne

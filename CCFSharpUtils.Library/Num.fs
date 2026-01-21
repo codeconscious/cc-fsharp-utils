@@ -15,5 +15,8 @@ module Num =
     let inline isNeg (n: ^a) =
         n < LanguagePrimitives.GenericZero<'a>
 
+    let inline isZeroOrNeg (n: ^a) =
+        n < LanguagePrimitives.GenericOne<'a>
+
     let inline isPos (n: ^a) =
         n > LanguagePrimitives.GenericZero<'a>

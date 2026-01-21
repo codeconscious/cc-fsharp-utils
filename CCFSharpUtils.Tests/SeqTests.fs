@@ -1,10 +1,44 @@
 namespace CCFSharpUtils.Tests
 
 open Xunit
-open System
 open CCFSharpUtils.Library
+open System
 
 module SeqTests =
+
+    module TakeLastTests =
+
+        [<Fact>]
+        let ``returns last items when enough items in the sequence`` () =
+            let s = seq { for i in 1..10 do i }
+            let expected = seq { for i in 6..10 do i }
+            let actual = s |> Seq.takeLast 5
+            Assert.Equal<int seq>(expected, actual)
+
+        [<Fact>]
+        let ``returns entire sequence when count exceeds its length`` () =
+            let s = seq { for i in 1..10 do i }
+            let expected = s
+            let actual = s |> Seq.takeLast 1_000
+            Assert.Equal<int seq>(expected, actual)
+
+        [<Fact>]
+        let ``returns empty sequence when no items in the sequence`` () =
+            let s = Seq.empty<int>
+            let expected = s
+            let actual = s |> Seq.takeLast 1_000
+            Assert.Equal<int seq>(expected, actual)
+
+        [<Fact>]
+        let ``returns empty collection when count is negative`` () =
+            let s = seq { for i in 1..10 do i }
+            let expected = Seq.empty<int>
+            let actual = s |> Seq.takeLast -5
+            Assert.Equal<int seq>(expected, actual)
+
+        [<Fact>]
+        let ``throws when sequence is null`` () =
+            Assert.Throws<ArgumentNullException>(fun _ -> null |> Seq.takeLast 1 |> ignore)
 
     module ContainsIgnoreCaseTests =
 
