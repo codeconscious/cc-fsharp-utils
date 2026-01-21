@@ -26,6 +26,13 @@ module Rgx =
         m |> capturesToSeq |> Seq.head
 
     /// An active pattern for matching regular expression patterns during pattern matching.
+    /// Returns the entire matched value (i.e., match group 0).
+    let (|MatchValue|_|) pattern input : string option =
+        match Regex.Match(input, pattern) with
+        | m when m.Success -> Some m.Value
+        | _ -> None
+
+    /// An active pattern for matching regular expression patterns during pattern matching.
     /// Returns only the matched subgroups (i.e., groups 1 and later).
     /// (Use parentheses in your regex patterns to indicate groups.)
     let (|MatchGroups|_|) pattern input : string list option =
