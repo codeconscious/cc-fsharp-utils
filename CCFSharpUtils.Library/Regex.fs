@@ -24,3 +24,11 @@ module Rgx =
 
     let fstCapture (m: Match) : Match =
         m |> capturesToSeq |> Seq.head
+
+    /// An active pattern for matching regular expression patterns during pattern matching.
+    /// Returns only the matched subgroups (i.e., groups 1 and later).
+    /// (Use parentheses in your regex patterns to indicate groups.)
+    let (|MatchGroups|_|) pattern input : string list option =
+        match Regex.Match(input, pattern) with
+        | m when m.Success -> Some (List.tail [for g in m.Groups -> g.Value])
+        | _ -> None

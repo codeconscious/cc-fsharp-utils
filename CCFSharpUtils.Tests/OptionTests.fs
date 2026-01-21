@@ -5,7 +5,7 @@ open CCFSharpUtils.Library
 
 module OptionTests =
 
-    module MapElseTets =
+    module MapElseTests =
         let alt = -1
         let mapping = (+) 10
 

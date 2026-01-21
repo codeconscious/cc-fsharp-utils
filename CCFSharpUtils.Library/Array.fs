@@ -26,9 +26,11 @@ module Array =
         |> Array.truncate count
         |> Array.rev
 
-    let hasOne arr = arr |> Array.length |> Num.isOne
+    let hasOne arr =
+        arr |> Array.length |> Num.isOne
 
-    let hasMultiple arr = arr |> Array.length |> (<) 1
+    let hasMultiple arr =
+        arr |> Array.length |> (<) 1
 
     let ensureOne emptyErr multipleErr arr =
         match arr with

@@ -26,9 +26,11 @@ module List =
         |> List.truncate count
         |> List.rev
 
-    let hasOne lst = lst |> List.length |> Num.isOne
+    let hasOne lst =
+        lst |> List.length |> Num.isOne
 
-    let hasMultiple lst = lst |> List.length |> (<) 1
+    let hasMultiple lst =
+        lst |> List.length |> (<) 1
 
     let ensureOne emptyErr multipleErr lst =
         match lst with
