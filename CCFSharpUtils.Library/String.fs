@@ -156,6 +156,7 @@ module String =
             text
             substrings
 
+    // Various whitespace characters.
     let whiteSpaces =
         [
             '\u0020' // space
@@ -182,6 +183,9 @@ module String =
             '\u3164' // Hangul filler
             '\uFEFF' // zero-width non-breaking space
         ]
+
+    /// Whitespace characters converted to strings.
+    let whiteSpaceStrs = whiteSpaces |> List.map _.ToString()
 
     let stripWhiteSpace (text: string) : string =
         text.ToCharArray()
