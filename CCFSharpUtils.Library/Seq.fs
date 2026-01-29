@@ -1,5 +1,6 @@
 namespace CCFSharpUtils.Library
 
+open FSharpPlus.Data
 open System
 
 [<RequireQualifiedAccess>]
@@ -70,3 +71,10 @@ module Seq =
     /// If the seq is empty, returns the specified Error. Otherwise, wraps the seq in Ok.
     let toResult err seq =
         if Seq.isEmpty seq then Error err else Ok seq
+
+    /// If the seq is empty, returns the specified Error.
+    /// Otherwise, converts it to a NonEmptySeq wrapped in Ok.
+    let toNonEmptySeqResult err s =
+        if Seq.isEmpty s
+        then Error err
+        else Ok (NonEmptySeq.ofSeq s)

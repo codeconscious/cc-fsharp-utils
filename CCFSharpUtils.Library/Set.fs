@@ -57,3 +57,4 @@ module Set =
     /// If the set is empty, returns the specified Error. Otherwise, wraps the set in Ok.
     let toResult err s =
         if Set.isEmpty s then Error err else Ok s
+
