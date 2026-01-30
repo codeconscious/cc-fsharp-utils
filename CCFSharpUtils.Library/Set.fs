@@ -1,6 +1,7 @@
 namespace CCFSharpUtils.Library
 
 open System
+open FSharpPlus.Data
 
 [<RequireQualifiedAccess>]
 module Set =
@@ -58,3 +59,23 @@ module Set =
     let toResult err s =
         if Set.isEmpty s then Error err else Ok s
 
+    /// If the set is empty, returns the specified Error.
+    /// Otherwise, converts it to a NonEmptySet wrapped in Ok.
+    let toNonEmptySetResult err s =
+        if Set.isEmpty s
+        then Error err
+        else s |> NonEmptySet.ofSet |> Ok
+
+    /// If the set is empty, returns the specified Error.
+    /// Otherwise, converts it to a NonEmptySeq wrapped in Ok.
+    let toNonEmptySeqResult err s =
+        if Set.isEmpty s
+        then Error err
+        else s |> NonEmptySeq.ofSeq |> Ok
+
+    /// If the set is empty, returns the specified Error.
+    /// Otherwise, converts it to a NonEmptyList wrapped in Ok.
+    let toNonEmptyListResult err s =
+        if Set.isEmpty s
+        then Error err
+        else s |> NonEmptyList.ofSeq |> Ok

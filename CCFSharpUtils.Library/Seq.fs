@@ -72,9 +72,23 @@ module Seq =
     let toResult err seq =
         if Seq.isEmpty seq then Error err else Ok seq
 
-    /// If the seq is empty, returns the specified Error.
+    /// If the sequence is empty, returns the specified Error.
     /// Otherwise, converts it to a NonEmptySeq wrapped in Ok.
     let toNonEmptySeqResult err s =
         if Seq.isEmpty s
         then Error err
         else Ok (NonEmptySeq.ofSeq s)
+
+    /// If the sequence is empty, returns the specified Error.
+    /// Otherwise, converts it to a NonEmptySeq wrapped in Ok.
+    let toNonEmptyListResult err s =
+        if Seq.isEmpty s
+        then Error err
+        else Ok (NonEmptyList.ofSeq s)
+
+    /// If the sequence is empty, returns the specified Error.
+    /// Otherwise, converts it to a NonEmptySeq wrapped in Ok.
+    let toNonEmptySetResult err s =
+        if Seq.isEmpty s
+        then Error err
+        else Ok (NonEmptySet.ofSeq s)

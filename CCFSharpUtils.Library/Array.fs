@@ -1,5 +1,6 @@
 namespace CCFSharpUtils.Library
 
+open FSharpPlus.Data
 open System
 
 [<RequireQualifiedAccess>]
@@ -68,3 +69,21 @@ module Array =
     /// If the array is empty, returns the specified Error. Otherwise, wraps the array in Ok.
     let toResult err arr =
         if Array.isEmpty arr then Error err else Ok arr
+
+    /// If the array is empty, returns the specified Error.
+    /// Otherwise, converts it to a NonEmptyList wrapped in Ok.
+    let toNonEmptyListResult err = function
+        | [||] -> Error err
+        | arr  -> Ok (NonEmptyList.ofArray arr)
+
+    /// If the array is empty, returns the specified Error.
+    /// Otherwise, converts it to a NonEmptySeq wrapped in Ok.
+    let toNonEmptySeqResult err = function
+        | [||] -> Error err
+        | arr  -> Ok (NonEmptySeq.ofArray arr)
+
+    /// If the array is empty, returns the specified Error.
+    /// Otherwise, converts it to a NonEmptySet wrapped in Ok.
+    let toNonEmptySetResult err = function
+        | [||] -> Error err
+        | arr  -> Ok (NonEmptySet.ofArray arr)

@@ -1,5 +1,6 @@
 namespace CCFSharpUtils.Library
 
+open FSharpPlus.Data
 open System
 
 [<RequireQualifiedAccess>]
@@ -65,3 +66,21 @@ module List =
     /// If the list is empty, returns the specified Error. Otherwise, wraps the list in Ok.
     let toResult err lst =
         if List.isEmpty lst then Error err else Ok lst
+
+    /// If the list is empty, returns the specified Error.
+    /// Otherwise, converts it to a NonEmptyList wrapped in Ok.
+    let toNonEmptyListResult err = function
+        | [] -> Error err
+        | lst -> Ok (NonEmptyList.ofList lst)
+
+    /// If the list is empty, returns the specified Error.
+    /// Otherwise, converts it to a NonEmptySeq wrapped in Ok.
+    let toNonEmptySeqResult err = function
+        | [] -> Error err
+        | lst -> Ok (NonEmptySeq.ofList lst)
+
+    /// If the list is empty, returns the specified Error.
+    /// Otherwise, converts it to a NonEmptySet wrapped in Ok.
+    let toNonEmptySetResult err = function
+        | [] -> Error err
+        | lst -> Ok (NonEmptySet.ofList lst)
