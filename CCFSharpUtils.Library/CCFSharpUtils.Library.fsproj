@@ -4,7 +4,7 @@
         <TargetFramework>net10.0</TargetFramework>
         <RootNamespace>CCFSharpUtils.Library</RootNamespace>
         <PackageId>CCFSharpUtils</PackageId>
-        <Version>0.1.19</Version>
+        <Version>0.1.20</Version>
         <PackageReleaseNotes>Small update.</PackageReleaseNotes>
         <Authors>CodeConscious</Authors>
         <Company>CodeConscious</Company>
@@ -29,6 +29,7 @@
         <Compile Include="Seq.fs" />
         <Compile Include="Set.fs" />
         <Compile Include="Map.fs" />
+        <Compile Include="IO.fs" />
     </ItemGroup>
 
     <ItemGroup>
