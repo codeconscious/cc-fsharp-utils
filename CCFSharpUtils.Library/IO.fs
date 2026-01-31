@@ -7,15 +7,15 @@ open System.IO
 /// Functions pertaining to directories.
 [<RequireQualifiedAccess>]
 module Directory =
-    let verifyExists dir =
+    let verifyExists err dir =
         if Directory.Exists dir
         then Success dir
-        else Failure ()
+        else Failure err
 
 /// Functions pertaining to files.
 [<RequireQualifiedAccess>]
 module File =
-    let verifyExists dir =
+    let verifyExists err dir =
         if File.Exists dir
         then Success dir
-        else Failure ()
+        else Failure err
