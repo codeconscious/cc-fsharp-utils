@@ -242,5 +242,5 @@ module String =
         if hasText x then Ok x else Error err
 
     /// Concatentates a collection to a string using line breaks.
-    let concatNl x =
-        String.concat nl
+    let concatNL x =
+        x |> String.concat nl
