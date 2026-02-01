@@ -7,7 +7,8 @@ open System.IO
 /// Functions pertaining to directories.
 [<RequireQualifiedAccess>]
 module Directory =
-    let verifyExists err dir =
+
+    let verifyExists (err: 'a) (dir: string) : Validation<'a, string> =
         if Directory.Exists dir
         then Success dir
         else Failure err
@@ -15,7 +16,8 @@ module Directory =
 /// Functions pertaining to files.
 [<RequireQualifiedAccess>]
 module File =
-    let verifyExists err dir =
+
+    let verifyExists (err: 'a) (dir: string) : Validation<'a, string> =
         if File.Exists dir
         then Success dir
         else Failure err

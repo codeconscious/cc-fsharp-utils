@@ -13,6 +13,8 @@ module String =
 
     let newLine = Environment.NewLine
 
+    let nl = newLine
+
     let hasNoText text =
         String.IsNullOrWhiteSpace text
 
@@ -231,5 +233,14 @@ module String =
         fileLabeller (Some (description.Trim())) count
 
     /// If a string contains non-whitespace text, encloses it in Some. Otherwise, returns None.
-    let toOption x =
+    let toOption (x: string) : string option =
         if hasText x then Some x else None
+
+    /// If the string has non-whitespace text, encloses it in Ok.
+    /// Otherwise, returns the specified error.
+    let toResult (err: 'a) (x: string) : Result<string, 'a> =
+        if hasText x then Ok x else Error err
+
+    /// Concatentates a collection to a string using line breaks.
+    let concatNl x =
+        String.concat nl
