@@ -4,8 +4,8 @@
         <TargetFramework>net10.0</TargetFramework>
         <RootNamespace>CCFSharpUtils.Library</RootNamespace>
         <PackageId>CCFSharpUtils</PackageId>
-        <Version>0.1.26</Version>
-        <PackageReleaseNotes>Small update.</PackageReleaseNotes>
+        <Version>0.1.27</Version>
+        <PackageReleaseNotes>Further updates.</PackageReleaseNotes>
         <Authors>CodeConscious</Authors>
         <Company>CodeConscious</Company>
         <Description>This is a tiny library intended to house my F# utility functions for use across across multiple solutions.</Description>
@@ -14,6 +14,7 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageTags>f# fsharp functional fp utils utility utilities functions codeconscious</PackageTags>
     </PropertyGroup>
 
@@ -31,6 +32,7 @@
         <Compile Include="Map.fs" />
         <Compile Include="IO.fs" />
         <Compile Include="Validation.fs" />
+        <None Include="../README.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
     <ItemGroup>
