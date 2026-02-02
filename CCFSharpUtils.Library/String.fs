@@ -11,8 +11,10 @@ open System.Globalization
 [<RequireQualifiedAccess>]
 module String =
 
+    /// An alias for `System.Environment.NewLine`.
     let newLine = Environment.NewLine
 
+    /// An alias for `newline`.
     let nl = newLine
 
     let hasNoText text =

@@ -5,7 +5,7 @@ open FsToolkit.ErrorHandling
 [<AutoOpen>]
 module Operators =
 
-    /// Operator for Result.mapError.
+    /// Operator for `Result.mapError`.
     let inline (|!)
         (r: Result<'ok, 'e1>)
         ([<InlineIfLambda>] f: 'e1 -> 'e2)
@@ -13,7 +13,7 @@ module Operators =
 
         Result.mapError f r
 
-    /// Operator for Result.tee from FsToolkit.ErrorHandling.
+    /// Operator for `Result.tee` from FsToolkit.ErrorHandling.
     let inline (|.)
         (result: Result<'ok, 'error>)
         ([<InlineIfLambda>] sideEffect: 'ok -> unit)

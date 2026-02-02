@@ -1,6 +1,5 @@
 namespace CCFSharpUtils.Library
 
-open FSharpPlus.Data
 open FsToolkit.ErrorHandling
 
 /// Functions pertaining to applicative validations.
