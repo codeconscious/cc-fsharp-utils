@@ -138,6 +138,21 @@ module SeqTests =
             | Error e -> Assert.Equal(tooLargeErr, e)
             | Ok _    -> failwith "Expected Error for sequence larger than target"
 
+        let ``returns Ok for empty seq when target size is 0`` () =
+            let target = 0
+            let emptySeq : int seq = seq { }
+            match emptySeq |> Seq.ensureSize target tooSmallErr tooLargeErr with
+            | Ok seq' -> Assert.Equal<int seq>(seq', emptySeq)
+            | Error e -> failwithf $"Expected Ok but got Error %s{e}"
+
+        [<Fact>]
+        let ``throws for negative target size`` () =
+            let negativeTarget = -1
+            let s = seq { 1 }
+            Assert.Throws<ArgumentException>(fun () ->
+                s
+                |> Seq.ensureSize negativeTarget tooSmallErr tooLargeErr
+                |> ignore)
 
     module TryGetSingleTests =
 

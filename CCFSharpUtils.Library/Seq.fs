@@ -44,6 +44,9 @@ module Seq =
         else Error multipleErr
 
     let ensureSize targetSize tooSmallErr tooLargeErr (seq: 'b seq) : Result<'b seq,'a> =
+        if Num.isNeg targetSize then
+            invalidArg (nameof targetSize) "Target size cannot be negative."
+
         let length = Seq.length seq
         match compareWith targetSize length with
         | EQ -> Ok seq

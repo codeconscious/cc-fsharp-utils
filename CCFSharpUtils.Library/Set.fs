@@ -32,6 +32,9 @@ module Set =
         else Error multipleErr
 
     let ensureSize targetSize tooSmallErr tooLargeErr (s: 'b Set) : Result<'b Set,'a> =
+        if Num.isNeg targetSize then
+            invalidArg (nameof targetSize) "Target size cannot be negative."
+
         let length = Set.count s
         match compareWith targetSize length with
         | EQ -> Ok s

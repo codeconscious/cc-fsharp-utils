@@ -149,6 +149,22 @@ module ListTests =
             | Error e -> Assert.Equal(tooLargeErr, e)
             | Ok _    -> failwith "Expected Error for list larger than target"
 
+        [<Fact>]
+        let ``returns Ok for empty list when target size is 0`` () =
+            let target = 0
+            let emptyList : int list = []
+            match emptyList |> List.ensureSize target tooSmallErr tooLargeErr with
+            | Ok lst' -> Assert.Equal<int list>(lst', emptyList)
+            | Error e -> failwithf $"Expected Ok but got Error %s{e}"
+
+        [<Fact>]
+        let ``throws for negative target size`` () =
+            let negativeTarget = -1
+            Assert.Throws<ArgumentException>(fun () ->
+                lst
+                |> List.ensureSize negativeTarget tooSmallErr tooLargeErr
+                |> ignore)
+
     module TryGetSingleTests =
 
         let emptyErr = "empty error"

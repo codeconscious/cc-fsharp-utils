@@ -119,6 +119,20 @@ module ArrayTests =
             | Error e -> Assert.Equal(tooLargeErr, e)
             | Ok _    -> failwith "Expected Error for array larger than target"
 
+        let ``returns Ok for empty array when target size is 0`` () =
+            let target = 0
+            let emptyArr : int array = [||]
+            match emptyArr |> Array.ensureSize target tooSmallErr tooLargeErr with
+            | Ok arr' -> Assert.Equal<int array>(arr', emptyArr)
+            | Error e -> failwithf $"Expected Ok but got Error %s{e}"
+
+        [<Fact>]
+        let ``throws for negative target size`` () =
+            let negativeTarget = -1
+            Assert.Throws<ArgumentException>(fun () ->
+                arr
+                |> Array.ensureSize negativeTarget tooSmallErr tooLargeErr
+                |> ignore)
     module TryGetSingleTests =
 
         let emptyErr = "empty error"

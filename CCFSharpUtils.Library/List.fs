@@ -43,6 +43,9 @@ module List =
         | _   -> Error multipleErr
 
     let ensureSize targetSize tooSmallErr tooLargeErr (lst: 'b list): Result<'b list,'a> =
+        if Num.isNeg targetSize then
+            invalidArg (nameof targetSize) "Target size cannot be negative."
+
         match compareWith targetSize lst.Length with
         | EQ -> Ok lst
         | LT -> Error tooSmallErr

@@ -45,6 +45,9 @@ module Array =
         | _       -> Error multipleErr
 
     let ensureSize targetSize tooSmallErr tooLargeErr (arr: 'b array) : Result<'b array,'a> =
+        if Num.isNeg targetSize then
+            invalidArg (nameof targetSize) "Target size cannot be negative."
+
         match compareWith targetSize arr.Length with
         | EQ -> Ok arr
         | LT -> Error tooSmallErr
