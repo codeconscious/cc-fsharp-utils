@@ -22,16 +22,16 @@
         <Compile Include="Operators.fs" />
         <Compile Include="Common.fs" />
         <Compile Include="Num.fs" />
-        <Compile Include="String.fs" />
-        <Compile Include="Regex.fs" />
+        <Compile Include="Text/String.fs" />
+        <Compile Include="Text/Regex.fs" />
         <Compile Include="Option.fs" />
-        <Compile Include="Array.fs" />
-        <Compile Include="List.fs" />
-        <Compile Include="Seq.fs" />
-        <Compile Include="Set.fs" />
-        <Compile Include="Map.fs" />
+        <Compile Include="Collections/Array.fs" />
+        <Compile Include="Collections/List.fs" />
+        <Compile Include="Collections/Seq.fs" />
+        <Compile Include="Collections/Set.fs" />
+        <Compile Include="Collections/Map.fs" />
         <Compile Include="IO.fs" />
-        <Compile Include="Validation.fs" />
+        <Compile Include="FsToolkit/Validation.fs" />
         <None Include="../README.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
