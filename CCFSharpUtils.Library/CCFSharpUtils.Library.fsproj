@@ -4,7 +4,7 @@
         <TargetFramework>net10.0</TargetFramework>
         <RootNamespace>CCFSharpUtils.Library</RootNamespace>
         <PackageId>CCFSharpUtils</PackageId>
-        <Version>0.1.27</Version>
+        <Version>0.1.28</Version>
         <PackageReleaseNotes>Further updates.</PackageReleaseNotes>
         <Authors>CodeConscious</Authors>
         <Company>CodeConscious</Company>
@@ -21,10 +21,10 @@
     <ItemGroup>
         <Compile Include="Operators.fs" />
         <Compile Include="Common.fs" />
+        <Compile Include="Option.fs" />
         <Compile Include="Num.fs" />
         <Compile Include="Text/String.fs" />
         <Compile Include="Text/Regex.fs" />
-        <Compile Include="Option.fs" />
         <Compile Include="Collections/Array.fs" />
         <Compile Include="Collections/List.fs" />
         <Compile Include="Collections/Seq.fs" />
@@ -39,7 +39,7 @@
       <PackageReference Include="FSharp.Data" Version="6.6.0" />
       <PackageReference Include="FSharpPlus" Version="1.9.1" />
       <PackageReference Include="FsToolkit.ErrorHandling" Version="5.1.0" />
-      <PackageReference Update="FSharp.Core" Version="10.0.102" />
+      <PackageReference Include="FSharp.Core" Version="10.0.102" />
     </ItemGroup>
 
 </Project>
