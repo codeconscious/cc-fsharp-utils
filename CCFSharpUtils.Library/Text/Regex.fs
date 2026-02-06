@@ -27,7 +27,7 @@ module Rgx =
 
     /// An active pattern for matching regular expression patterns during pattern matching.
     /// Returns the entire matched value (i.e., match group 0).
-    let (|MatchValue|_|) pattern input : string option =
+    let (|MatchValue|_|) (pattern: string) (input: string) : string option =
         match Regex.Match(input, pattern) with
         | m when m.Success -> Some m.Value
         | _ -> None
@@ -35,7 +35,7 @@ module Rgx =
     /// An active pattern for matching regular expression patterns during pattern matching.
     /// Returns only the matched subgroups (i.e., groups 1 and later).
     /// (Use parentheses in your regex patterns to indicate groups.)
-    let (|MatchGroups|_|) pattern input : string list option =
+    let (|MatchGroups|_|) (pattern: string) (input: string) : string list option =
         match Regex.Match(input, pattern) with
         | m when m.Success -> Some (List.tail [for g in m.Groups -> g.Value])
         | _ -> None
