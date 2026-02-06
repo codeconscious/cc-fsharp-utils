@@ -7,16 +7,16 @@ module Operators =
 
     /// Operator for `Result.mapError`.
     let inline (|!)
-        (r: Result<'ok, 'e1>)
-        ([<InlineIfLambda>] f: 'e1 -> 'e2)
-        : Result<'ok, 'e2> =
+        (r: Result<'ok, 'err1>)
+        ([<InlineIfLambda>] f: 'err1 -> 'err2)
+        : Result<'ok, 'err2> =
 
         Result.mapError f r
 
     /// Operator for `Result.tee` from FsToolkit.ErrorHandling.
     let inline (|.)
-        (result: Result<'ok, 'error>)
+        (result: Result<'ok, 'err>)
         ([<InlineIfLambda>] sideEffect: 'ok -> unit)
-        : Result<'ok, 'error> =
+        : Result<'ok, 'err> =
 
         Result.tee sideEffect result

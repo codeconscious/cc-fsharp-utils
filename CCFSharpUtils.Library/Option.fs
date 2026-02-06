@@ -4,5 +4,7 @@ namespace CCFSharpUtils.Library
 module Option =
 
     // Shorthand for Option.map with Option.defaultValue.
-    let mapElse mapping alt opt =
-        opt |> Option.map mapping |> Option.defaultValue alt
+    let mapElse (mapping: 'a -> 'b) (alt: 'b) (opt: 'a option) : 'b =
+        opt
+        |> Option.map mapping
+        |> Option.defaultValue alt

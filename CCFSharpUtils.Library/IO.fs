@@ -8,7 +8,7 @@ open System.IO
 [<RequireQualifiedAccess>]
 module Directory =
 
-    let verifyExists (err: 'a) (dir: string) : Validation<'a, string> =
+    let verifyExists (err: 'err) (dir: string) : Validation<'err, string> =
         if Directory.Exists dir
         then Success dir
         else Failure err
@@ -17,7 +17,7 @@ module Directory =
 [<RequireQualifiedAccess>]
 module File =
 
-    let verifyExists (err: 'a) (dir: string) : Validation<'a, string> =
+    let verifyExists (err: 'err) (dir: string) : Validation<'err, string> =
         if File.Exists dir
         then Success dir
         else Failure err
