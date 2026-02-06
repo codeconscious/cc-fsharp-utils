@@ -1,12 +1,14 @@
 namespace CCFSharpUtils.Library
 
 open FsToolkit.ErrorHandling
+open System
 
 /// Functions pertaining to applicative validations.
 [<RequireQualifiedAccess>]
 module Validation =
 
     /// Converts a Validation to a Result.
+    [<Obsolete("This might be removed, though this is unconfirmed.")>]
     let validationToResult (customError: (string list -> 'b)) (v: Validation<'a, string>) : Result<'a, 'b> =
         match v with
         | Ok x -> Ok x
