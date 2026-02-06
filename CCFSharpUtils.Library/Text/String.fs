@@ -17,31 +17,31 @@ module String =
     /// An alias for `newline`.
     let nl = newLine
 
-    let hasNoText text =
+    let hasNoText (text: string) : bool =
         String.IsNullOrWhiteSpace text
 
-    let hasText text =
+    let hasText (text: string) : bool =
         not (hasNoText text)
 
-    let allHaveText xs =
+    let allHaveText (xs: string seq) : bool =
         xs |> Seq.forall hasText
 
-    let firstWithTextElse alt texts =
+    let firstWithTextElse (alt: string) (texts: string seq) : string =
         texts |> Seq.tryFind hasText |> Option.defaultValue alt
 
-    let textElse alt text =
+    let textElse (alt: string) (text: string) : string =
         if hasText text then text else alt
 
-    let textElseEmpty text =
+    let textElseEmpty (text: string) : string =
         textElse text String.Empty
 
-    let equalIgnoreCase x y =
+    let equalIgnoreCase (x: string) (y: string) : bool =
         String.Equals(x, y, StringComparison.OrdinalIgnoreCase)
 
-    let startsWithIgnoreCase startText (text: string)  =
+    let startsWithIgnoreCase (startText: string) (text: string) : bool  =
         text.StartsWith(startText, StringComparison.InvariantCultureIgnoreCase)
 
-    let endsWithIgnoreCase endText (text: string) =
+    let endsWithIgnoreCase (endText: string) (text: string) : bool =
         text.EndsWith(endText, StringComparison.InvariantCultureIgnoreCase)
 
     /// Returns a new string in which all invalid path characters for the current OS
@@ -81,9 +81,9 @@ module String =
         text.TrimEnd(newLine.ToCharArray())
 
     /// Formats a number of any type to a comma-formatted string, rounding any decimals automatically.
-    let inline formatNumber (i: ^T) : string
-        when ^T : (member ToString : string * IFormatProvider -> string) =
-        (^T : (member ToString : string * IFormatProvider -> string) (i, "#,##0", CultureInfo.InvariantCulture))
+    let inline formatNumber (i: ^a) : string
+        when ^a : (member ToString : string * IFormatProvider -> string) =
+        (^a : (member ToString : string * IFormatProvider -> string) (i, "#,##0", CultureInfo.InvariantCulture))
 
     /// Formats an integer to a comma-separated numeric string. Example: 1000 -> "1,000".
     let formatInt (i: int) : string =
@@ -133,7 +133,7 @@ module String =
     /// Serializes text to a JSON string, returning a Result.
     /// If an exception is thrown during the underlying operation,
     /// the Error only includes its message.
-    let private serializeToJson writeIndented x : Result<string, string> =
+    let private serializeToJson (writeIndented: bool) (x: 'a) : Result<string, string> =
         let options =
             JsonSerializerOptions(
                 WriteIndented = writeIndented,
@@ -144,13 +144,13 @@ module String =
     /// Serializes text to a formatted JSON string, returning a Result.
     /// If an exception is thrown during the underlying operation,
     /// the Error only includes its message.
-    let toJson x : Result<string, string> =
+    let toJson (x: 'a) : Result<string, string> =
         serializeToJson true x
 
     /// Serializes text to a raw, unformatted JSON string, returning a Result.
     /// If an exception is thrown during the underlying operation,
     /// the Error only includes its message.
-    let toRawJson x : Result<string, string> =
+    let toRawJson (x: 'a) : Result<string, string> =
         serializeToJson false x
 
     /// Removes all instances of multiple substrings from a given string.
@@ -161,7 +161,7 @@ module String =
             substrings
 
     // Various whitespace characters.
-    let whiteSpaces =
+    let whiteSpaces: char list =
         [
             '\u0020' // space
             '\u00A0' // non-breaking space
@@ -214,24 +214,24 @@ module String =
         |> _.Normalize(NormalizationForm.FormC)
 
     /// Pluralize text using a specified count.
-    let inline pluralize ifOne ifNotOne count =
+    let inline pluralize (ifOne: 'a) (ifNotOne: 'a) (count: ^b) : 'a =
         if Num.isOne count then ifOne else ifNotOne
 
     /// Pluralize text including its count, such as "1 file", "30 URLs".
-    let inline pluralizeWithCount ifOne ifNotOne count =
+    let inline pluralizeWithCount (ifOne: string) (ifNotOne: string) (count: ^a) : string =
         sprintf "%d %s" count (pluralize ifOne ifNotOne count)
 
-    let inline private fileLabeller description (count: int) =
+    let inline private fileLabeller (description: string option) (count: int) : string =
         match description with
         | None   -> $"""%s{formatNumber count} %s{pluralize "file" "files" count}"""
         | Some d -> $"""%s{formatNumber count} %s{d} {pluralize "file" "files" count}"""
 
     /// Returns a file-count string, such as "0 files" or 1 file" or "140 files".
-    let fileLabel count =
+    let fileLabel (count: int) : string =
         fileLabeller None count
 
     /// Returns a file-count string with a descriptor, such as "0 audio files" or "140 deleted files".
-    let fileLabelWithDesc (description: string) count =
+    let fileLabelWithDesc (description: string) (count: int) : string =
         fileLabeller (Some (description.Trim())) count
 
     /// If a string contains non-whitespace text, encloses it in Some. Otherwise, returns None.
@@ -240,9 +240,9 @@ module String =
 
     /// If the string has non-whitespace text, encloses it in Ok.
     /// Otherwise, returns the specified error.
-    let toResult (err: 'a) (x: string) : Result<string, 'a> =
+    let toResult (err: 'err) (x: string) : Result<string, 'err> =
         if hasText x then Ok x else Error err
 
     /// Concatentates a collection to a string using line breaks.
-    let concatNL x =
+    let concatNL (x: string seq) : string =
         x |> String.concat nl
