@@ -6,32 +6,32 @@ open FSharpPlus.Data
 [<RequireQualifiedAccess>]
 module Set =
 
-    let isNotEmpty s =
+    let isNotEmpty (s: 'a Set) : bool =
         not <| Set.isEmpty s
 
-    let anyNotEmpty ss =
+    let anyNotEmpty (ss: 'a Set Set) : bool =
         ss |> Set.exists isNotEmpty
 
-    let allNotEmpty ss =
+    let allNotEmpty (ss: 'a Set Set) : bool =
         ss |> Set.forall isNotEmpty
 
-    let doesNotContain x =
+    let doesNotContain (x: 'a) : 'a Set -> bool =
         not << Set.contains x
 
-    let hasOne s =
+    let hasOne (s: 'a Set) : bool =
         s |> Set.count |> Num.isOne
 
-    let hasMultiple s =
+    let hasMultiple (s: 'a Set) : bool =
         s |> Set.count |> (<) 1
 
-    let ensureOne emptyErr multipleErr (s: 'b Set) :  Result<'b Set,'a> =
+    let ensureOne (emptyErr: 'err) (multipleErr: 'err) (s: 'a Set) :  Result<'a Set, 'err> =
         if Set.isEmpty s then
             Error emptyErr
         elif hasOne s then
             Ok s
         else Error multipleErr
 
-    let ensureSize targetSize tooSmallErr tooLargeErr (s: 'b Set) : Result<'b Set,'a> =
+    let ensureSize (targetSize: int) (tooSmallErr: 'err) (tooLargeErr: 'err) (s: 'a Set) : Result<'a Set, 'err> =
         if Num.isNeg targetSize then
             invalidArg (nameof targetSize) "Target size cannot be negative."
 
@@ -41,7 +41,7 @@ module Set =
         | LT -> Error tooSmallErr
         | GT -> Error tooLargeErr
 
-    let tryGetSingle emptyErr multipleErr s =
+    let tryGetSingle (emptyErr: 'err) (multipleErr: 'err) (s: 'a Set) : Result<'a, 'err> =
         if hasOne s then
             Ok (s |> Set.minElement)
         elif hasMultiple s then
@@ -49,36 +49,37 @@ module Set =
         else
             Error emptyErr
 
-    let containsIgnoreCase txt (s: string Set) : bool =
+    let containsIgnoreCase (txt: string) (s: string Set) : bool =
         s |> Set.exists (fun x -> String.Equals(x, txt, StringComparison.OrdinalIgnoreCase))
 
-    let anyContainsIgnoreCase txt =
+    let anyContainsIgnoreCase (txt: string) : string Set Set -> bool =
         Set.exists (containsIgnoreCase txt)
 
     /// If the set is empty, returns None. Otherwise, wraps the set in Some.
-    let toOption s = if Set.isEmpty s then None else Some s
+    let toOption (s: 'a Set) : 'a Set option =
+        if Set.isEmpty s then None else Some s
 
     /// If the set is empty, returns the specified Error. Otherwise, wraps the set in Ok.
-    let toResult err s =
+    let toResult (err: 'err) (s: 'a Set) : Result<'a Set, 'err> =
         if Set.isEmpty s then Error err else Ok s
 
     /// If the set is empty, returns the specified Error.
     /// Otherwise, converts it to a NonEmptySet wrapped in Ok.
-    let toNonEmptySetResult err s =
+    let toNonEmptySetResult (err: 'err) (s: 'a Set) : Result<'a NonEmptySet, 'err> =
         if Set.isEmpty s
         then Error err
         else s |> NonEmptySet.ofSet |> Ok
 
     /// If the set is empty, returns the specified Error.
     /// Otherwise, converts it to a NonEmptySeq wrapped in Ok.
-    let toNonEmptySeqResult err s =
+    let toNonEmptySeqResult (err: 'err) (s: 'a Set) : Result<'a NonEmptySeq, 'err> =
         if Set.isEmpty s
         then Error err
         else s |> NonEmptySeq.ofSeq |> Ok
 
     /// If the set is empty, returns the specified Error.
     /// Otherwise, converts it to a NonEmptyList wrapped in Ok.
-    let toNonEmptyListResult err s =
+    let toNonEmptyListResult (err: 'err) (s: 'a Set) : Result<'a NonEmptyList, 'err> =
         if Set.isEmpty s
         then Error err
         else s |> NonEmptyList.ofSeq |> Ok
