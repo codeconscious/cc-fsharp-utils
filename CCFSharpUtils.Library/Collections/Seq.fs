@@ -6,22 +6,22 @@ open System
 [<RequireQualifiedAccess>]
 module Seq =
 
-    let isNotEmpty seq =
+    let isNotEmpty (seq: 'a seq) : bool =
         not <| Seq.isEmpty seq
 
-    let anyNotEmpty seqs =
+    let anyNotEmpty (seqs: 'a seq) : bool =
         seqs |> Seq.exists isNotEmpty
 
-    let allNotEmpty seqs =
+    let allNotEmpty (seqs: 'a seq) : bool =
         seqs |> Seq.forall isNotEmpty
 
-    let doesNotContain x =
+    let doesNotContain (x: 'a) : 'a seq -> bool =
         not << Seq.contains x
 
-    let headElse alt =
+    let headElse (alt: 'a) : 'a seq -> 'a =
         Seq.tryHead >> Option.defaultValue alt
 
-    let takeLast count seq =
+    let takeLast (count: int) (seq: 'a seq) : 'a seq =
         if count <= 0 then
             Seq.empty
         else
@@ -30,20 +30,26 @@ module Seq =
             |> Array.takeLast count
             |> Seq.ofArray
 
-    let hasOne seq =
+    let hasOne (seq: 'a seq) : bool =
         seq |> Seq.length |> Num.isOne
 
-    let hasMultiple seq =
+    let hasMultiple (seq: 'a seq) : bool =
         seq |> Seq.length |> (<) 1
 
-    let ensureOne emptyErr multipleErr (seq: 'b seq) :  Result<'b seq,'a> =
+    let ensureOne (emptyErr: 'err) (multipleErr: 'err) (seq: 'a seq) :  Result<'a seq, 'err> =
         if Seq.isEmpty seq then
             Error emptyErr
         elif hasOne seq then
             Ok seq
         else Error multipleErr
 
-    let ensureSize targetSize tooSmallErr tooLargeErr (seq: 'b seq) : Result<'b seq,'a> =
+    let ensureSize
+        (targetSize: int)
+        (tooSmallErr: 'err)
+        (tooLargeErr: 'err)
+        (seq: 'a seq)
+        : Result<'a seq, 'err> =
+
         if Num.isNeg targetSize then
             invalidArg (nameof targetSize) "Target size cannot be negative."
 
@@ -53,7 +59,7 @@ module Seq =
         | LT -> Error tooSmallErr
         | GT -> Error tooLargeErr
 
-    let tryGetSingle emptyErr multipleErr seq =
+    let tryGetSingle (emptyErr: 'err) (multipleErr: 'err) (seq: 'a seq) : Result<'a, 'err> =
         if hasOne seq then
             Ok (Seq.head seq)
         elif hasMultiple seq then
@@ -61,37 +67,37 @@ module Seq =
         else
             Error emptyErr
 
-    let containsIgnoreCase text (xs: string seq) : bool =
+    let containsIgnoreCase (text: string) (xs: string seq) : bool =
         xs |> Seq.exists (fun x -> String.Equals(x, text, StringComparison.OrdinalIgnoreCase))
 
-    let anyContainsIgnoreCase text =
+    let anyContainsIgnoreCase (text: string) : 'a seq -> bool =
         Seq.exists (containsIgnoreCase text)
 
     /// If the seq is empty, returns None. Otherwise, wraps the seq in Some.
-    let toOption seq =
+    let toOption (seq: 'a) : 'a option =
         if Seq.isEmpty seq then None else Some seq
 
     /// If the seq is empty, returns the specified Error. Otherwise, wraps the seq in Ok.
-    let toResult err seq =
+    let toResult (err: 'err) (seq: 'a) : Result<'a, 'err> =
         if Seq.isEmpty seq then Error err else Ok seq
 
     /// If the sequence is empty, returns the specified Error.
     /// Otherwise, converts it to a NonEmptySeq wrapped in Ok.
-    let toNonEmptySeqResult err s =
+    let toNonEmptySeqResult (err: 'err) (s: 'a seq) : Result<'a NonEmptySeq, 'err> =
         if Seq.isEmpty s
         then Error err
         else Ok (NonEmptySeq.ofSeq s)
 
     /// If the sequence is empty, returns the specified Error.
     /// Otherwise, converts it to a NonEmptySeq wrapped in Ok.
-    let toNonEmptyListResult err s =
+    let toNonEmptyListResult (err: 'err) (s: 'a seq) : Result<'a NonEmptyList, 'err> =
         if Seq.isEmpty s
         then Error err
         else Ok (NonEmptyList.ofSeq s)
 
     /// If the sequence is empty, returns the specified Error.
     /// Otherwise, converts it to a NonEmptySeq wrapped in Ok.
-    let toNonEmptySetResult err s =
+    let toNonEmptySetResult (err: 'err) (s: 'a seq) : Result<NonEmptySet<'a>, 'err> =
         if Seq.isEmpty s
         then Error err
         else Ok (NonEmptySet.ofSeq s)
