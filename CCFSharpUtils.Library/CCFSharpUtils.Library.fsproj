@@ -4,7 +4,7 @@
         <TargetFramework>net10.0</TargetFramework>
         <RootNamespace>CCFSharpUtils.Library</RootNamespace>
         <PackageId>CCFSharpUtils</PackageId>
-        <Version>0.1.30</Version>
+        <Version>0.1.31</Version>
         <PackageReleaseNotes>Further updates.</PackageReleaseNotes>
         <Authors>CodeConscious</Authors>
         <Company>CodeConscious</Company>
@@ -30,7 +30,8 @@
         <Compile Include="Collections/Seq.fs" />
         <Compile Include="Collections/Set.fs" />
         <Compile Include="Collections/Map.fs" />
-        <Compile Include="IO.fs" />
+        <Compile Include="IO\File.fs" />
+        <Compile Include="IO\Dir.fs" />
         <Compile Include="FsToolkit/Validation.fs" />
         <None Include="../README.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
