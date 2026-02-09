@@ -10,11 +10,6 @@ module Common =
         try Ok (f())
         with exn -> Error exn.Message
 
-    /// Execute side effects using the given function, then returns the value unmodified.
-    let inline tee (fn: 'a -> 'b) (x: 'a) : 'a =
-        x |> fn |> ignore
-        x
-
     let compareWith (target: 'a) (x: 'a) : Ordering =
         match compare x target with
         | n when n < 0 -> LT
