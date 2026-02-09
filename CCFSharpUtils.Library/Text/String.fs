@@ -44,6 +44,10 @@ module String =
     let endsWithIgnoreCase (endText: string) (text: string) : bool =
         text.EndsWith(endText, StringComparison.InvariantCultureIgnoreCase)
 
+    let toLower (x: string) = x.ToLowerInvariant()
+
+    let toUpper (x: string) = x.ToUpperInvariant()
+
     /// Returns a new string in which all invalid path characters for the current OS
     /// have been replaced by the specified replacement character.
     /// Throws if the replacement character is an invalid path character.
