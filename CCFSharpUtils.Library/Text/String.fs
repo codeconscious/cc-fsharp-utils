@@ -102,6 +102,7 @@ module String =
         f.ToString("#,##0.00", CultureInfo.InvariantCulture)
 
     /// Formats a float to a percentage string with a custom number of decimal places.
+    /// Note that 1 equals 100%.
     let formatPercent (decimalPlaces: int) (n: float) : string =
         let decimalPlaces' = if decimalPlaces < 0 then 0 else decimalPlaces
         let pct = n * 100.0
@@ -217,11 +218,19 @@ module String =
         |> String.Concat
         |> _.Normalize(NormalizationForm.FormC)
 
-    /// Pluralize text using a specified count.
+    /// Pluralize text conditionally using a specified count.
     let inline pluralize (ifOne: 'a) (ifNotOne: 'a) (count: ^b) : 'a =
         if Num.isOne count then ifOne else ifNotOne
 
-    /// Pluralize text including its count, such as "1 file", "30 URLs".
+    /// Pluralize text conditionally with "s" via a specified count.
+    let inline pluralizeS (word: string) (count: ^a) : string =
+        pluralize word $"{word}s" count
+
+    /// Pluralize text conditionally with "es" via a specified count.
+    let inline pluralizeEs (word: string) (count: ^a) : string =
+        pluralize word $"{word}es" count
+
+    /// Pluralize text conditionally including its count, such as "1 file", "30 URLs".
     let inline pluralizeWithCount (ifOne: string) (ifNotOne: string) (count: ^a) : string =
         sprintf "%d %s" count (pluralize ifOne ifNotOne count)
 
