@@ -234,6 +234,14 @@ module String =
     let inline pluralizeWithCount (ifOne: string) (ifNotOne: string) (count: ^a) : string =
         sprintf "%d %s" count (pluralize ifOne ifNotOne count)
 
+    /// Pluralize text conditionally with "s" including its count, such as "1 file", "30 URLs".
+    let inline pluralizeSWithCount (word: string) (count: ^a) : string =
+        sprintf "%d %s" count (pluralizeS word count)
+
+    /// Pluralize text conditionally with "es" including its count, such as "1 file", "30 URLs".
+    let inline pluralizeEsWithCount (word: string) (count: ^a) : string =
+        sprintf "%d %s" count (pluralizeEs word count)
+
     let inline private fileLabeller (description: string option) (count: int) : string =
         match description with
         | None   -> $"""%s{formatNumber count} %s{pluralize "file" "files" count}"""
