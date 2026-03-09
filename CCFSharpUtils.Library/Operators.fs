@@ -5,6 +5,14 @@ open FsToolkit.ErrorHandling
 [<AutoOpen>]
 module Operators =
 
+    /// Operator for `Result.map`.
+    let inline (|*)
+        (r: Result<'ok1, 'err>)
+        ([<InlineIfLambda>] f: 'ok1 -> 'ok2)
+        : Result<'ok2, 'err> =
+
+        Result.map f r
+
     /// Operator for `Result.mapError`.
     let inline (|!)
         (r: Result<'ok, 'err1>)
