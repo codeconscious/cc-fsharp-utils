@@ -81,6 +81,9 @@ module String =
             invalidChars
         |> _.ToString()
 
+    let trim (text: string) : string =
+        text.Trim()
+
     let trimTerminalLineBreak (text: string) =
         text.TrimEnd(newLine.ToCharArray())
 
