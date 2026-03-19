@@ -48,6 +48,16 @@ module String =
 
     let toUpper (x: string) = x.ToUpperInvariant()
 
+    /// Splits text using line breaks as the separator, returning an array of substrings.
+    let splitLines (text: string) =
+        text.Split newLine
+
+    /// Splits text using line breaks as the separator and using the given `StringSplitOptions`,
+    /// returning an array of substrings.
+    let splitLinesWithOpts (opts: StringSplitOptions) (text: string) =
+        text.Split(newLine, opts)
+
+
     /// Returns a new string in which all invalid path characters for the current OS
     /// have been replaced by the specified replacement character.
     /// Throws if the replacement character is an invalid path character.
