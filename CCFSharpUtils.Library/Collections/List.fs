@@ -92,12 +92,10 @@ module List =
         | [] -> Error err
         | lst -> Ok (NonEmptySet.ofList lst)
 
-    /// Map the first element (a list) of a pair with f, returning the original second element and the mapped list.
-    /// Runs in O(n) time.
-    let mapFsts (f : 'a -> 'b) (xs: 'a list, y: 'c) : 'b list * 'c =
-        List.map f xs, y
+    /// Map the first element (a list) of each pair in a list of tuples, preserving each pair's second element.
+    let mapFsts (f : 'a -> 'b) (xs: ('a list * 'c) list) : ('b list * 'c) list =
+        xs |> List.map (fun (as_, y) -> List.map f as_, y)
 
-    /// Map the second element (a list) of a pair with f, returning the original first element and the mapped list.
-    /// Runs in O(n) time.
-    let mapSnds (f : 'b -> 'c) (x: 'a, ys: 'b list) : 'a * 'c list =
-        x, List.map f ys
+    /// Map the second element (a list) of each pair in a list of tuples, preserving each pair's first element.
+    let mapSnds (f : 'b -> 'c) (xs: ('a * 'b list) list) : ('a * 'c list) list =
+        xs |> List.map (fun (x, ys) -> x, List.map f ys)
