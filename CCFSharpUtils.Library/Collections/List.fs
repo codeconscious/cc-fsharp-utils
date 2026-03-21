@@ -93,9 +93,9 @@ module List =
         | lst -> Ok (NonEmptySet.ofList lst)
 
     /// Map the first element (a list) of each pair in a list of tuples, preserving each pair's second element.
-    let mapFsts (f : 'a -> 'b) (xs: ('a list * 'c) list) : ('b list * 'c) list =
+    let mapFst (f : 'a -> 'b) (xs: ('a list * 'c) list) : ('b list * 'c) list =
         xs |> List.map (fun (as_, y) -> List.map f as_, y)
 
     /// Map the second element (a list) of each pair in a list of tuples, preserving each pair's first element.
-    let mapSnds (f : 'b -> 'c) (xs: ('a * 'b list) list) : ('a * 'c list) list =
+    let mapSnd (f : 'b -> 'c) (xs: ('a * 'b list) list) : ('a * 'c list) list =
         xs |> List.map (fun (x, ys) -> x, List.map f ys)
