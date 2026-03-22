@@ -280,3 +280,16 @@ module String =
     /// Concatentates a collection to a string using line breaks.
     let concatNL (x: string seq) : string =
         x |> String.concat nl
+
+    /// Concatenates each tuple's sequence of strings using innerSeparator, then joins those concatenated strings
+    /// using outerSeparator, producing a single combined string. The tuple keys are ignored; only the
+    /// string sequences are used.
+    let tupleValuesToNestedPairs
+        (innerSeparator: string)
+        (outerSeparator: string)
+        (tuples: ('k * string seq) seq)
+        : string =
+
+        tuples
+        |> Seq.map (fun (_, vs) -> vs |> String.concat innerSeparator)
+        |> String.concat outerSeparator
