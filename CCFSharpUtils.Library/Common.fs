@@ -1,5 +1,7 @@
 namespace CCFSharpUtils.Library
 
+open FSharpPlus.Data
+
 [<AutoOpen>]
 module Common =
 
@@ -9,6 +11,11 @@ module Common =
     let ofTry (f: unit -> 'a) : Result<'a, string> =
         try Ok (f())
         with exn -> Error exn.Message
+
+    /// Helper for try/with -> Validation.
+    let ofTry' (f: unit -> 'a) : Validation<string list, 'a> =
+        try Success (f())
+        with exn -> Failure [exn.Message]
 
     let compareWith (target: 'a) (x: 'a) : Ordering =
         match compare x target with
