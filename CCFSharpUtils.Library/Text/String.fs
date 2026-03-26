@@ -97,6 +97,18 @@ module String =
     let trimTerminalLineBreak (text: string) =
         text.TrimEnd(newLine.ToCharArray())
 
+    /// <summary>
+    /// Trims leading and trailing whitespace from each line in a line break–separated string,
+    /// then rejoins the lines using line breaks.
+    /// </summary>
+    /// <param name="combinedLines">Input string containing lines separated by line breaks.</param>
+    /// <returns>String where each line is trimmed and concatenated with line breaks.</returns>
+    let trimCombinedLines (combinedLines: string) : string =
+        combinedLines
+        |> _.Split(newLine)
+        |> Array.map trim
+        |> String.concat newLine
+
     /// Formats a number of any type to a comma-formatted string, rounding any decimals automatically.
     let inline formatNumber (i: ^a) : string
         when ^a : (member ToString : string * IFormatProvider -> string) =

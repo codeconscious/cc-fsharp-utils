@@ -76,6 +76,38 @@ module StringTests =
             result.ToCharArray() |> Array.iter (fun ch -> Assert.Equal(ch, '_'))
             Assert.Equal(input.Length, result.Length)
 
+    module TrimCombinedLinesTests =
+
+        let nl = String.nl
+
+        [<Fact>]
+        let ``Trims leading and trailing spaces from each line`` () =
+            let input = $"  a  {nl} b {nl}c   "
+            let expected = $"a{nl}b{nl}c"
+            let result = String.trimCombinedLines input
+
+            Assert.Equal(expected, result)
+
+        [<Fact>]
+        let ``Preserves internal spaces and tabs but trims line ends`` () =
+            let input = $"  a  b\tc  {nl}\t d e\t "
+            let expected = $"a  b\tc{nl}d e"
+            let result = String.trimCombinedLines input
+
+            Assert.Equal(expected, result)
+
+        [<Fact>]
+        let ``Empty input returns empty string`` () =
+            Assert.Equal(nl, String.trimCombinedLines nl)
+
+        [<Fact>]
+        let ``Lines containing only whitespace become empty lines`` () =
+            let input = $"   {nl}\t{nl}x"
+            let expected = $"{nl}{nl}x"
+            let actual = String.trimCombinedLines input
+
+            Assert.Equal(expected, actual)
+
     module RemoveDiacriticsTests =
         let input = "áéíóúÁÉÍÓÚ ăĂ çÇ ñÑ ěĚ šŠ žŽ řŘ ďĎ ťŤ ůŮ"
         let actual = String.stripDiacritics input
