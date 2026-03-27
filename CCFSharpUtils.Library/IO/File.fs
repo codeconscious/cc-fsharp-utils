@@ -46,7 +46,7 @@ module File =
         then Success (FileInfo file)
         else Failure [err]
 
-    let copyToBackupFile (dateTimeFormat: string) (fileInfo: FileInfo) : Result<FileInfo, string> =
+    let backUpWithTimestamp (dateTimeFormat: string) (fileInfo: FileInfo) : Result<FileInfo, string> =
         if not fileInfo.Exists then
             Error "Source file does not exist, so it cannot be backed up."
         else
