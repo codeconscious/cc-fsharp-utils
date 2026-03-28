@@ -1,11 +1,13 @@
 namespace CCFSharpUtils.Library
 
+open System
 open FsToolkit.ErrorHandling
 
 [<AutoOpen>]
 module Operators =
 
     /// Operator for `Result.map`.
+    [<Obsolete("This operator seems superfluous as it seems identical to F#+'s `|>>` operator.")>]
     let inline (|*)
         (r: Result<'ok1, 'err>)
         ([<InlineIfLambda>] f: 'ok1 -> 'ok2)
