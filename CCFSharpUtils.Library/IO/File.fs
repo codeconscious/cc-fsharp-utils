@@ -23,7 +23,7 @@ module File =
     let readLines' (fileInfo: FileInfo) : Result<string array, string> =
         readLines fileInfo.FullName
 
-    let writeTextToFile (text: string) (writePath: string) : Result<unit, string> =
+    let writeTextToFile (writePath: string) (text: string) : Result<unit, string> =
         try Ok <| File.WriteAllText(writePath, text)
         with ex -> Error ex.Message
 
