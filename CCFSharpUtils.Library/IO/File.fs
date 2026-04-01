@@ -23,19 +23,19 @@ module File =
     let readLines' (fileInfo: FileInfo) : Result<string array, string> =
         readLines fileInfo.FullName
 
-    let writeTextToFile (path: string) (text: string) : Result<unit, string> =
+    let writeText (path: string) (text: string) : Result<unit, string> =
         try Ok <| File.WriteAllText(path, text)
         with ex -> Error ex.Message
 
-    let writeTextToFile' (path: FileInfo) (text: string) : Result<unit, string> =
+    let writeText' (path: FileInfo) (text: string) : Result<unit, string> =
         try Ok <| File.WriteAllText(path.FullName, text)
         with ex -> Error ex.Message
 
-    let writeLinesToFile (path: string) (lines: string seq) : Result<unit, string> =
+    let writeLines (path: string) (lines: string seq) : Result<unit, string> =
         try Ok <| File.WriteAllLines(path, lines)
         with ex -> Error ex.Message
 
-    let writeLinesToFile' (path: FileInfo) (lines: string seq) : Result<unit, string> =
+    let writeLines' (path: FileInfo) (lines: string seq) : Result<unit, string> =
         try Ok <| File.WriteAllLines(path.FullName, lines)
         with ex -> Error ex.Message
 
