@@ -93,3 +93,18 @@ module Array =
         function
         | [||] -> Error err
         | arr  -> Ok (NonEmptySet.ofArray arr)
+
+    let toNonEmptyListOption : 'a array -> Option<'a NonEmptyList> =
+        function
+        | [||] -> None
+        | arr  -> Some (NonEmptyList.ofArray arr)
+
+    let toNonEmptySeqOption : 'a array -> Option<'a NonEmptySeq> =
+        function
+        | [||] -> None
+        | arr  -> Some (NonEmptySeq.ofArray arr)
+
+    let toNonEmptySetOption : 'a array -> Option<NonEmptySet<'a>> =
+        function
+        | [||] -> None
+        | arr  -> Some (NonEmptySet.ofArray arr)

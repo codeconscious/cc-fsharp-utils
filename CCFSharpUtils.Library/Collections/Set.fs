@@ -68,18 +68,33 @@ module Set =
     let toNonEmptySetResult (err: 'err) (s: 'a Set) : Result<'a NonEmptySet, 'err> =
         if Set.isEmpty s
         then Error err
-        else s |> NonEmptySet.ofSet |> Ok
+        else Ok (NonEmptySet.ofSet s)
 
     /// If the set is empty, returns the specified Error.
     /// Otherwise, converts it to a NonEmptySeq wrapped in Ok.
     let toNonEmptySeqResult (err: 'err) (s: 'a Set) : Result<'a NonEmptySeq, 'err> =
         if Set.isEmpty s
         then Error err
-        else s |> NonEmptySeq.ofSeq |> Ok
+        else Ok (NonEmptySeq.ofSeq s)
 
     /// If the set is empty, returns the specified Error.
     /// Otherwise, converts it to a NonEmptyList wrapped in Ok.
     let toNonEmptyListResult (err: 'err) (s: 'a Set) : Result<'a NonEmptyList, 'err> =
         if Set.isEmpty s
         then Error err
-        else s |> NonEmptyList.ofSeq |> Ok
+        else Ok (NonEmptyList.ofSeq s)
+
+    let toNonEmptySetOption (s: 'a Set) : Option<'a NonEmptySet> =
+        if Set.isEmpty s
+        then None
+        else Some (NonEmptySet.ofSet s)
+
+    let toNonEmptySeqOption (s: 'a Set) : Option<'a NonEmptySeq> =
+        if Set.isEmpty s
+        then None
+        else Some (NonEmptySeq.ofSeq s)
+
+    let toNonEmptyListOption (s: 'a Set) : Option<'a NonEmptyList> =
+        if Set.isEmpty s
+        then None
+        else Some (NonEmptyList.ofSeq s)

@@ -101,3 +101,18 @@ module Seq =
         if Seq.isEmpty s
         then Error err
         else Ok (NonEmptySet.ofSeq s)
+
+    let toNonEmptySeqOption (s: 'a seq) : Option<'a NonEmptySeq> =
+        if Seq.isEmpty s
+        then None
+        else Some (NonEmptySeq.ofSeq s)
+
+    let toNonEmptyListOption (s: 'a seq) : Option<'a NonEmptyList> =
+        if Seq.isEmpty s
+        then None
+        else Some (NonEmptyList.ofSeq s)
+
+    let toNonEmptySetOption (s: 'a seq) : Option<NonEmptySet<'a>> =
+        if Seq.isEmpty s
+        then None
+        else Some (NonEmptySet.ofSeq s)

@@ -92,6 +92,21 @@ module List =
         | [] -> Error err
         | lst -> Ok (NonEmptySet.ofList lst)
 
+    let toNonEmptyListOption : 'a list -> Option<'a NonEmptyList> =
+        function
+        | []  -> None
+        | lst -> Some (NonEmptyList.ofList lst)
+
+    let toNonEmptySeqOption : 'a list -> Option<'a NonEmptySeq> =
+        function
+        | []  -> None
+        | lst -> Some (NonEmptySeq.ofList lst)
+
+    let toNonEmptySetOption : 'a list -> Option<NonEmptySet<'a>> =
+        function
+        | []  -> None
+        | lst -> Some (NonEmptySet.ofList lst)
+
     /// Map the first element (a list) of each pair in a list of tuples, preserving each pair's second element.
     let mapFst (f : 'a -> 'b) (xs: ('a list * 'c) list) : ('b list * 'c) list =
         xs |> List.map (fun (as_, y) -> List.map f as_, y)
