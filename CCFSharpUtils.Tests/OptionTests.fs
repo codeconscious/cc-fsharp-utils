@@ -1,7 +1,7 @@
 namespace CCFSharpUtils.Tests
 
 open Xunit
-open CCFSharpUtils.Library
+open CCFSharpUtils
 
 module OptionTests =
 

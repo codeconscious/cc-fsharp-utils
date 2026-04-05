@@ -2,7 +2,7 @@ namespace CCFSharpUtils.Tests
 
 open Xunit
 open System
-open CCFSharpUtils.Library
+open CCFSharpUtils
 
 module StringTests =
 

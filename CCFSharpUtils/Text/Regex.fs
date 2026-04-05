@@ -1,4 +1,4 @@
-namespace CCFSharpUtils.Library
+namespace CCFSharpUtils
 
 /// Functions for or involving regular expressions (regex).
 [<RequireQualifiedAccess>]
