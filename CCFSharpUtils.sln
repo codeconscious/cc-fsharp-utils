@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "CCFSharpUtils.Library", "CCFSharpUtils.Library\CCFSharpUtils.Library.fsproj", "{F3FB03FB-341C-4F13-A87D-2FAE075750DD}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "CCFSharpUtils", "CCFSharpUtils\CCFSharpUtils.fsproj", "{F3FB03FB-341C-4F13-A87D-2FAE075750DD}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "CCFSharpUtils.Tests", "CCFSharpUtils.Tests\CCFSharpUtils.Tests.fsproj", "{0C844E49-1D70-4DD2-A418-4166F65FFAFD}"
 EndProject

@@ -27,7 +27,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\CCFSharpUtils.Library\CCFSharpUtils.Library.fsproj" />
+      <ProjectReference Include="..\CCFSharpUtils\CCFSharpUtils.fsproj" />
     </ItemGroup>
 
 </Project>
