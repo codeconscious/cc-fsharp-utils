@@ -23,29 +23,34 @@ module File =
     let readLines' (fileInfo: FileInfo) : Result<string array, string> =
         readLines fileInfo.FullName
 
+    /// Write text to the file at the given path.
     let writeText (path: string) (text: string) : Result<FileInfo, string> =
         try
             File.WriteAllText(path, text) |> ignore
             Ok (FileInfo path)
         with ex -> Error ex.Message
 
-    let writeText' (path: FileInfo) (text: string) : Result<FileInfo, string> =
+    /// Write text to the file represented by the FileInfo.
+    let writeText' (file: FileInfo) (text: string) : Result<FileInfo, string> =
         try
-            File.WriteAllText(path.FullName, text) |> ignore
-            Ok path
+            File.WriteAllText(file.FullName, text) |> ignore
+            Ok file
         with ex -> Error ex.Message
 
+    /// Write a sequence of lines to the file at the given path.
     let writeLines (path: string) (lines: string seq) : Result<FileInfo, string> =
         try
             File.WriteAllLines(path, lines) |> ignore
             Ok (FileInfo path)
         with ex -> Error ex.Message
 
-    let writeLines' (path: FileInfo) (lines: string seq) : Result<FileInfo, string> =
+    /// Write sequence of lines to the file represented by the FileInfo.
+    let writeLines' (file: FileInfo) (lines: string seq) : Result<FileInfo, string> =
         try
-            File.WriteAllLines(path.FullName, lines) |> ignore
-            Ok path
+            File.WriteAllLines(file.FullName, lines) |> ignore
+            Ok file
         with ex -> Error ex.Message
+
 
     /// If the file exists, returns its FileInfo wrapped in Ok.
     /// Otherwise, returns the error wrapped in Error.
