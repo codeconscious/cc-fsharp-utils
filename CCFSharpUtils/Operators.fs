@@ -1,4 +1,4 @@
-namespace CCFSharpUtils
+namespace CCFSharpUtils.Operators
 
 open System
 open FsToolkit.ErrorHandling
