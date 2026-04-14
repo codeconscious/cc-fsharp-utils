@@ -23,6 +23,14 @@ module Operators =
 
         Result.mapError f r
 
+    /// Operator for `Result.mapError`.
+    let inline (|!!)
+        (r: Result<'ok, 'err1>)
+        ([<InlineIfLambda>] f: 'err1 -> 'err2)
+        : Result<'ok, 'err2> =
+
+        Result.mapError f r
+
     /// Operator for `Result.tee` from FsToolkit.ErrorHandling.
     [<Obsolete("I will use `|--` in the future.")>]
     let inline (|.)
