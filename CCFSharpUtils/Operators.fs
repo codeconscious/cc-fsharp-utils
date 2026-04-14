@@ -30,3 +30,11 @@ module Operators =
         : Result<'ok, 'err> =
 
         Result.tee sideEffect result
+
+    /// Operator for `Result.tee` from FsToolkit.ErrorHandling.
+    let inline (|--)
+        (result: Result<'ok, 'err>)
+        ([<InlineIfLambda>] sideEffect: 'ok -> unit)
+        : Result<'ok, 'err> =
+
+        Result.tee sideEffect result
