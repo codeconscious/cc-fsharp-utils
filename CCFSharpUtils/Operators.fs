@@ -24,6 +24,7 @@ module Operators =
         Result.mapError f r
 
     /// Operator for `Result.tee` from FsToolkit.ErrorHandling.
+    [<Obsolete("I will use `|--` in the future.")>]
     let inline (|.)
         (result: Result<'ok, 'err>)
         ([<InlineIfLambda>] sideEffect: 'ok -> unit)
