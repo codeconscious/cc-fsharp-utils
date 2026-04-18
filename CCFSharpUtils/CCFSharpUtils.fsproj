@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
         <PackageId>CCFSharpUtils</PackageId>
-        <Version>0.3.5.1</Version>
+        <Version>0.3.6</Version>
         <PackageReleaseNotes>Incremental updates.</PackageReleaseNotes>
         <Authors>CodeConscious</Authors>
         <Company>CodeConscious</Company>
@@ -28,6 +28,8 @@
         <Compile Include="Collections/Array.fs" />
         <Compile Include="Collections/List.fs" />
         <Compile Include="Collections/NonEmptyList.fs" />
+        <Compile Include="Collections/NonEmptySeq.fs" />
+        <Compile Include="Collections/NonEmptySet.fs" />
         <Compile Include="Collections/Seq.fs" />
         <Compile Include="Collections/Set.fs" />
         <Compile Include="Collections/Map.fs" />

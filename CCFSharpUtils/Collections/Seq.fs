@@ -116,3 +116,11 @@ module Seq =
         if Seq.isEmpty s
         then None
         else Some (NonEmptySet.ofSeq s)
+
+    /// Map over the first collection of each pair in a list of tuples, preserving each pair's second collection.
+    let mapFst (f : 'a -> 'b) (xs: ('a seq * 'c) seq) : ('b seq * 'c) seq =
+        xs |> Seq.map (fun (as_, y) -> Seq.map f as_, y)
+
+    /// Map over the second collection of each pair in a list of tuples, preserving each pair's first collection.
+    let mapSnd (f : 'b -> 'c) (xs: ('a * 'b seq) seq) : ('a * 'c seq) seq =
+        xs |> Seq.map (fun (x, ys) -> x, Seq.map f ys)

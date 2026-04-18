@@ -108,3 +108,11 @@ module Array =
         function
         | [||] -> None
         | arr  -> Some (NonEmptySet.ofArray arr)
+
+    /// Map over the first collection of each pair in a array of tuples, preserving each pair's second collection.
+    let mapFst (f : 'a -> 'b) (xs: ('a array * 'c) array) : ('b array * 'c) array =
+        xs |> Array.map (fun (as_, y) -> Array.map f as_, y)
+
+    /// Map over the second collection of each pair in a array of tuples, preserving each pair's first collection.
+    let mapSnd (f : 'b -> 'c) (xs: ('a * 'b array) array) : ('a * 'c array) array =
+        xs |> Array.map (fun (x, ys) -> x, Array.map f ys)

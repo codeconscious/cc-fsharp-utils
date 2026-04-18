@@ -46,12 +46,10 @@ module NonEmptyList =
     let anyContainsIgnoreCase (txt: string) : string nlist nlist -> bool =
         NonEmptyList.exists (containsIgnoreCase txt)
 
-    /// Map the first element (a NotEmptyList) of each pair in a NonEmptyList of tuples,
-    /// preserving each pair's second element.
+    /// Map over the first collection of each pair in a list of tuples, preserving each pair's second collection.
     let mapFst (f : 'a -> 'b) (xs: ('a nlist * 'c) nlist) : ('b nlist * 'c) nlist =
         xs |> NonEmptyList.map (fun (as_, y) -> NonEmptyList.map f as_, y)
 
-    /// Map the second element (a NotEmptyList) of each pair in a NonEmptyList of tuples,
-    /// preserving each pair's first element.
+    /// Map over the second collection of each pair in a list of tuples, preserving each pair's first collection.
     let mapSnd (f : 'b -> 'c) (xs: ('a * 'b nlist) nlist) : ('a * 'c nlist) nlist =
         xs |> NonEmptyList.map (fun (x, ys) -> x, NonEmptyList.map f ys)
