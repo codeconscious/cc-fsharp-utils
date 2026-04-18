@@ -16,7 +16,7 @@ module Operators =
         Result.map f r
 
     /// Operator for `Result.mapError`.
-    /// [<Obsolete("This is being phased out for `|!!` instead.")>]
+    [<Obsolete("This is being phased out for `|!!` instead.")>]
     let inline (|!)
         (r: Result<'ok, 'err1>)
         ([<InlineIfLambda>] f: 'err1 -> 'err2)
