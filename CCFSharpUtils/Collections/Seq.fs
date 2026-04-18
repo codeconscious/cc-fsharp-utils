@@ -1,6 +1,7 @@
 namespace CCFSharpUtils
 
 open FSharpPlus.Data
+open FsToolkit.ErrorHandling
 open System
 
 [<RequireQualifiedAccess>]
@@ -42,6 +43,14 @@ module Seq =
         elif hasOne seq then
             Ok seq
         else Error multipleErr
+
+    // If the seq contains one item, returns it wrapped in Ok. Otherwise, returns the appropriate error.
+    // Intended to be used in applicative validations.
+    let ensureOneV xs emptyErr multipleErr : Validation<'a, 'err> =
+        match Seq.length xs with
+        | 0 -> Error [emptyErr]
+        | 1 -> Ok (Seq.head xs)
+        | _ -> Error [multipleErr]
 
     let ensureSize
         (targetSize: int)

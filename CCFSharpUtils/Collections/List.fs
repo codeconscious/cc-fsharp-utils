@@ -1,6 +1,7 @@
 namespace CCFSharpUtils
 
 open FSharpPlus.Data
+open FsToolkit.ErrorHandling
 open System
 
 [<RequireQualifiedAccess>]
@@ -41,6 +42,14 @@ module List =
         | []  -> Error emptyErr
         | [x] -> Ok [x]
         | _   -> Error multipleErr
+
+    // If the list contains one item, returns it wrapped in Ok. Otherwise, returns the appropriate error.
+    // Intended to be used in applicative validations.
+    let ensureOneV xs emptyErr multipleErr : Validation<'a, 'err> =
+        match xs with
+        | []  -> Error [emptyErr]
+        | [x] -> Ok x
+        | _   -> Error [multipleErr]
 
     let ensureSize (targetSize: int) (tooSmallErr: 'err) (tooLargeErr: 'err) (lst: 'a list): Result<'a list, 'err> =
         if Num.isNeg targetSize then
