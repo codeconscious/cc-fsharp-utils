@@ -62,6 +62,11 @@ module Array =
         | LT -> Error tooSmallErr
         | GT -> Error tooLargeErr
 
+    let ensureNotEmptyV xs err : Validation<'a array, 'b> =
+        if isNotEmpty xs
+        then Ok xs
+        else Error [err]
+
     let tryGetSingle (emptyErr: 'err) (multipleErr: 'err) (arr: 'a array) : Result<'a, 'err> =
         match arr with
         | [| |]   -> Error emptyErr

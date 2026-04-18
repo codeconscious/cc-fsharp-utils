@@ -68,6 +68,11 @@ module Seq =
         | LT -> Error tooSmallErr
         | GT -> Error tooLargeErr
 
+    let ensureNotEmptyV xs err : Validation<'a seq, 'b> =
+        if isNotEmpty xs
+        then Ok xs
+        else Error [err]
+
     let tryGetSingle (emptyErr: 'err) (multipleErr: 'err) (seq: 'a seq) : Result<'a, 'err> =
         if hasOne seq then
             Ok (Seq.head seq)

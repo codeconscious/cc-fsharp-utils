@@ -60,6 +60,11 @@ module List =
         | LT -> Error tooSmallErr
         | GT -> Error tooLargeErr
 
+    let ensureNotEmptyV xs err : Validation<'a list, 'b> =
+        if isNotEmpty xs
+        then Ok xs
+        else Error [err]
+
     let tryGetSingle (emptyErr: 'err) (multipleErr: 'err) (lst: 'a list) : Result<'a, 'err> =
         match lst with
         | []  -> Error emptyErr
