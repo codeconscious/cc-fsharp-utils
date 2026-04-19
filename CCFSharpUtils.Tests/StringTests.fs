@@ -116,7 +116,7 @@ module StringTests =
 
     module FormatNumberTests =
 
-        // A tiny custom type that implements the required ToString signature.
+        /// A tiny custom type that implements the required ToString signature.
         type MyCustomNum(i: int) =
             member _.ToString(fmt: string, provider: IFormatProvider) =
                 i.ToString(fmt, provider)

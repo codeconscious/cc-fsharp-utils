@@ -48,7 +48,7 @@ module File =
 
     /// If the file exists, returns its FileInfo wrapped in Success.
     /// Otherwise, returns an error list wrapped in Failure.
-    /// Intended to be used in applicative validation chains. (Thus, the list.)
+    /// Intended to be used with FsToolkit.ErrorHandling's validation.
     let toFileInfoV (err: 'err) (file: string) : Validation<'err list, FileInfo> =
         if File.Exists file
         then Success (FileInfo file)

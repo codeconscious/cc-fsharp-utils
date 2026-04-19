@@ -190,7 +190,7 @@ module String =
             text
             substrings
 
-    // Various whitespace characters.
+    /// Various whitespace characters.
     let whiteSpaces: char list =
         [
             '\u0020' // space

@@ -19,14 +19,14 @@ module Map =
         then Error err
         else Ok (NonEmptyMap.ofMap m)
 
-    // Reverse the keys and values in a given map.
+    /// Reverses the keys and values in a given map.
     let flip (map: Map<'k, 'v>) : Map<'v, 'k> =
         Map.fold
             (fun acc k v -> Map.add v k acc)
             Map.empty
             map
 
-    // Merge two map, prioritizing the primary one in case of conflicts.
+    /// Merges two map, prioritizing the primary one in case of conflicts.
     let merge secondary primary : Map<'k, 'v> =
         Map.fold
             (fun acc k v -> Map.add k v acc)

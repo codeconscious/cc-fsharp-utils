@@ -43,8 +43,8 @@ module List =
         | [x] -> Ok [x]
         | _   -> Error multipleErr
 
-    // If the list contains one item, returns it wrapped in Ok. Otherwise, returns the appropriate error.
-    // Intended to be used in applicative validations.
+    /// If the list contains one item, returns it wrapped in Ok. Otherwise, returns the appropriate error.
+    /// Intended to be used with FsToolkit.ErrorHandling's validation.
     let ensureOneV xs emptyErr multipleErr : Validation<'a, 'err> =
         match xs with
         | []  -> Error [emptyErr]

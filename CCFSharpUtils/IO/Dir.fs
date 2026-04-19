@@ -16,7 +16,7 @@ module Dir =
 
     /// If the directory exists, returns its DirectoryInfo wrapped in Success.
     /// Otherwise, returns the error wrapped in Failure.
-    /// Intended to be used in applicative validation chains.
+    /// Intended to be used with FsToolkit.ErrorHandling's validation.
     let toDirInfoV (err: 'err) (dirName: string) : Validation<'err list, DirectoryInfo> =
         if Directory.Exists dirName
         then Success (DirectoryInfo dirName)
