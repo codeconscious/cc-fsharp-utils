@@ -25,8 +25,11 @@ module FileTests =
             let testFile = createTestFile lines
             try
                 let result = File.readLastNLines testFile 3
-                let expected = [ "line3"; "line4"; "line5" ]
-                Assert.Equal<string list>(expected, result)
+                match result with
+                | Ok actual ->
+                    let expected = [ "line3"; "line4"; "line5" ]
+                    Assert.Equal<string list>(expected, actual)
+                | Error ex -> Assert.True(false, $"Expected Ok but got Error: {ex.Message}")
             finally
                 cleanupTestFile testFile
 
@@ -35,7 +38,9 @@ module FileTests =
             let testFile = createTestFile threeLines
             try
                 let result = File.readLastNLines testFile 3
-                Assert.Equal<string list>(threeLines, result)
+                match result with
+                | Ok actual -> Assert.Equal<string list>(threeLines, actual)
+                | Error ex -> Assert.True(false, $"Expected Ok but got Error: {ex.Message}")
             finally
                 cleanupTestFile testFile
 
@@ -44,7 +49,9 @@ module FileTests =
             let testFile = createTestFile threeLines
             try
                 let result = File.readLastNLines testFile 10
-                Assert.Equal<string list>(threeLines, result)
+                match result with
+                | Ok actual -> Assert.Equal<string list>(threeLines, actual)
+                | Error ex -> Assert.True(false, $"Expected Ok but got Error: {ex.Message}")
             finally
                 cleanupTestFile testFile
 
@@ -53,7 +60,9 @@ module FileTests =
             let testFile = createTestFile []
             try
                 let result = File.readLastNLines testFile 5
-                Assert.Empty result
+                match result with
+                | Ok actual -> Assert.Empty actual
+                | Error ex -> Assert.True(false, $"Expected Ok but got Error: {ex.Message}")
             finally
                 cleanupTestFile testFile
 
@@ -63,8 +72,11 @@ module FileTests =
             let testFile = createTestFile lines
             try
                 let result = File.readLastNLines testFile 3
-                let expected = [ "line3"; ""; "line5" ]
-                Assert.Equal<string list>(expected, result)
+                match result with
+                | Ok actual ->
+                    let expected = [ "line3"; ""; "line5" ]
+                    Assert.Equal<string list>(expected, actual)
+                | Error ex -> Assert.True(false, $"Expected Ok but got Error: {ex.Message}")
             finally
                 cleanupTestFile testFile
 
@@ -74,8 +86,11 @@ module FileTests =
             let testFile = createTestFile lines
             try
                 let result = File.readLastNLines testFile 2
-                let expected = [ "日本語"; "line with\ttabs" ]
-                Assert.Equal<string list>(expected, result)
+                match result with
+                | Ok actual ->
+                    let expected = [ "日本語"; "line with\ttabs" ]
+                    Assert.Equal<string list>(expected, actual)
+                | Error ex -> Assert.True(false, $"Expected Ok but got Error: {ex.Message}")
             finally
                 cleanupTestFile testFile
 
@@ -84,7 +99,9 @@ module FileTests =
             let testFile = createTestFile threeLines
             try
                 let result = File.readLastNLines testFile 0
-                Assert.Empty result
+                match result with
+                | Ok actual -> Assert.Empty actual
+                | Error ex -> Assert.True(false, $"Expected Ok but got Error: {ex.Message}")
             finally
                 cleanupTestFile testFile
 
@@ -93,7 +110,9 @@ module FileTests =
             let testFile = createTestFile threeLines
             try
                 let result = File.readLastNLines testFile -5
-                Assert.Empty result
+                match result with
+                | Ok actual -> Assert.Empty actual
+                | Error ex -> Assert.True(false, $"Expected Ok but got Error: {ex.Message}")
             finally
                 cleanupTestFile testFile
 
@@ -102,13 +121,18 @@ module FileTests =
             let testFile = createTestFile threeLines
             try
                 let result = File.readLastNLines testFile 1
-                let expected = [ "line3" ]
-                Assert.Equal<string list>(expected, result)
+                match result with
+                | Ok actual ->
+                    let expected = [ "line3" ]
+                    Assert.Equal<string list>(expected, actual)
+                | Error ex -> Assert.True(false, $"Expected Ok but got Error: {ex.Message}")
             finally
                 cleanupTestFile testFile
 
         [<Fact>]
-        let ``throws when file does not exist`` () =
+        let ``returns error when file does not exist`` () =
             let nonExistentFile = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString(), "nonexistent.txt")
-            Assert.ThrowsAny<IOException>(fun () ->
-                File.readLastNLines nonExistentFile 5 |> ignore)
+            let result = File.readLastNLines nonExistentFile 5
+            match result with
+            | Error ex -> Assert.IsAssignableFrom<IOException>(ex) |> ignore
+            | Ok _ -> Assert.True(false, "Expected Error but got Ok")

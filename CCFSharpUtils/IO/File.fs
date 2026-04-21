@@ -23,29 +23,32 @@ module File =
     let readLines' (fileInfo: FileInfo) : Result<string array, string> =
         readLines fileInfo.FullName
 
-    /// Reads the last n lines from a text file efficiently without loading the entire file into memory.
+    /// Reads the last n lines from a text file without loading the entire file into memory at once.
+    /// (It reads through the entire file sequentially, but only the most current n lines are in memory at any given time.)
     /// The last n lines are returned in their original order. Returns an empty list if count <= 0.
     /// If count exceeds the number of lines in the file, all lines are returned.
-    /// Throws IOException if the file does not exist or cannot be read.
-    let readLastNLines (filePath: string) (count: int) : string list =
-        if Num.isNeg count then
-            []
-        else
-            let queue = Collections.Generic.Queue<string>()
-            use reader = File.OpenText filePath
+    /// If the file does not exist or cannot be read, returns the exception wrapped in an Error.
+    let readLastNLines (filePath: string) (lineCount: int) : Result<string list, exn> =
+        try Ok <|
+                if Num.isNeg lineCount then
+                    []
+                else
+                    let queue = Collections.Generic.Queue<string>()
+                    use reader = File.OpenText filePath
 
-            let rec processLines () =
-                let line = reader.ReadLine()
-                if line <> null then
-                    queue.Enqueue line
-                    if queue.Count > count then
-                        queue.Dequeue() |> ignore
+                    let rec processLines () =
+                        let line = reader.ReadLine()
+                        if line <> null then
+                            queue.Enqueue line
+                            if queue.Count > lineCount then
+                                queue.Dequeue() |> ignore
+                            processLines ()
+
                     processLines ()
+                    queue |> Seq.toList
+        with ex -> Error ex
 
-            processLines ()
-            queue |> Seq.toList
-
-    let readLastNLines' (fileInfo: FileInfo) (count: int) : string list =
+    let readLastNLines' (fileInfo: FileInfo) (count: int) : Result<string list,exn> =
         readLastNLines fileInfo.FullName count
 
     let writeText (path: string) (text: string) : Result<unit, string> =
