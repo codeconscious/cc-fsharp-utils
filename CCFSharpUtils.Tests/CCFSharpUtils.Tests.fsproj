@@ -13,6 +13,7 @@
         <Compile Include="ListTests.fs" />
         <Compile Include="ArrayTests.fs" />
         <Compile Include="OptionTests.fs" />
+        <Compile Include="IO/FileTests.fs" />
     </ItemGroup>
 
     <ItemGroup>

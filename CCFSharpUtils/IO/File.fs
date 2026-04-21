@@ -23,6 +23,31 @@ module File =
     let readLines' (fileInfo: FileInfo) : Result<string array, string> =
         readLines fileInfo.FullName
 
+    /// Reads the last n lines from a text file efficiently without loading the entire file into memory.
+    /// The last n lines are returned in their original order. Returns an empty list if count <= 0.
+    /// If count exceeds the number of lines in the file, all lines are returned.
+    /// Throws IOException if the file does not exist or cannot be read.
+    let readLastNLines (filePath: string) (count: int) : string list =
+        if Num.isNeg count then
+            []
+        else
+            let queue = Collections.Generic.Queue<string>()
+            use reader = File.OpenText filePath
+
+            let rec processLines () =
+                let line = reader.ReadLine()
+                if line <> null then
+                    queue.Enqueue line
+                    if queue.Count > count then
+                        queue.Dequeue() |> ignore
+                    processLines ()
+
+            processLines ()
+            queue |> Seq.toList
+
+    let readLastNLines' (fileInfo: FileInfo) (count: int) : string list =
+        readLastNLines fileInfo.FullName count
+
     let writeText (path: string) (text: string) : Result<unit, string> =
         try Ok <| File.WriteAllText(path, text)
         with ex -> Error ex.Message
