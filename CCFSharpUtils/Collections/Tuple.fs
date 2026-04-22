@@ -1,4 +1,4 @@
-namespace CCFSharpUtils
+namespace CCFSharpUtils.Collections
 
 [<RequireQualifiedAccess>]
 module Tuple =

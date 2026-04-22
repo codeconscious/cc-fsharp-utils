@@ -1,5 +1,6 @@
-namespace CCFSharpUtils
+namespace CCFSharpUtils.IO
 
+open CCFSharpUtils
 open FSharpPlus.Data
 open System
 open System.IO

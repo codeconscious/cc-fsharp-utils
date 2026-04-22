@@ -1,8 +1,8 @@
-namespace CCFSharpUtils.Tests
+namespace CCFSharpUtils.Tests.Collections
 
 open Xunit
 open System
-open CCFSharpUtils
+open CCFSharpUtils.Collections
 
 module ListTests =
 

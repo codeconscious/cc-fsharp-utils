@@ -1,9 +1,9 @@
-namespace CCFSharpUtils.Tests
+namespace CCFSharpUtils.Tests.IO
 
 open Xunit
 open System
 open System.IO
-open CCFSharpUtils
+open CCFSharpUtils.IO
 
 module FileTests =
 

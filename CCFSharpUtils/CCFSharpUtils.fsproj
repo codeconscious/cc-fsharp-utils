@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
         <PackageId>CCFSharpUtils</PackageId>
-        <Version>0.3.9</Version>
+        <Version>0.4.0</Version>
         <PackageReleaseNotes>Incremental updates.</PackageReleaseNotes>
         <Authors>CodeConscious</Authors>
         <Company>CodeConscious</Company>
@@ -14,7 +14,7 @@
         <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageTags>f# fsharp functional fp utils utility utilities functions codeconscious</PackageTags>
+        <PackageTags>f# fsharp functional fp utils utility utilities helper convenience functions codeconscious</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
@@ -22,6 +22,7 @@
         <Compile Include="Common.fs" />
         <Compile Include="Types.fs" />
         <Compile Include="Option.fs" />
+        <Compile Include="Validation.fs" />
         <Compile Include="Num.fs" />
         <Compile Include="Text/String.fs" />
         <Compile Include="Text/Regex.fs" />
@@ -37,7 +38,6 @@
         <Compile Include="Collections\Tuple.fs" />
         <Compile Include="IO\File.fs" />
         <Compile Include="IO\Dir.fs" />
-        <Compile Include="FsToolkit/Validation.fs" />
         <None Include="../README.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
 

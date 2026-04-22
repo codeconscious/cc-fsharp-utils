@@ -1,7 +1,7 @@
-namespace CCFSharpUtils.Tests
+namespace CCFSharpUtils.Tests.Text
 
 open Xunit
-open CCFSharpUtils
+open CCFSharpUtils.Text
 
 module RegexTests =
 

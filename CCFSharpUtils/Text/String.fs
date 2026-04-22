@@ -1,5 +1,6 @@
-namespace CCFSharpUtils
+namespace CCFSharpUtils.Text
 
+open CCFSharpUtils
 open System
 open System.IO
 open System.Text

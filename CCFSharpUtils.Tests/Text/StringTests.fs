@@ -1,8 +1,8 @@
-namespace CCFSharpUtils.Tests
+namespace CCFSharpUtils.Tests.Text
 
 open Xunit
 open System
-open CCFSharpUtils
+open CCFSharpUtils.Text
 
 module StringTests =
 

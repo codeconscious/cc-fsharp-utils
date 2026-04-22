@@ -1,7 +1,7 @@
-namespace CCFSharpUtils.Tests
+namespace CCFSharpUtils.Tests.Collections
 
 open Xunit
-open CCFSharpUtils
+open CCFSharpUtils.Collections
 open System
 
 module ArrayTests =

@@ -7,11 +7,11 @@
 
     <ItemGroup>
         <Compile Include="NumTests.fs" />
-        <Compile Include="StringTests.fs" />
-        <Compile Include="RegexTests.fs" />
-        <Compile Include="SeqTests.fs" />
-        <Compile Include="ListTests.fs" />
-        <Compile Include="ArrayTests.fs" />
+        <Compile Include="Text/StringTests.fs" />
+        <Compile Include="Text/RegexTests.fs" />
+        <Compile Include="Collections/SeqTests.fs" />
+        <Compile Include="Collections/ListTests.fs" />
+        <Compile Include="Collections/ArrayTests.fs" />
         <Compile Include="OptionTests.fs" />
         <Compile Include="IO/FileTests.fs" />
     </ItemGroup>
