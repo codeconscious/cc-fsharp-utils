@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
         <PackageId>CCFSharpUtils</PackageId>
-        <Version>0.4.0.1</Version>
+        <Version>0.4.1</Version>
         <PackageReleaseNotes>Incremental updates.</PackageReleaseNotes>
         <Authors>CodeConscious</Authors>
         <Company>CodeConscious</Company>
@@ -21,9 +21,9 @@
         <Compile Include="Operators.fs" />
         <Compile Include="Common.fs" />
         <Compile Include="Types.fs" />
+        <Compile Include="Num.fs" />
         <Compile Include="Option.fs" />
         <Compile Include="Validation.fs" />
-        <Compile Include="Num.fs" />
         <Compile Include="Text/String.fs" />
         <Compile Include="Text/Regex.fs" />
         <Compile Include="Collections/Array.fs" />
