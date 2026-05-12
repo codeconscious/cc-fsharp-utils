@@ -89,7 +89,7 @@ module Seq =
     let anyContainsIgnoreCase (text: string) : 'a seq -> bool =
         Seq.exists (containsIgnoreCase text)
 
-    let distinctByIgnoreCase (seq: string seq) =
+    let distinctIgnoreCase (seq: string seq) =
         Enumerable.Distinct(seq, StringComparer.OrdinalIgnoreCase)
 
     /// If the seq is empty, returns None. Otherwise, wraps the seq in Some.

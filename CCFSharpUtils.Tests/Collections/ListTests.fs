@@ -192,45 +192,45 @@ module ListTests =
             | Error e -> Assert.Equal(multipleErr, e)
             | Ok v    -> failwithf $"Expected Error but got Ok %d{v}"
 
-    module DistinctByIgnoreCaseTests =
+    module distinctIgnoreCaseTests =
 
         [<Fact>]
         let ``removes duplicates with different case variants`` () =
             let lists = [ "apple"; "APPLE"; "Apple" ]
-            let result = List.distinctByIgnoreCase lists
+            let result = List.distinctIgnoreCase lists
             Assert.Single result |> ignore
             Assert.Equal("apple", List.head result)
 
         [<Fact>]
         let ``preserves first occurrence when removing duplicates`` () =
             let lists = [ "HELLO"; "world"; "hello"; "WORLD" ]
-            let result = List.distinctByIgnoreCase lists
+            let result = List.distinctIgnoreCase lists
             Assert.Equal(2, List.length result)
             Assert.Equal<string list>([ "HELLO"; "world" ], result)
 
         [<Fact>]
         let ``returns empty list for empty input`` () =
             let lists : string list = []
-            let result = List.distinctByIgnoreCase lists
+            let result = List.distinctIgnoreCase lists
             Assert.Empty result
 
         [<Fact>]
         let ``returns single element list unchanged`` () =
             let lists = [ "test" ]
-            let result = List.distinctByIgnoreCase lists
+            let result = List.distinctIgnoreCase lists
             Assert.Single result |> ignore
             Assert.Equal("test", List.head result)
 
         [<Fact>]
         let ``returns all elements when no case-insensitive duplicates exist`` () =
             let lists = [ "apple"; "banana"; "cherry" ]
-            let result = List.distinctByIgnoreCase lists
+            let result = List.distinctIgnoreCase lists
             Assert.Equal(3, List.length result)
             Assert.Equal<string list>(lists, result)
 
         [<Fact>]
         let ``handles mixed case correctly in longer lists`` () =
             let lists = [ "foo"; "FOO"; "bar"; "BAR"; "baz"; "foo" ]
-            let result = List.distinctByIgnoreCase lists
+            let result = List.distinctIgnoreCase lists
             Assert.Equal(3, List.length result)
             Assert.Equal<string list>([ "foo"; "bar"; "baz" ], result)

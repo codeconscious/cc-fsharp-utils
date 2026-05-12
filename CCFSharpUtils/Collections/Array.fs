@@ -81,7 +81,7 @@ module Array =
     let anyContainsIgnoreCase (txt: string) : string array array -> bool =
         Array.exists (containsIgnoreCase txt)
 
-    let distinctByIgnoreCase (arr: string array) =
+    let distinctIgnoreCase (arr: string array) =
         Enumerable.Distinct(arr, StringComparer.OrdinalIgnoreCase) |> Seq.toArray
 
     /// If the array is empty, returns None. Otherwise, wraps the array in Some.

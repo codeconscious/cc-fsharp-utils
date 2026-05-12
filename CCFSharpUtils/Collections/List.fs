@@ -79,7 +79,7 @@ module List =
     let anyContainsIgnoreCase (txt: string) : string list list -> bool =
         List.exists (containsIgnoreCase txt)
 
-    let distinctByIgnoreCase (lst: string list) =
+    let distinctIgnoreCase (lst: string list) =
         Enumerable.Distinct(lst, StringComparer.OrdinalIgnoreCase) |> Seq.toList
 
     /// If the list is empty, returns None. Otherwise, wraps the list in Some.
