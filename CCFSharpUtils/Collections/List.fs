@@ -4,6 +4,7 @@ open CCFSharpUtils
 open FSharpPlus.Data
 open FsToolkit.ErrorHandling
 open System
+open System.Linq
 
 [<RequireQualifiedAccess>]
 module List =
@@ -77,6 +78,9 @@ module List =
 
     let anyContainsIgnoreCase (txt: string) : string list list -> bool =
         List.exists (containsIgnoreCase txt)
+
+    let distinctByIgnoreCase (lst: string list) =
+        Enumerable.Distinct(lst, StringComparer.OrdinalIgnoreCase) |> Seq.toList
 
     /// If the list is empty, returns None. Otherwise, wraps the list in Some.
     let toOption (lst: 'a list) : 'a list option =

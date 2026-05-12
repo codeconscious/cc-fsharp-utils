@@ -6,6 +6,7 @@ open System
 
 [<RequireQualifiedAccess>]
 module NonEmptyList =
+    open System.Linq
 
     let doesNotContain (x: 'a) : 'a nlist -> bool =
         not << NonEmptyList.contains x
@@ -46,6 +47,9 @@ module NonEmptyList =
 
     let anyContainsIgnoreCase (txt: string) : string nlist nlist -> bool =
         NonEmptyList.exists (containsIgnoreCase txt)
+
+    let distinctByIgnoreCase (lst: string nlist) : string nlist =
+        Enumerable.Distinct(lst, StringComparer.OrdinalIgnoreCase) |> NonEmptyList.ofSeq
 
     /// Map over the first collection of each pair in a list of tuples, preserving each pair's second collection.
     let mapFst (f : 'a -> 'b) (xs: ('a nlist * 'c) nlist) : ('b nlist * 'c) nlist =

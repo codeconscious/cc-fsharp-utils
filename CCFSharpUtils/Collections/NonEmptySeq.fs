@@ -6,6 +6,7 @@ open System
 
 [<RequireQualifiedAccess>]
 module NonEmptySeq =
+    open System.Linq
 
     let doesNotContain (x: 'a) : 'a nseq -> bool =
         not << NonEmptySeq.contains x
@@ -46,6 +47,9 @@ module NonEmptySeq =
 
     let anyContainsIgnoreCase (txt: string) : string nseq nseq -> bool =
         NonEmptySeq.exists (containsIgnoreCase txt)
+
+    let distinctByIgnoreCase (seq: string nseq) : string nseq =
+        Enumerable.Distinct(seq, StringComparer.OrdinalIgnoreCase) |> NonEmptySeq.ofSeq
 
     /// Map over the first sequence of each pair in a sequence of tuples, preserving each pair's second sequence.
     let mapFst (f : 'a -> 'b) (xs: ('a nseq * 'c) nseq) : ('b nseq * 'c) nseq =

@@ -45,8 +45,10 @@ module String =
     let endsWithIgnoreCase (endText: string) (text: string) : bool =
         text.EndsWith(endText, StringComparison.InvariantCultureIgnoreCase)
 
+    /// Converts a string to lowercase. Alias for `System.String.ToLowerInvariant`.
     let toLower (x: string) = x.ToLowerInvariant()
 
+    /// Converts a string to uppercase. Alias for `System.String.ToUpperInvariant`.
     let toUpper (x: string) = x.ToUpperInvariant()
 
     /// Splits text using line breaks as the separator, returning an array of substrings.

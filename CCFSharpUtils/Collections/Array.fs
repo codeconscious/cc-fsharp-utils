@@ -7,6 +7,7 @@ open System
 
 [<RequireQualifiedAccess>]
 module Array =
+    open System.Linq
 
     let isNotEmpty (arr: 'a array) : bool =
         not <| Array.isEmpty arr
@@ -79,6 +80,9 @@ module Array =
 
     let anyContainsIgnoreCase (txt: string) : string array array -> bool =
         Array.exists (containsIgnoreCase txt)
+
+    let distinctByIgnoreCase (arr: string array) =
+        Enumerable.Distinct(arr, StringComparer.OrdinalIgnoreCase) |> Seq.toArray
 
     /// If the array is empty, returns None. Otherwise, wraps the array in Some.
     let toOption (arr: 'a array) : 'a array option =
