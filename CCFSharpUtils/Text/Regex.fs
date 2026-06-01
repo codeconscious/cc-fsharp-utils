@@ -1,9 +1,11 @@
 namespace CCFSharpUtils.Text
 
+open System
+open System.Text.RegularExpressions
+
 /// Functions for or involving regular expressions (regex).
 [<RequireQualifiedAccess>]
 module Rgx =
-    open System.Text.RegularExpressions
 
     let groups (m: Match) : Group seq =
         m.Groups |> Seq.cast<Group>
@@ -24,6 +26,14 @@ module Rgx =
 
     let fstCapture (m: Match) : Match =
         m |> capturesToSeq |> Seq.head
+
+    /// Use regex patterns to remove matching substrings in text.
+    /// Each pattern will remove all occurrences in the text.
+    /// Uses `Regex.Replace`, which will throw if any pattern is invalid.
+    let scrubMatches (patterns: string seq) text : string =
+        if String.IsNullOrEmpty text || Seq.isEmpty patterns
+        then text
+        else Seq.fold (fun acc p -> Regex.Replace(acc, p, String.Empty)) text patterns
 
     /// An active pattern for matching regular expression patterns during pattern matching.
     /// Returns the entire matched value (i.e., match group 0).
