@@ -186,13 +186,6 @@ module String =
     let toRawJson (x: 'a) : Result<string, string> =
         serializeToJson false x
 
-    /// Removes all instances of multiple substrings from a given string.
-    let stripSubstrings (substrings: string seq) (text: string) : string =
-        Seq.fold
-            (fun acc x -> acc.Replace(x, String.Empty, StringComparison.InvariantCultureIgnoreCase))
-            text
-            substrings
-
     /// Various whitespace characters.
     let whiteSpaces: char list =
         [
@@ -233,6 +226,13 @@ module String =
         text.ToCharArray()
         |> Array.filter (not << Char.IsPunctuation)
         |> String
+
+    /// Removes all instances of multiple substrings from a given string.
+    let stripSubstrings (substrings: string seq) (text: string) : string =
+        Seq.fold
+            (fun acc x -> acc.Replace(x, String.Empty, StringComparison.InvariantCultureIgnoreCase))
+            text
+            substrings
 
     /// Strips diacritics from strings -- e.g., "Ñ" -> "N".
     /// Only works on diacritics that exist as separate characters.
