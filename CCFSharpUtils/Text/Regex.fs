@@ -3,7 +3,7 @@ namespace CCFSharpUtils.Text
 open System
 open System.Text.RegularExpressions
 
-/// Functions for or involving regular expressions (regex).
+/// Functions for or involving regular expressions.
 [<RequireQualifiedAccess>]
 module Rgx =
 
@@ -24,8 +24,13 @@ module Rgx =
     let capturesToSeq (m: Match) : Match seq =
         m.Captures |> Seq.cast<Match>
 
+    /// Gives the first Capture in a Match. Throws if there is no Capture.
     let fstCapture (m: Match) : Match =
         m |> capturesToSeq |> Seq.head
+
+    /// A safe version of `fstCapture` that returns an option.
+    let fstCapture' (m: Match) : Match option =
+        m |> capturesToSeq |> Seq.tryHead
 
     /// Use regex patterns to remove matching substrings in text.
     /// Each pattern will remove all occurrences in the text.
