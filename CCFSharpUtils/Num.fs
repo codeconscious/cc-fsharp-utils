@@ -23,3 +23,8 @@ module Num =
     /// If the value is less than or equal to 0, returns true; otherwise, false.
     let inline isZeroOrNeg (n: ^a) =
         isZero n || isNeg n
+
+    let inline isEven (n: ^a) =
+        let two = LanguagePrimitives.GenericOne<'a> + LanguagePrimitives.GenericOne<'a>
+        let zero = LanguagePrimitives.GenericZero<'a>
+        (n % two) = zero
