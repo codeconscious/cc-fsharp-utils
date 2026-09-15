@@ -15,12 +15,14 @@ module String =
     /// An alias for `System.Environment.NewLine`.
     let newLine = Environment.NewLine
 
-    /// An alias for `newline`.
+    /// An alias for `newline`, which itself is an alias for `System.Environment.NewLine`.
     let nl = newLine
 
+    /// An alias for `String.IsNullOrWhiteSpace`.
     let hasNoText (text: string) : bool =
         String.IsNullOrWhiteSpace text
 
+    /// An alias for `!String.IsNullOrWhiteSpace`.
     let hasText (text: string) : bool =
         not (hasNoText text)
 
