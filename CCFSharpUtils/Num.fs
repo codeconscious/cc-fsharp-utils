@@ -28,3 +28,6 @@ module Num =
         let two = LanguagePrimitives.GenericOne<'a> + LanguagePrimitives.GenericOne<'a>
         let zero = LanguagePrimitives.GenericZero<'a>
         (n % two) = zero
+
+    let inline isOdd (n: ^a) =
+        not (isEven n)
