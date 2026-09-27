@@ -4,10 +4,10 @@ namespace CCFSharpUtils
 module Option =
 
     /// Shorthand for Option.map with Option.defaultValue.
-    let mapElse (mapping: 'a -> 'b) (alt: 'b) (opt: 'a option) : 'b =
+    let mapElse (mapping: 'a -> 'b) (defValue: 'b) (opt: 'a option) : 'b =
         opt
         |> Option.map mapping
-        |> Option.defaultValue alt
+        |> Option.defaultValue defValue
 
     /// Gives an int wrapped in Some if it is less than zero. Otherwise, None.
     let inline isNeg n : int option =
