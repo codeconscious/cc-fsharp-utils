@@ -133,3 +133,13 @@ module List =
     /// Map over the second collection of each pair in a list of tuples, preserving each pair's first collection.
     let mapSnd (f : 'b -> 'c) (xs: ('a * 'b list) list) : ('a * 'c list) list =
         xs |> List.map (fun (x, ys) -> x, List.map f ys)
+
+    // Fisher-Yates shuffle (O(n)).
+    let shuffle (rng: Random) (items: 'a list) : 'a list =
+        let arr = List.toArray items
+        for i = arr.Length - 1 downto 1 do
+            let j = rng.Next(i + 1)
+            let temp = arr.[i]
+            arr.[i] <- arr.[j]
+            arr.[j] <- temp
+        arr |> Array.toList

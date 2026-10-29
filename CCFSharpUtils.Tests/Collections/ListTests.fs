@@ -234,3 +234,57 @@ module ListTests =
             let result = List.distinctIgnoreCase lists
             Assert.Equal(3, List.length result)
             Assert.Equal<string list>([ "foo"; "bar"; "baz" ], result)
+
+    module ShuffleTests =
+
+        [<Fact>]
+        let ``preserves list length`` () =
+            let rng = Random(55)
+            let items = [1; 2; 3; 4; 5]
+            let result = List.shuffle rng items
+            Assert.Equal(items.Length, result.Length)
+
+        [<Fact>]
+        let ``preserves all elements`` () =
+            let rng = Random(55)
+            let items = [1; 2; 3; 4; 5]
+            let result = List.shuffle rng items
+            let sortedOriginal = List.sort items
+            let sortedResult = List.sort result
+            Assert.Equal<int list>(sortedOriginal, sortedResult)
+
+        [<Fact>]
+        let ``handles empty list`` () =
+            let rng = Random(55)
+            let items : int list = []
+            let result = List.shuffle rng items
+            Assert.Empty result
+
+        [<Fact>]
+        let ``handles single element`` () =
+            let rng = Random(55)
+            let items = [10]
+            let result = List.shuffle rng items
+            Assert.Equal<int list>(items, result)
+
+        [<Fact>]
+        let ``handles two elements`` () =
+            let rng = Random(55)
+            let items = [1; 2]
+            let result = List.shuffle rng items
+            Assert.Equal(2, result.Length)
+            Assert.True((result = [1; 2] || result = [2; 1]))
+
+        [<Fact>]
+        let ``is deterministic with the same seed`` () =
+            let items = [1; 2; 3; 4; 5]
+            let result1 = List.shuffle (Random(55)) items
+            let result2 = List.shuffle (Random(55)) items
+            Assert.Equal<int list>(result1, result2)
+
+        [<Fact>]
+        let ``produces different results with different seeds`` () =
+            let items = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10]
+            let result1 = List.shuffle (Random(1)) items
+            let result2 = List.shuffle (Random(2)) items
+            Assert.NotEqual<int list>(result1, result2)

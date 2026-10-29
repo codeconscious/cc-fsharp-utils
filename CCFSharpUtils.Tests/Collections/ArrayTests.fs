@@ -159,3 +159,57 @@ module ArrayTests =
             match result with
             | Error e -> Assert.Equal(multipleErr, e)
             | Ok v    -> failwithf $"Expected Error but got Ok %d{v}"
+
+    module ShuffleTests =
+
+        [<Fact>]
+        let ``preserves array length`` () =
+            let rng = Random(55)
+            let items = [|1; 2; 3; 4; 5|]
+            let result = Array.shuffle rng items
+            Assert.Equal(items.Length, result.Length)
+
+        [<Fact>]
+        let ``preserves all elements`` () =
+            let rng = Random(55)
+            let items = [|1; 2; 3; 4; 5|]
+            let result = Array.shuffle rng items
+            let sortedOriginal = Array.sort items
+            let sortedResult = Array.sort result
+            Assert.Equal<int array>(sortedOriginal, sortedResult)
+
+        [<Fact>]
+        let ``handles empty array`` () =
+            let rng = Random(55)
+            let items : int array = [||]
+            let result = Array.shuffle rng items
+            Assert.Empty result
+
+        [<Fact>]
+        let ``handles single element`` () =
+            let rng = Random(55)
+            let items = [|10|]
+            let result = Array.shuffle rng items
+            Assert.Equal<int array>(items, result)
+
+        [<Fact>]
+        let ``handles two elements`` () =
+            let rng = Random(55)
+            let items = [|1; 2|]
+            let result = Array.shuffle rng items
+            Assert.Equal(2, result.Length)
+            Assert.True((result = [|1; 2|] || result = [|2; 1|]))
+
+        [<Fact>]
+        let ``is deterministic with the same seed`` () =
+            let items = [|1; 2; 3; 4; 5|]
+            let result1 = Array.shuffle (Random(55)) (Array.copy items)
+            let result2 = Array.shuffle (Random(55)) (Array.copy items)
+            Assert.Equal<int array>(result1, result2)
+
+        [<Fact>]
+        let ``produces different results with different seeds`` () =
+            let items = [|1; 2; 3; 4; 5; 6; 7; 8; 9; 10|]
+            let result1 = Array.shuffle (Random(1)) (Array.copy items)
+            let result2 = Array.shuffle (Random(2)) (Array.copy items)
+            Assert.NotEqual<int array>(result1, result2)

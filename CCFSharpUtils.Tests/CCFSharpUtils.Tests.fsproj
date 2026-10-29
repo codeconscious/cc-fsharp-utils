@@ -12,6 +12,7 @@
         <Compile Include="Collections/SeqTests.fs" />
         <Compile Include="Collections/ListTests.fs" />
         <Compile Include="Collections/ArrayTests.fs" />
+        <Compile Include="Collections\NonEmptyListTests.fs" />
         <Compile Include="OptionTests.fs" />
         <Compile Include="IO/FileTests.fs" />
     </ItemGroup>
