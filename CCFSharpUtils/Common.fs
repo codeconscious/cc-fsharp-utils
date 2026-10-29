@@ -35,7 +35,7 @@ module Common =
     /// compareWith 5 3  // Returns LT
     /// compareWith 5 5  // Returns EQ
     /// compareWith 5 7  // Returns GT
-    [<Obsolete("Prefer compareTo instead. Note that the parameter order for compare' is reversed, matching F# conventions. This function is scheduled for deletion.")>]
+    [<Obsolete("Prefer compare' instead. Note that the parameter order for compare' is reversed, matching F# conventions. This function is scheduled for deletion.")>]
     let compareWith (target: 'a) (subject: 'a) : Ordering =
         match compare subject target with
         | n when n < 0 -> LT
