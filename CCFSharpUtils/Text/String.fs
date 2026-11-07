@@ -9,6 +9,13 @@ open System.Text.Encodings.Web
 open System.Text.Unicode
 open System.Globalization
 
+/// Specifies how a noun pluralizes.
+type PluralType =
+    | S               // Add 's' suffix (e.g., "cat" → "cats")
+    | Es              // Add 'es' suffix (e.g., "box" → "boxes")
+    | Same            // Use same form for singular and plural (e.g., "sheep" → "sheep")
+    | Irreg of string // Irregular plural form (e.g., "child" → "children")
+
 [<RequireQualifiedAccess>]
 module String =
 
@@ -248,27 +255,84 @@ module String =
         |> String.Concat
         |> _.Normalize(NormalizationForm.FormC)
 
+    /// Pluralizes a word according to the given plural type and count.
+    /// A count of 1 or -1 yields the singular form, so the word is returned unchanged
+    /// regardless of the plural type. Any other count yields the plural form.
+    /// Irregular plurals are returned as given by <c>Irreg</c>.
+    /// Does not handle all-caps text. In that case, pass an <c>Irreg</c> PluralType.
+    /// (If you wish to have the number included (e.g., "1 cat"), use `plur'` instead.)
+    /// <param name="pluralType">How the noun pluralizes.</param>
+    /// <param name="word">The singular form of the noun.</param>
+    /// <param name="count">The quantity the noun refers to.</param>
+    /// <returns>The singular or plural form of the word, without the count.</returns>
+    /// <example>
+    /// <code>
+    /// plur S "cat" 1          // "cat"
+    /// plur S "cat" 2          // "cats"
+    /// plur Es "box" 0         // "boxes"
+    /// plur Same "sheep" 5     // "sheep"
+    /// plur (Irreg "children") "child" 3   // "children"
+    /// plur (Irreg "children") "child" 1   // "child"
+    /// </code>
+    /// </example>
+    let inline plur (pluralType: PluralType) (word: string) (count: ^a) : string =
+        let isOne = Num.isOne (abs count)
+        match pluralType with
+        | _ when isOne -> word
+        | S            -> word + "s"
+        | Es           -> word + "es"
+        | Same         -> word
+        | Irreg x      -> x
+
+    /// Formats a number with comma-separated thousands and pluralizes its noun.
+    /// The result is the formatted count followed by the word from <c>plur</c>.
+    /// Does not handle all-caps text. In that case, pass an <c>Irreg</c> PluralType.
+    /// <param name="pType">How the noun pluralizes.</param>
+    /// <param name="word">The singular form of the noun.</param>
+    /// <param name="count">The quantity to format and pluralize for.</param>
+    /// <returns>The formatted count and the correctly pluralized noun, separated by a space.</returns>
+    /// <example>
+    /// <code>
+    /// plur' S "file" 1            // "1 file"
+    /// plur' S "file" 2            // "2 files"
+    /// plur' S "file" 1_000_000    // "1,000,000 files"
+    /// plur' S "file" (-1_000)     // "-1,000 files"
+    /// plur' Es "box" 1_000        // "1,000 boxes"
+    /// plur' (Irreg "children") "child" 1_500_000   // "1,500,000 children"
+    /// </code>
+    /// </example>
+    let inline plur' (pType: PluralType) (word: string) (count: ^a) : string =
+        let formattedNum = formatNumber count
+        let pluralized = plur pType word count
+        String.concat " " [formattedNum; pluralized]
+
     /// Pluralize text conditionally using a specified count.
+    [<Obsolete("This will be replaced with `plur` before long.")>]
     let inline pluralize (ifOne: 'a) (ifNotOne: 'a) (count: ^b) : 'a =
         if Num.isOne count then ifOne else ifNotOne
 
     /// Pluralize text conditionally with "s" via a specified count.
+    [<Obsolete("This will be replaced with `plur` before long.")>]
     let inline pluralizeS (word: string) (count: ^a) : string =
         pluralize word $"{word}s" count
 
     /// Pluralize text conditionally with "es" via a specified count.
+    [<Obsolete("This will be replaced with `plur` before long.")>]
     let inline pluralizeEs (word: string) (count: ^a) : string =
         pluralize word $"{word}es" count
 
     /// Pluralize text conditionally including its count, such as "1 file", "30 URLs".
+    [<Obsolete("This will be replaced with `plur` before long.")>]
     let inline pluralizeWithCount (ifOne: string) (ifNotOne: string) (count: ^a) : string =
         sprintf "%d %s" count (pluralize ifOne ifNotOne count)
 
     /// Pluralize text conditionally with "s" including its count, such as "1 file", "30 URLs".
+    [<Obsolete("This will be replaced with `plur` before long.")>]
     let inline pluralizeSWithCount (word: string) (count: ^a) : string =
         sprintf "%d %s" count (pluralizeS word count)
 
     /// Pluralize text conditionally with "es" including its count, such as "1 file", "30 URLs".
+    [<Obsolete("This will be replaced with `plur` before long.")>]
     let inline pluralizeEsWithCount (word: string) (count: ^a) : string =
         sprintf "%d %s" count (pluralizeEs word count)
 
