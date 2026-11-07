@@ -32,7 +32,7 @@ module NonEmptySeq =
         if Num.isNeg targetSize then
             invalidArg (nameof targetSize) "Target size cannot be negative."
 
-        match xs |> NonEmptySeq.length |> compareWith targetSize with
+        match compare' targetSize (NonEmptySeq.length xs) with
         | EQ -> Ok xs
         | LT -> Error tooSmallErr
         | GT -> Error tooLargeErr

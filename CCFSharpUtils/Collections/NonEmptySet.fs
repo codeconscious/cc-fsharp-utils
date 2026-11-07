@@ -25,7 +25,7 @@ module NonEmptySet =
         if Num.isNeg targetSize then
             invalidArg (nameof targetSize) "Target size cannot be negative."
 
-        match xs.Count |> compareWith targetSize with
+        match compare' xs.Count targetSize with
         | EQ -> Ok xs
         | LT -> Error tooSmallErr
         | GT -> Error tooLargeErr

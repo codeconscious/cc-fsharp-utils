@@ -37,7 +37,7 @@ module Set =
             invalidArg (nameof targetSize) "Target size cannot be negative."
 
         let length = Set.count s
-        match compareWith targetSize length with
+        match compare' length targetSize with
         | EQ -> Ok s
         | LT -> Error tooSmallErr
         | GT -> Error tooLargeErr

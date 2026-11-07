@@ -65,7 +65,7 @@ module Seq =
             invalidArg (nameof targetSize) "Target size cannot be negative."
 
         let length = Seq.length seq
-        match compareWith targetSize length with
+        match compare' length targetSize with
         | EQ -> Ok seq
         | LT -> Error tooSmallErr
         | GT -> Error tooLargeErr

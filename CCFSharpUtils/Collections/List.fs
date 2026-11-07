@@ -57,7 +57,7 @@ module List =
         if Num.isNeg targetSize then
             invalidArg (nameof targetSize) "Target size cannot be negative."
 
-        match compareWith targetSize lst.Length with
+        match compare' lst.Length targetSize with
         | EQ -> Ok lst
         | LT -> Error tooSmallErr
         | GT -> Error tooLargeErr

@@ -59,7 +59,7 @@ module Array =
         if Num.isNeg targetSize then
             invalidArg (nameof targetSize) "Target size cannot be negative."
 
-        match compareWith targetSize arr.Length with
+        match compare' arr.Length targetSize with
         | EQ -> Ok arr
         | LT -> Error tooSmallErr
         | GT -> Error tooLargeErr
