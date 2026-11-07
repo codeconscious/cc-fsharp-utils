@@ -7,6 +7,7 @@
 
     <ItemGroup>
         <Compile Include="NumTests.fs" />
+        <Compile Include="CommonTests.fs" />
         <Compile Include="Text/StringTests.fs" />
         <Compile Include="Text/RegexTests.fs" />
         <Compile Include="Collections/SeqTests.fs" />
