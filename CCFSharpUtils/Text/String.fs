@@ -260,22 +260,22 @@ module String =
     /// regardless of the plural type. Any other count yields the plural form.
     /// Irregular plurals are returned as given by <c>Irreg</c>.
     /// Does not handle all-caps text. In that case, pass an <c>Irreg</c> PluralType.
-    /// (If you wish to have the number included (e.g., "1 cat"), use `plur'` instead.)
-    /// <param name="pluralType">How the noun pluralizes.</param>
+    /// (If you wish to have the number included (e.g., "1 cat"), use <c>plur'</c> instead.)
     /// <param name="word">The singular form of the noun.</param>
+    /// <param name="pluralType">How the noun pluralizes.</param>
     /// <param name="count">The quantity the noun refers to.</param>
     /// <returns>The singular or plural form of the word, without the count.</returns>
     /// <example>
     /// <code>
-    /// plur S "cat" 1          // "cat"
-    /// plur S "cat" 2          // "cats"
-    /// plur Es "box" 0         // "boxes"
-    /// plur Same "sheep" 5     // "sheep"
-    /// plur (Irreg "children") "child" 3   // "children"
-    /// plur (Irreg "children") "child" 1   // "child"
+    /// plur "cat" S 1                          // "cat"
+    /// plur "cat" S 2                          // "cats"
+    /// plur "box" Es 0                         // "boxes"
+    /// plur "sheep" Same 5                     // "sheep"
+    /// plur "child" (Irreg "children") 3       // "children"
+    /// plur "child" (Irreg "children") 1       // "child"
     /// </code>
     /// </example>
-    let inline plur (pluralType: PluralType) (word: string) (count: ^a) : string =
+    let inline plur (word: string) (pluralType: PluralType) (count: ^a) : string =
         let isOne = Num.isOne (abs count)
         match pluralType with
         | _ when isOne -> word
@@ -287,23 +287,23 @@ module String =
     /// Formats a number with comma-separated thousands and pluralizes its noun.
     /// The result is the formatted count followed by the word from <c>plur</c>.
     /// Does not handle all-caps text. In that case, pass an <c>Irreg</c> PluralType.
-    /// <param name="pType">How the noun pluralizes.</param>
     /// <param name="word">The singular form of the noun.</param>
+    /// <param name="pType">How the noun pluralizes.</param>
     /// <param name="count">The quantity to format and pluralize for.</param>
     /// <returns>The formatted count and the correctly pluralized noun, separated by a space.</returns>
     /// <example>
     /// <code>
-    /// plur' S "file" 1            // "1 file"
-    /// plur' S "file" 2            // "2 files"
-    /// plur' S "file" 1_000_000    // "1,000,000 files"
-    /// plur' S "file" (-1_000)     // "-1,000 files"
-    /// plur' Es "box" 1_000        // "1,000 boxes"
-    /// plur' (Irreg "children") "child" 1_500_000   // "1,500,000 children"
+    /// plur' "file" S 1                        // "1 file"
+    /// plur' "file" S 2                        // "2 files"
+    /// plur' "file" S 1_000_000                // "1,000,000 files"
+    /// plur' "file" S (-1_000)                 // "-1,000 files"
+    /// plur' "box" Es 1_000                    // "1,000 boxes"
+    /// plur' "child" (Irreg "children") 1_500_000   // "1,500,000 children"
     /// </code>
     /// </example>
-    let inline plur' (pType: PluralType) (word: string) (count: ^a) : string =
+    let inline plur' (word: string) (pluralType: PluralType) (count: ^a) : string =
         let formattedNum = formatNumber count
-        let pluralized = plur pType word count
+        let pluralized = plur word pluralType count
         String.concat " " [formattedNum; pluralized]
 
     /// Pluralize text conditionally using a specified count.

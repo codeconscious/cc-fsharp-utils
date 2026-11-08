@@ -166,86 +166,86 @@ module StringTests =
 
         [<Fact>]
         let ``plur with S adds 's' for zero and plural counts`` () =
-            Assert.True <| (String.plur S "cat" 0 = "cats")
-            Assert.True <| (String.plur S "cat" 2 = "cats")
-            Assert.True <| (String.plur S "cat" 1_000_000 = "cats")
+            Assert.True <| (String.plur "cat" S 0 = "cats")
+            Assert.True <| (String.plur "cat" S 2 = "cats")
+            Assert.True <| (String.plur "cat" S 1_000_000 = "cats")
 
         [<Fact>]
         let ``plur with S returns singular for one`` () =
-            Assert.True <| (String.plur S "cat" 1 = "cat")
+            Assert.True <| (String.plur "cat" S 1 = "cat")
 
         [<Fact>]
         let ``plur with Es adds 'es' for zero and plural counts`` () =
-            Assert.True <| (String.plur Es "box" 0 = "boxes")
-            Assert.True <| (String.plur Es "box" 2 = "boxes")
-            Assert.True <| (String.plur Es "box" 1_000_000 = "boxes")
+            Assert.True <| (String.plur "box" Es 0 = "boxes")
+            Assert.True <| (String.plur "box" Es 2 = "boxes")
+            Assert.True <| (String.plur "box" Es 1_000_000 = "boxes")
 
         [<Fact>]
         let ``plur with Es returns singular for one`` () =
-            Assert.True <| (String.plur Es "box" 1 = "box")
+            Assert.True <| (String.plur "box" Es 1 = "box")
 
         [<Fact>]
         let ``plur with Same returns the word unchanged`` () =
-            Assert.True <| (String.plur Same "sheep" 0 = "sheep")
-            Assert.True <| (String.plur Same "sheep" 1 = "sheep")
-            Assert.True <| (String.plur Same "sheep" 2 = "sheep")
+            Assert.True <| (String.plur "sheep" Same 0 = "sheep")
+            Assert.True <| (String.plur "sheep" Same 1 = "sheep")
+            Assert.True <| (String.plur "sheep" Same 2 = "sheep")
 
         [<Fact>]
         let ``plur with Irreg returns the irregular form for zero and plural counts`` () =
-            Assert.True <| (String.plur (Irreg "children") "child" 0 = "children")
-            Assert.True <| (String.plur (Irreg "children") "child" 2 = "children")
-            Assert.True <| (String.plur (Irreg "children") "child" 1_000_000 = "children")
+            Assert.True <| (String.plur "child" (Irreg "children") 0 = "children")
+            Assert.True <| (String.plur "child" (Irreg "children") 2 = "children")
+            Assert.True <| (String.plur "child" (Irreg "children") 1_000_000 = "children")
 
         [<Fact>]
         let ``plur with Irreg returns the singular word for one`` () =
-            Assert.True <| (String.plur (Irreg "children") "child" 1 = "child")
+            Assert.True <| (String.plur "child" (Irreg "children") 1 = "child")
 
         [<Fact>]
         let ``plur treats negative one as singular and other negatives as plural`` () =
-            Assert.True <| (String.plur S "cat" (-1) = "cat")
-            Assert.True <| (String.plur Es "box" (-1) = "box")
-            Assert.True <| (String.plur (Irreg "children") "child" (-1) = "child")
-            Assert.True <| (String.plur S "cat" (-2) = "cats")
-            Assert.True <| (String.plur Es "box" (-2) = "boxes")
-            Assert.True <| (String.plur (Irreg "children") "child" (-2) = "children")
+            Assert.True <| (String.plur "cat" S (-1) = "cat")
+            Assert.True <| (String.plur "box" Es (-1) = "box")
+            Assert.True <| (String.plur "child" (Irreg "children") (-1) = "child")
+            Assert.True <| (String.plur "cat" S (-2) = "cats")
+            Assert.True <| (String.plur "box" Es (-2) = "boxes")
+            Assert.True <| (String.plur "child" (Irreg "children") (-2) = "children")
 
         [<Fact>]
         let ``plur works with int64 counts`` () =
-            Assert.True <| (String.plur S "file" 1L = "file")
-            Assert.True <| (String.plur S "file" 3_000_000_000L = "files")
+            Assert.True <| (String.plur "file" S 1L = "file")
+            Assert.True <| (String.plur "file" S 3_000_000_000L = "files")
 
         [<Fact>]
         let ``plur' formats count and pluralizes with S`` () =
-            Assert.True <| (String.plur' S "file" 0 = "0 files")
-            Assert.True <| (String.plur' S "file" 1 = "1 file")
-            Assert.True <| (String.plur' S "file" 2 = "2 files")
-            Assert.True <| (String.plur' S "file" 1_000_000 = "1,000,000 files")
+            Assert.True <| (String.plur' "file" S 0 = "0 files")
+            Assert.True <| (String.plur' "file" S 1 = "1 file")
+            Assert.True <| (String.plur' "file" S 2 = "2 files")
+            Assert.True <| (String.plur' "file" S 1_000_000 = "1,000,000 files")
 
         [<Fact>]
         let ``plur' formats count and pluralizes with Es`` () =
-            Assert.True <| (String.plur' Es "box" 0 = "0 boxes")
-            Assert.True <| (String.plur' Es "box" 1 = "1 box")
-            Assert.True <| (String.plur' Es "box" 1_000 = "1,000 boxes")
+            Assert.True <| (String.plur' "box" Es 0 = "0 boxes")
+            Assert.True <| (String.plur' "box" Es 1 = "1 box")
+            Assert.True <| (String.plur' "box" Es 1_000 = "1,000 boxes")
 
         [<Fact>]
         let ``plur' formats count and leaves Same words unchanged`` () =
-            Assert.True <| (String.plur' Same "sheep" 0 = "0 sheep")
-            Assert.True <| (String.plur' Same "sheep" 1 = "1 sheep")
-            Assert.True <| (String.plur' Same "sheep" 1_000 = "1,000 sheep")
+            Assert.True <| (String.plur' "sheep" Same 0 = "0 sheep")
+            Assert.True <| (String.plur' "sheep" Same 1 = "1 sheep")
+            Assert.True <| (String.plur' "sheep" Same 1_000 = "1,000 sheep")
 
         [<Fact>]
         let ``plur' formats count and uses irregular form`` () =
-            Assert.True <| (String.plur' (Irreg "children") "child" 0 = "0 children")
-            Assert.True <| (String.plur' (Irreg "children") "child" 1 = "1 child")
-            Assert.True <| (String.plur' (Irreg "children") "child" 1_500_000 = "1,500,000 children")
+            Assert.True <| (String.plur' "child" (Irreg "children") 0 = "0 children")
+            Assert.True <| (String.plur' "child" (Irreg "children") 1 = "1 child")
+            Assert.True <| (String.plur' "child" (Irreg "children") 1_500_000 = "1,500,000 children")
 
         [<Fact>]
         let ``plur' formats negative counts with a leading minus sign`` () =
-            Assert.True <| (String.plur' S "file" (-1) = "-1 file")
-            Assert.True <| (String.plur' S "file" (-2) = "-2 files")
-            Assert.True <| (String.plur' S "file" (-1_000) = "-1,000 files")
+            Assert.True <| (String.plur' "file" S (-1) = "-1 file")
+            Assert.True <| (String.plur' "file" S (-2) = "-2 files")
+            Assert.True <| (String.plur' "file" S (-1_000) = "-1,000 files")
 
         [<Fact>]
         let ``plur' works with int64 counts`` () =
-            Assert.True <| (String.plur' S "file" 1L = "1 file")
-            Assert.True <| (String.plur' S "file" 3_000_000_000L = "3,000,000,000 files")
+            Assert.True <| (String.plur' "file" S 1L = "1 file")
+            Assert.True <| (String.plur' "file" S 3_000_000_000L = "3,000,000,000 files")
