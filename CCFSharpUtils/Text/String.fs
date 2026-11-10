@@ -276,13 +276,16 @@ module String =
     /// </code>
     /// </example>
     let inline plur (word: string) (pluralType: PluralType) (count: ^a) : string =
-        let isOne = Num.isOne (abs count)
+        let isSingular =
+            Num.isOne count
+            || (count < LanguagePrimitives.GenericZero
+                && Num.isOne (LanguagePrimitives.GenericZero - count))
         match pluralType with
-        | _ when isOne -> word
-        | S            -> word + "s"
-        | Es           -> word + "es"
-        | Same         -> word
-        | Irreg x      -> x
+        | _ when isSingular -> word
+        | S       -> word + "s"
+        | Es      -> word + "es"
+        | Same    -> word
+        | Irreg x -> x
 
     /// Formats a number with comma-separated thousands and pluralizes its noun.
     /// The result is the formatted count followed by the word from <c>plur</c>.

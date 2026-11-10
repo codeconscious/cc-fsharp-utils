@@ -249,3 +249,9 @@ module StringTests =
         let ``plur' works with int64 counts`` () =
             Assert.True <| (String.plur' "file" S 1L = "1 file")
             Assert.True <| (String.plur' "file" S 3_000_000_000L = "3,000,000,000 files")
+
+        [<Fact>]
+        let ``plur works with uint16 counts`` () =
+            Assert.True <| (String.plur "cat" S 1us = "cat")
+            Assert.True <| (String.plur "cat" S 2us = "cats")
+            Assert.True <| (String.plur' "file" S 1_000us = "1,000 files")
