@@ -12,6 +12,10 @@ module Num =
     let inline isOne (n: ^a) =
         n = LanguagePrimitives.GenericOne<'a>
 
+    /// Returns true if value is less than 1; otherwise, false.
+    let inline isLtOne (n: ^a) =
+        n < LanguagePrimitives.GenericOne<'a>
+
     /// Returns true if value is greater than 1; otherwise, false.
     let inline isGtOne (n: ^a) =
         n > LanguagePrimitives.GenericOne<'a>
