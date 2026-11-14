@@ -173,6 +173,79 @@ module NumericsTests =
         let ``areZero returns true for an empty sequence`` () =
             Assert.True <| Num.areZero Seq.empty<int>
 
+    module AreZeroNonEmptyTests =
+
+        [<Fact>]
+        let ``areZeroNonEmpty returns true when all values are zero`` () =
+            Assert.True <| Num.areZeroNonEmpty [ 0; 0; 0 ]
+            Assert.True <| Num.areZeroNonEmpty [ 0.; -0.; 0. ]
+            Assert.True <| Num.areZeroNonEmpty [ 0m ]
+
+        [<Fact>]
+        let ``areZeroNonEmpty returns true for a single zero`` () =
+            Assert.True <| Num.areZeroNonEmpty [ 0 ]
+            Assert.True <| Num.areZeroNonEmpty [ 0u ]
+
+        [<Fact>]
+        let ``areZeroNonEmpty returns false when any value is non-zero`` () =
+            Assert.False <| Num.areZeroNonEmpty [ 0; 1; 0 ]
+            Assert.False <| Num.areZeroNonEmpty [ 0; 0; -1 ]
+            Assert.False <| Num.areZeroNonEmpty [ 0.0000000000001 ]
+            Assert.False <| Num.areZeroNonEmpty [ 1 ]
+
+        [<Fact>]
+        let ``areZeroNonEmpty returns false for an empty sequence`` () =
+            Assert.False <| Num.areZeroNonEmpty Seq.empty<int>
+            Assert.False <| Num.areZeroNonEmpty Seq.empty<float>
+
+        [<Fact>]
+        let ``areZeroNonEmpty differs from areZero only for empty sequences`` () =
+            let samples: int list list = [ []; [ 0 ]; [ 0; 0 ]; [ 0; 1 ] ]
+
+            for xs in samples do
+                if not (List.isEmpty xs) then
+                    Assert.Equal(Num.areZero xs, Num.areZeroNonEmpty xs)
+
+            Assert.True <| Num.areZero ([]: int list)
+            Assert.False <| Num.areZeroNonEmpty ([]: int list)
+
+        [<Fact>]
+        let ``areZeroNonEmpty stops at the first non-zero value`` () =
+            // The second element throws, so the test fails if enumeration continues past the first non-zero value
+            let xs =
+                seq {
+                    yield 1
+                    failwith "enumeration should have stopped"
+                }
+
+            Assert.False <| Num.areZeroNonEmpty xs
+
+        [<Fact>]
+        let ``areZeroNonEmpty enumerates each element only once`` () =
+            let count = ref 0
+
+            let xs =
+                [ 0; 0; 0 ]
+                |> Seq.map (fun x ->
+                    count.Value <- count.Value + 1
+                    x)
+
+            Assert.True <| Num.areZeroNonEmpty xs
+            Assert.Equal(3, count.Value)
+
+        [<Fact>]
+        let ``areZeroNonEmpty evaluates only up to the first non-zero value`` () =
+            let count = ref 0
+
+            let xs =
+                [ 1; 0; 0 ]
+                |> Seq.map (fun x ->
+                    count.Value <- count.Value + 1
+                    x)
+
+            Assert.False <| Num.areZeroNonEmpty xs
+            Assert.Equal(1, count.Value)
+
     module IsNonZeroTests =
 
         [<Fact>]
