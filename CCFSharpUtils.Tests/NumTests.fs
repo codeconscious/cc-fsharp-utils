@@ -774,5 +774,234 @@ module NumericsTests =
 
         [<Fact>]
         let ``signOf raises ArgumentException for NaN`` () =
-            // Requires the NaN guard from the earlier suggestion
             Assert.Throws<ArgumentException>(fun () -> Num.signOf nan |> ignore) |> ignore
+
+    module AreNonZeroNonEmptyTests =
+
+        [<Fact>]
+        let ``areNonZeroNonEmpty returns true when all values are non-zero`` () =
+            Assert.True <| Num.areNonZeroNonEmpty [ 1; -1; 5 ]
+            Assert.True <| Num.areNonZeroNonEmpty [ 0.5; -0.5 ]
+
+        [<Fact>]
+        let ``areNonZeroNonEmpty returns false when any value is zero`` () =
+            Assert.False <| Num.areNonZeroNonEmpty [ 1; 0; 5 ]
+            Assert.False <| Num.areNonZeroNonEmpty [ -0. ]
+
+        [<Fact>]
+        let ``areNonZeroNonEmpty returns false for an empty sequence`` () =
+            Assert.False <| Num.areNonZeroNonEmpty Seq.empty<int>
+
+    module AreOneNonEmptyTests =
+
+        [<Fact>]
+        let ``areOneNonEmpty returns true when all values are one`` () =
+            Assert.True <| Num.areOneNonEmpty [ 1; 1; 1 ]
+            Assert.True <| Num.areOneNonEmpty [ 1.; 1. ]
+            Assert.True <| Num.areOneNonEmpty [ 1m ]
+
+        [<Fact>]
+        let ``areOneNonEmpty returns false when any value is not one`` () =
+            Assert.False <| Num.areOneNonEmpty [ 1; 2; 1 ]
+            Assert.False <| Num.areOneNonEmpty [ 0; 1 ]
+            Assert.False <| Num.areOneNonEmpty [ 1.0000000000001 ]
+
+        [<Fact>]
+        let ``areOneNonEmpty returns false for an empty sequence`` () =
+            Assert.False <| Num.areOneNonEmpty Seq.empty<int>
+
+    module AreLtOneNonEmptyTests =
+
+        [<Fact>]
+        let ``areLtOneNonEmpty returns true when all values are less than one`` () =
+            Assert.True <| Num.areLtOneNonEmpty [ 0; -1; -5 ]
+            Assert.True <| Num.areLtOneNonEmpty [ 0.5; 0.9 ]
+
+        [<Fact>]
+        let ``areLtOneNonEmpty returns false when any value is one or greater`` () =
+            Assert.False <| Num.areLtOneNonEmpty [ 0; 1; -1 ]
+            Assert.False <| Num.areLtOneNonEmpty [ 0.5; 2. ]
+
+        [<Fact>]
+        let ``areLtOneNonEmpty returns false for an empty sequence`` () =
+            Assert.False <| Num.areLtOneNonEmpty Seq.empty<int>
+
+    module AreGtOneNonEmptyTests =
+
+        [<Fact>]
+        let ``areGtOneNonEmpty returns true when all values are greater than one`` () =
+            Assert.True <| Num.areGtOneNonEmpty [ 2; 3; 4 ]
+            Assert.True <| Num.areGtOneNonEmpty [ 1.5; 2.5 ]
+
+        [<Fact>]
+        let ``areGtOneNonEmpty returns false when any value is one or less`` () =
+            Assert.False <| Num.areGtOneNonEmpty [ 2; 1; 3 ]
+            Assert.False <| Num.areGtOneNonEmpty [ 2.; 0. ]
+
+        [<Fact>]
+        let ``areGtOneNonEmpty returns false for an empty sequence`` () =
+            Assert.False <| Num.areGtOneNonEmpty Seq.empty<int>
+
+    module AreNegNonEmptyTests =
+
+        [<Fact>]
+        let ``areNegNonEmpty returns true when all values are negative`` () =
+            Assert.True <| Num.areNegNonEmpty [ -1; -2; Int32.MinValue ]
+            Assert.True <| Num.areNegNonEmpty [ -0.5; -3. ]
+
+        [<Fact>]
+        let ``areNegNonEmpty returns false when any value is zero or positive`` () =
+            Assert.False <| Num.areNegNonEmpty [ -1; 0; -2 ]
+            Assert.False <| Num.areNegNonEmpty [ -1; 1 ]
+
+        [<Fact>]
+        let ``areNegNonEmpty returns false for an empty sequence`` () =
+            Assert.False <| Num.areNegNonEmpty Seq.empty<int>
+
+    module ArePosNonEmptyTests =
+
+        [<Fact>]
+        let ``arePosNonEmpty returns true when all values are positive`` () =
+            Assert.True <| Num.arePosNonEmpty [ 1; 2; Int32.MaxValue ]
+            Assert.True <| Num.arePosNonEmpty [ 0.1; 3. ]
+
+        [<Fact>]
+        let ``arePosNonEmpty returns false when any value is zero or negative`` () =
+            Assert.False <| Num.arePosNonEmpty [ 1; 0; 2 ]
+            Assert.False <| Num.arePosNonEmpty [ 1; -1 ]
+
+        [<Fact>]
+        let ``arePosNonEmpty returns false for an empty sequence`` () =
+            Assert.False <| Num.arePosNonEmpty Seq.empty<int>
+
+    module AreZeroOrPosNonEmptyTests =
+
+        [<Fact>]
+        let ``areZeroOrPosNonEmpty returns true when all values are zero or positive`` () =
+            Assert.True <| Num.areZeroOrPosNonEmpty [ 0; 1; 2 ]
+            Assert.True <| Num.areZeroOrPosNonEmpty [ 0.; 0.5 ]
+
+        [<Fact>]
+        let ``areZeroOrPosNonEmpty returns false when any value is negative`` () =
+            Assert.False <| Num.areZeroOrPosNonEmpty [ 0; -1 ]
+            Assert.False <| Num.areZeroOrPosNonEmpty [ 1.0; -0.5 ]
+
+        [<Fact>]
+        let ``areZeroOrPosNonEmpty returns false for an empty sequence`` () =
+            Assert.False <| Num.areZeroOrPosNonEmpty Seq.empty<int>
+
+    module AreZeroOrNegNonEmptyTests =
+
+        [<Fact>]
+        let ``areZeroOrNegNonEmpty returns true when all values are zero or negative`` () =
+            Assert.True <| Num.areZeroOrNegNonEmpty [ 0; -1; -2 ]
+            Assert.True <| Num.areZeroOrNegNonEmpty [ -0.5; 0. ]
+
+        [<Fact>]
+        let ``areZeroOrNegNonEmpty returns false when any value is positive`` () =
+            Assert.False <| Num.areZeroOrNegNonEmpty [ 0; 1; -1 ]
+            Assert.False <| Num.areZeroOrNegNonEmpty [ -1.; 0.5 ]
+
+        [<Fact>]
+        let ``areZeroOrNegNonEmpty returns true for boundary values`` () =
+            Assert.True <| Num.areZeroOrNegNonEmpty [ 0 ]
+            Assert.True <| Num.areZeroOrNegNonEmpty [ Int32.MinValue; 0 ]
+
+        [<Fact>]
+        let ``areZeroOrNegNonEmpty returns false for an empty sequence`` () =
+            Assert.False <| Num.areZeroOrNegNonEmpty Seq.empty<int>
+
+    module AreEvenNonEmptyTests =
+
+        [<Fact>]
+        let ``areEvenNonEmpty returns true when all values are even`` () =
+            Assert.True <| Num.areEvenNonEmpty [ 0; 2; -4 ]
+            Assert.True <| Num.areEvenNonEmpty [ 0.; -2. ]
+
+        [<Fact>]
+        let ``areEvenNonEmpty returns false when any value is odd`` () =
+            Assert.False <| Num.areEvenNonEmpty [ 0; 1 ]
+            Assert.False <| Num.areEvenNonEmpty [ 2; -3; 4 ]
+
+        [<Fact>]
+        let ``areEvenNonEmpty returns false when any value is non-whole`` () =
+            Assert.False <| Num.areEvenNonEmpty [ 2.; 2.5 ]
+
+        [<Fact>]
+        let ``areEvenNonEmpty returns false for an empty sequence`` () =
+            Assert.False <| Num.areEvenNonEmpty Seq.empty<int>
+
+    module AreOddNonEmptyTests =
+
+        [<Fact>]
+        let ``areOddNonEmpty returns true when all values are odd`` () =
+            Assert.True <| Num.areOddNonEmpty [ 1; -3; 5 ]
+            Assert.True <| Num.areOddNonEmpty [ 1L; 3L ]
+
+        [<Fact>]
+        let ``areOddNonEmpty returns false when any value is even`` () =
+            Assert.False <| Num.areOddNonEmpty [ 1; 2; 3 ]
+            Assert.False <| Num.areOddNonEmpty [ 0 ]
+
+        [<Fact>]
+        let ``areOddNonEmpty returns false when any value is non-whole`` () =
+            Assert.False <| Num.areOddNonEmpty [ 1.; 1.5 ]
+
+        [<Fact>]
+        let ``areOddNonEmpty returns false for an empty sequence`` () =
+            Assert.False <| Num.areOddNonEmpty Seq.empty<int>
+
+    module AreInRangeNonEmptyTests =
+
+        [<Fact>]
+        let ``areInRangeNonEmpty returns true when all values are inside the range`` () =
+            Assert.True <| Num.areInRangeNonEmpty 0 10 [ 0; 5; 10 ]
+            Assert.True <| Num.areInRangeNonEmpty 0. 1. [ 0.25; 0.75 ]
+
+        [<Fact>]
+        let ``areInRangeNonEmpty returns false when any value is outside the range`` () =
+            Assert.False <| Num.areInRangeNonEmpty 0 10 [ 0; 5; 11 ]
+            Assert.False <| Num.areInRangeNonEmpty 0 10 [ -1; 5 ]
+
+        [<Fact>]
+        let ``areInRangeNonEmpty is inclusive of both bounds`` () =
+            Assert.True <| Num.areInRangeNonEmpty 5 5 [ 5; 5 ]
+            Assert.False <| Num.areInRangeNonEmpty 5 5 [ 4 ]
+
+        [<Fact>]
+        let ``areInRangeNonEmpty returns false for an empty sequence`` () =
+            Assert.False <| Num.areInRangeNonEmpty 0 10 Seq.empty<int>
+
+    module NonEmptyParityTests =
+
+        [<Fact>]
+        let ``each NonEmpty function matches its forgiving counterpart on non-empty input`` () =
+            let samples: int list list =
+                [ [ 0 ]; [ 1 ]; [ -1 ]; [ 0; 0 ]; [ 1; 1 ]; [ 0; 1 ]; [ -2; -4 ]; [ 2; 3 ]; [ 5; 10 ] ]
+
+            for xs in samples do
+                Assert.Equal(Num.areNonZero xs, Num.areNonZeroNonEmpty xs)
+                Assert.Equal(Num.areOne xs, Num.areOneNonEmpty xs)
+                Assert.Equal(Num.areLtOne xs, Num.areLtOneNonEmpty xs)
+                Assert.Equal(Num.areGtOne xs, Num.areGtOneNonEmpty xs)
+                Assert.Equal(Num.areNeg xs, Num.areNegNonEmpty xs)
+                Assert.Equal(Num.arePos xs, Num.arePosNonEmpty xs)
+                Assert.Equal(Num.areZeroOrPos xs, Num.areZeroOrPosNonEmpty xs)
+                Assert.Equal(Num.areZeroOrNeg xs, Num.areZeroOrNegNonEmpty xs)
+                Assert.Equal(Num.areEven xs, Num.areEvenNonEmpty xs)
+                Assert.Equal(Num.areOdd xs, Num.areOddNonEmpty xs)
+                Assert.Equal(Num.areInRange 0 10 xs, Num.areInRangeNonEmpty 0 10 xs)
+
+        [<Fact>]
+        let ``each NonEmpty function returns false for an empty sequence`` () =
+            Assert.False <| Num.areNonZeroNonEmpty Seq.empty<int>
+            Assert.False <| Num.areOneNonEmpty Seq.empty<int>
+            Assert.False <| Num.areLtOneNonEmpty Seq.empty<int>
+            Assert.False <| Num.areGtOneNonEmpty Seq.empty<int>
+            Assert.False <| Num.areNegNonEmpty Seq.empty<int>
+            Assert.False <| Num.arePosNonEmpty Seq.empty<int>
+            Assert.False <| Num.areZeroOrPosNonEmpty Seq.empty<int>
+            Assert.False <| Num.areZeroOrNegNonEmpty Seq.empty<int>
+            Assert.False <| Num.areEvenNonEmpty Seq.empty<int>
+            Assert.False <| Num.areOddNonEmpty Seq.empty<int>
+            Assert.False <| Num.areInRangeNonEmpty 0 10 Seq.empty<int>
