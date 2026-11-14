@@ -47,7 +47,7 @@ module Num =
     let inline isNeg (n: ^a) =
         n < LanguagePrimitives.GenericZero<'a>
 
-    /// Returns true if every value is less than 0; otherwise, false.
+    /// Returns true if every value is less than 0 or if the collection is empty; otherwise, false.
     let inline areNeg (ns: ^a seq) =
         Seq.forall isNeg ns
 
@@ -55,7 +55,7 @@ module Num =
     let inline isPos (n: ^a) =
         n > LanguagePrimitives.GenericZero<'a>
 
-    /// Returns true if every value is greater than 0; otherwise, false.
+    /// Returns true if every value is greater than 0 or if the collection is empty; otherwise, false.
     let inline arePos (ns: ^a seq) =
         Seq.forall isPos ns
 
@@ -63,7 +63,7 @@ module Num =
     let inline isZeroOrPos (n: ^a) =
         n >= LanguagePrimitives.GenericZero<'a>
 
-    /// Returns true if every value is 0 or greater; otherwise, false.
+    /// Returns true if every value is 0 or greater or if the collection is empty; otherwise, false.
     let inline areZeroOrPos (ns: ^a seq) =
         Seq.forall isZeroOrPos ns
 
@@ -71,25 +71,32 @@ module Num =
     let inline isZeroOrNeg (n: ^a) =
         isZero n || isNeg n
 
-    /// Returns true if every value is less than or equal to 0; otherwise, false.
+    /// Returns true if every value is less than or equal to 0 or if the collection is empty;
+    /// otherwise, false.
     let inline areZeroOrNeg (ns: ^a seq) =
         Seq.forall isZeroOrNeg ns
 
-    /// Returns true if the value is even; otherwise, false.
+    /// Returns true if the value has no fractional part; otherwise, false.
+    let inline isWhole (n: ^a) =
+        let one = LanguagePrimitives.GenericOne<'a>
+        let zero = LanguagePrimitives.GenericZero<'a>
+        (n % one) = zero
+
+    /// Returns true if the value is even and whole; otherwise, false.
     let inline isEven (n: ^a) =
         let two = LanguagePrimitives.GenericOne<'a> + LanguagePrimitives.GenericOne<'a>
         let zero = LanguagePrimitives.GenericZero<'a>
-        (n % two) = zero
+        isWhole n && (n % two) = zero
 
-    /// Returns true if every value is even; otherwise, false.
+    /// Returns true if every value is even or if the collection is empty; otherwise, false.
     let inline areEven (ns: ^a seq) =
         Seq.forall isEven ns
 
-    /// Returns true if the value is odd; otherwise, false.
+    /// Returns true if the value is odd and whole; otherwise, false.
     let inline isOdd (n: ^a) =
-        not (isEven n)
+        isWhole n && not (isEven n)
 
-    /// Returns true if every value is odd; otherwise, false.
+    /// Returns true if every value is odd or if the collection is empty; otherwise, false.
     let inline areOdd (ns: ^a seq) =
         Seq.forall isOdd ns
 
@@ -97,17 +104,14 @@ module Num =
     let inline isInRange (lo: ^a) (hi: ^a) (n: ^a) =
         n >= lo && n <= hi
 
-    /// Returns true if every value is within [lo, hi] inclusive; otherwise, false.
+    /// Returns true if every value is within [lo, hi] inclusive or for an empty collection;
+    /// otherwise, false.
     let inline areInRange (lo: ^a) (hi: ^a) (ns: ^a seq) =
         Seq.forall (isInRange lo hi) ns
 
     /// Returns true if the value is a power of two; otherwise, false.
     let isPowerOfTwo (n: int64) =
         n > 0L && (n &&& (n - 1L)) = 0L
-
-    /// Returns true if the float has no fractional part; otherwise, false.
-    let isWhole (n: float) =
-        floor n = n
 
     /// Clamps the value to the range [lo, hi]. Raises if lo > hi.
     let inline clamp (lo: ^a) (hi: ^a) (n: ^a) =
@@ -118,8 +122,10 @@ module Num =
         else n
 
     /// Returns -1, 0, or 1 according to the sign of the value.
+    /// Raises ArgumentException for NaN.
     /// Named signOf to avoid shadowing the built-in sign function.
     let inline signOf (n: ^a) : ^a =
-        if isZero n then LanguagePrimitives.GenericZero<'a>
+        if n <> n then invalidArg "n" "n must not be NaN."
+        elif isZero n then LanguagePrimitives.GenericZero<'a>
         elif isNeg n then LanguagePrimitives.GenericZero<'a> - LanguagePrimitives.GenericOne<'a>
         else LanguagePrimitives.GenericOne<'a>
