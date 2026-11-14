@@ -48,10 +48,20 @@ module String =
     let equalIgnoreCase (x: string) (y: string) : bool =
         String.Equals(x, y, StringComparison.OrdinalIgnoreCase)
 
+    [<Obsolete "This will be replaced with `startsWith'` soon.">]
     let startsWithIgnoreCase (startText: string) (text: string) : bool  =
         text.StartsWith(startText, StringComparison.InvariantCultureIgnoreCase)
 
+    [<Obsolete "This will be replaced with `endsWith'` soon.">]
     let endsWithIgnoreCase (endText: string) (text: string) : bool =
+        text.EndsWith(endText, StringComparison.InvariantCultureIgnoreCase)
+
+    /// Returns true if the `text` begins with the `startText`, ignoring culture and case.
+    let startsWith' (startText: string) (text: string) : bool  =
+        text.StartsWith(startText, StringComparison.InvariantCultureIgnoreCase)
+
+    /// Returns true if the `text` ends with the `endText`, ignoring culture and case.
+    let endsWith' (endText: string) (text: string) : bool =
         text.EndsWith(endText, StringComparison.InvariantCultureIgnoreCase)
 
     /// Converts a string to lowercase. Alias for `System.String.ToLowerInvariant`.
