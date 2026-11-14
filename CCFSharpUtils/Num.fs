@@ -59,6 +59,14 @@ module Num =
     let inline arePos (ns: ^a seq) =
         Seq.forall isPos ns
 
+    /// Returns true if the value is 0 or greater; otherwise, false.
+    let inline isZeroOrPos (n: ^a) =
+        n >= LanguagePrimitives.GenericZero<'a>
+
+    /// Returns true if every value is 0 or greater; otherwise, false.
+    let inline areZeroOrPos (ns: ^a seq) =
+        Seq.forall isZeroOrPos ns
+
     /// Returns true if the value is less than or equal to 0; otherwise, false.
     let inline isZeroOrNeg (n: ^a) =
         isZero n || isNeg n
@@ -84,3 +92,34 @@ module Num =
     /// Returns true if every value is odd; otherwise, false.
     let inline areOdd (ns: ^a seq) =
         Seq.forall isOdd ns
+
+    /// Returns true if the value is within [lo, hi] inclusive; otherwise, false.
+    let inline isInRange (lo: ^a) (hi: ^a) (n: ^a) =
+        n >= lo && n <= hi
+
+    /// Returns true if every value is within [lo, hi] inclusive; otherwise, false.
+    let inline areInRange (lo: ^a) (hi: ^a) (ns: ^a seq) =
+        Seq.forall (isInRange lo hi) ns
+
+    /// Returns true if the value is a power of two; otherwise, false.
+    let isPowerOfTwo (n: int64) =
+        n > 0L && (n &&& (n - 1L)) = 0L
+
+    /// Returns true if the float has no fractional part; otherwise, false.
+    let isWhole (n: float) =
+        floor n = n
+
+    /// Clamps the value to the range [lo, hi]. Raises if lo > hi.
+    let inline clamp (lo: ^a) (hi: ^a) (n: ^a) =
+        if lo > hi then
+            invalidArg "lo" "lo must be less than or equal to hi."
+        elif n < lo then lo
+        elif n > hi then hi
+        else n
+
+    /// Returns -1, 0, or 1 according to the sign of the value.
+    /// Named signOf to avoid shadowing the built-in sign function.
+    let inline signOf (n: ^a) : ^a =
+        if isZero n then LanguagePrimitives.GenericZero<'a>
+        elif isNeg n then LanguagePrimitives.GenericZero<'a> - LanguagePrimitives.GenericOne<'a>
+        else LanguagePrimitives.GenericOne<'a>
