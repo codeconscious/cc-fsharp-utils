@@ -33,6 +33,10 @@ module Num =
     let inline areNonZero (ns: ^a seq) =
         Seq.forall isNonZero ns
 
+    /// Returns true if the collection is not empty and every value is not 0; otherwise, false.
+    let inline areNonZeroNonEmpty (ns: ^a seq) =
+        allNonEmpty isNonZero ns
+
     /// Returns true if the value is 1; otherwise, false.
     let inline isOne (n: ^a) =
         n = LanguagePrimitives.GenericOne<'a>
@@ -40,6 +44,10 @@ module Num =
     /// Returns true if every value is 1; otherwise, false.
     let inline areOne (ns: ^a seq) =
         Seq.forall isOne ns
+
+    /// Returns true if the collection is not empty and every value is 1; otherwise, false.
+    let inline areOneNonEmpty (ns: ^a seq) =
+        allNonEmpty isOne ns
 
     /// Returns true if value is less than 1; otherwise, false.
     let inline isLtOne (n: ^a) =
@@ -50,6 +58,10 @@ module Num =
     let inline areLtOne (ns: ^a seq) =
         Seq.forall isLtOne ns
 
+    /// Returns true if the collection is not empty and every value is less than 1; otherwise, false.
+    let inline areLtOneNonEmpty (ns: ^a seq) =
+        allNonEmpty isLtOne ns
+
     /// Returns true if value is greater than 1; otherwise, false.
     let inline isGtOne (n: ^a) =
         n > LanguagePrimitives.GenericOne<'a>
@@ -59,6 +71,10 @@ module Num =
     let inline areGtOne (ns: ^a seq) =
         Seq.forall isGtOne ns
 
+    /// Returns true if the collection is not empty and every value is greater than 1; otherwise, false.
+    let inline areGtOneNonEmpty (ns: ^a seq) =
+        allNonEmpty isGtOne ns
+
     /// Returns true if the value is less than 0; otherwise, false.
     let inline isNeg (n: ^a) =
         n < LanguagePrimitives.GenericZero<'a>
@@ -66,6 +82,10 @@ module Num =
     /// Returns true if every value is less than 0 or if the collection is empty; otherwise, false.
     let inline areNeg (ns: ^a seq) =
         Seq.forall isNeg ns
+
+    /// Returns true if the collection is not empty and every value is less than 0; otherwise, false.
+    let inline areNegNonEmpty (ns: ^a seq) =
+        allNonEmpty isNeg ns
 
     /// Returns true if the value is greater than 0; otherwise, false.
     let inline isPos (n: ^a) =
@@ -75,6 +95,10 @@ module Num =
     let inline arePos (ns: ^a seq) =
         Seq.forall isPos ns
 
+    /// Returns true if the collection is not empty and every value is greater than 0; otherwise, false.
+    let inline arePosNonEmpty (ns: ^a seq) =
+        allNonEmpty isPos ns
+
     /// Returns true if the value is 0 or greater; otherwise, false.
     let inline isZeroOrPos (n: ^a) =
         n >= LanguagePrimitives.GenericZero<'a>
@@ -82,6 +106,10 @@ module Num =
     /// Returns true if every value is 0 or greater or if the collection is empty; otherwise, false.
     let inline areZeroOrPos (ns: ^a seq) =
         Seq.forall isZeroOrPos ns
+
+    /// Returns true if the collection is not empty and every value is 0 or greater; otherwise, false.
+    let inline areZeroOrPosNonEmpty (ns: ^a seq) =
+        allNonEmpty isZeroOrPos ns
 
     /// Returns true if the value is less than or equal to 0; otherwise, false.
     let inline isZeroOrNeg (n: ^a) =
@@ -91,6 +119,10 @@ module Num =
     /// otherwise, false.
     let inline areZeroOrNeg (ns: ^a seq) =
         Seq.forall isZeroOrNeg ns
+
+    /// Returns true if the collection is not empty and every value is less than or equal to 0; otherwise, false.
+    let inline areZeroOrNegNonEmpty (ns: ^a seq) =
+        allNonEmpty isZeroOrNeg ns
 
     /// Returns true if the value has no fractional part; otherwise, false.
     let inline isWhole (n: ^a) =
@@ -108,6 +140,10 @@ module Num =
     let inline areEven (ns: ^a seq) =
         Seq.forall isEven ns
 
+    /// Returns true if the collection is not empty and every value is even; otherwise, false.
+    let inline areEvenNonEmpty (ns: ^a seq) =
+        allNonEmpty isEven ns
+
     /// Returns true if the value is odd and whole; otherwise, false.
     let inline isOdd (n: ^a) =
         isWhole n && not (isEven n)
@@ -115,6 +151,10 @@ module Num =
     /// Returns true if every value is odd or if the collection is empty; otherwise, false.
     let inline areOdd (ns: ^a seq) =
         Seq.forall isOdd ns
+
+    /// Returns true if the collection is not empty and every value is odd; otherwise, false.
+    let inline areOddNonEmpty (ns: ^a seq) =
+        allNonEmpty isOdd ns
 
     /// Returns true if the value is within [lo, hi] inclusive; otherwise, false.
     let inline isInRange (lo: ^a) (hi: ^a) (n: ^a) =
@@ -124,6 +164,11 @@ module Num =
     /// otherwise, false.
     let inline areInRange (lo: ^a) (hi: ^a) (ns: ^a seq) =
         Seq.forall (isInRange lo hi) ns
+
+    /// Returns true if the collection is not empty and every value is within [lo, hi] inclusive;
+    /// otherwise, false.
+    let inline areInRangeNonEmpty (lo: ^a) (hi: ^a) (ns: ^a seq) =
+        allNonEmpty (isInRange lo hi) ns
 
     /// Returns true if the value is a power of two; otherwise, false.
     let isPowerOfTwo (n: int64) =
