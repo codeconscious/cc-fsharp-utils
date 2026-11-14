@@ -21,6 +21,10 @@ module Num =
     let inline areZero (ns: ^a seq) =
         Seq.forall isZero ns
 
+    /// Returns true if the collection is not empty and every value is 0; otherwise, false.
+    let inline areZeroNonEmpty (ns: ^a seq) =
+        allNonEmpty isZero ns
+
     /// Returns true if the value is not 0; otherwise, false.
     let inline isNonZero (n: ^a) =
         not <| isZero n
@@ -41,7 +45,8 @@ module Num =
     let inline isLtOne (n: ^a) =
         n < LanguagePrimitives.GenericOne<'a>
 
-    /// Returns true if every value is less than 1; otherwise, false.
+    /// Returns true if every value is less than 1 or if the collection is empty;
+    /// otherwise, false.
     let inline areLtOne (ns: ^a seq) =
         Seq.forall isLtOne ns
 
@@ -49,7 +54,8 @@ module Num =
     let inline isGtOne (n: ^a) =
         n > LanguagePrimitives.GenericOne<'a>
 
-    /// Returns true if every value is greater than 1; otherwise, false.
+    /// Returns true if every value is greater than 1 or if the collection is empty;
+    /// otherwise, false.
     let inline areGtOne (ns: ^a seq) =
         Seq.forall isGtOne ns
 
