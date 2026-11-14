@@ -7,7 +7,17 @@ module Num =
     let inline isZero (n: ^a) =
         n = LanguagePrimitives.GenericZero<'a>
 
-    /// Returns true if every value is 0; otherwise, false.
+    let inline private allNonEmpty ([<InlineIfLambda>] pred: ^a -> bool) (ns: ^a seq) =
+        use e = ns.GetEnumerator()
+        if not (e.MoveNext()) then
+            false
+        else
+            let mutable ok = pred e.Current
+            while ok && e.MoveNext() do
+                ok <- pred e.Current
+            ok
+
+    /// Returns true if every value is 0 or the collection is empty; otherwise, false.
     let inline areZero (ns: ^a seq) =
         Seq.forall isZero ns
 
