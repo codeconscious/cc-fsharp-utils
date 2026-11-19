@@ -255,3 +255,37 @@ module StringTests =
             Assert.True <| (String.plur "cat" S 1us = "cat")
             Assert.True <| (String.plur "cat" S 2us = "cats")
             Assert.True <| (String.plur' "file" S 1_000us = "1,000 files")
+
+        [<Fact>]
+        let ``plur with S' adds uppercase 'S' for zero and plural counts`` () =
+            Assert.True <| (String.plur "CAT" S' 0 = "CATS")
+            Assert.True <| (String.plur "CAT" S' 2 = "CATS")
+            Assert.True <| (String.plur "CAT" S' 1_000_000 = "CATS")
+
+        [<Fact>]
+        let ``plur with S' returns singular for one`` () =
+            Assert.True <| (String.plur "CAT" S' 1 = "CAT")
+
+        [<Fact>]
+        let ``plur with Es' adds uppercase 'ES' for zero and plural counts`` () =
+            Assert.True <| (String.plur "BOX" Es' 0 = "BOXES")
+            Assert.True <| (String.plur "BOX" Es' 2 = "BOXES")
+            Assert.True <| (String.plur "BOX" Es' 1_000_000 = "BOXES")
+
+        [<Fact>]
+        let ``plur with Es' returns singular for one`` () =
+            Assert.True <| (String.plur "BOX" Es' 1 = "BOX")
+
+        [<Fact>]
+        let ``plur' formats count and pluralizes with S'`` () =
+            Assert.True <| (String.plur' "CAT" S' 0 = "0 CATS")
+            Assert.True <| (String.plur' "CAT" S' 1 = "1 CAT")
+            Assert.True <| (String.plur' "CAT" S' 2 = "2 CATS")
+            Assert.True <| (String.plur' "CAT" S' 1_000_000 = "1,000,000 CATS")
+
+        [<Fact>]
+        let ``plur' formats count and pluralizes with Es'`` () =
+            Assert.True <| (String.plur' "BOX" Es' 0 = "0 BOXES")
+            Assert.True <| (String.plur' "BOX" Es' 1 = "1 BOX")
+            Assert.True <| (String.plur' "BOX" Es' 2 = "2 BOXES")
+            Assert.True <| (String.plur' "BOX" Es' 1_000 = "1,000 BOXES")

@@ -13,6 +13,8 @@ open System.Globalization
 type PluralType =
     | S               // Add 's' suffix (e.g., "cat" → "cats")
     | Es              // Add 'es' suffix (e.g., "box" → "boxes")
+    | S'              // Add uppercase 'S' suffix (e.g., "CAT" → "CATS")
+    | Es'             // Add uppercase 'ES' suffix (e.g., "BOX" → "BOXES")
     | Same            // Use same form for singular and plural (e.g., "sheep" → "sheep")
     | Irreg of string // Irregular plural form (e.g., "child" → "children")
 
@@ -266,10 +268,6 @@ module String =
         |> _.Normalize(NormalizationForm.FormC)
 
     /// Pluralizes a word according to the given plural type and count.
-    /// A count of 1 or -1 yields the singular form, so the word is returned unchanged
-    /// regardless of the plural type. Any other count yields the plural form.
-    /// Irregular plurals are returned as given by <c>Irreg</c>.
-    /// Does not handle all-caps text. In that case, pass an <c>Irreg</c> PluralType.
     /// (If you wish to have the number included (e.g., "1 cat"), use <c>plur'</c> instead.)
     /// <param name="word">The singular form of the noun.</param>
     /// <param name="pluralType">How the noun pluralizes.</param>
@@ -279,7 +277,9 @@ module String =
     /// <code>
     /// plur "cat" S 1                          // "cat"
     /// plur "cat" S 2                          // "cats"
+    /// plur "CAT" S' 2                         // "CATS"
     /// plur "box" Es 0                         // "boxes"
+    /// plur "BOX" Es' 0                        // "BOXES"
     /// plur "sheep" Same 5                     // "sheep"
     /// plur "child" (Irreg "children") 3       // "children"
     /// plur "child" (Irreg "children") 1       // "child"
@@ -294,12 +294,13 @@ module String =
         | _ when isSingular -> word
         | S       -> word + "s"
         | Es      -> word + "es"
+        | S'      -> word + "S"
+        | Es'     -> word + "ES"
         | Same    -> word
         | Irreg x -> x
 
     /// Formats a number with comma-separated thousands and pluralizes its noun.
     /// The result is the formatted count followed by the word from <c>plur</c>.
-    /// Does not handle all-caps text. In that case, pass an <c>Irreg</c> PluralType.
     /// <param name="word">The singular form of the noun.</param>
     /// <param name="pType">How the noun pluralizes.</param>
     /// <param name="count">The quantity to format and pluralize for.</param>
@@ -310,6 +311,7 @@ module String =
     /// plur' "file" S 2                        // "2 files"
     /// plur' "file" S 1_000_000                // "1,000,000 files"
     /// plur' "file" S (-1_000)                 // "-1,000 files"
+    /// plur' "FILE" S' (-1_000)                // "-1,000 FILES"
     /// plur' "box" Es 1_000                    // "1,000 boxes"
     /// plur' "child" (Irreg "children") 1_500_000   // "1,500,000 children"
     /// </code>
@@ -372,8 +374,8 @@ module String =
         if hasText x then Ok x else Error err
 
     /// Concatentates a collection to a string using line breaks.
-    let concatNL (x: string seq) : string =
-        x |> String.concat nl
+    let concatNL (xs: string seq) : string =
+        xs |> String.concat nl
 
     /// Concatenates each tuple's sequence of strings using innerSeparator, then joins those concatenated strings
     /// using outerSeparator, producing a single combined string. The tuple keys are ignored; only the
