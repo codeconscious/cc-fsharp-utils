@@ -68,6 +68,12 @@ module File =
         try Ok <| File.WriteAllLines(path.FullName, lines)
         with ex -> Error ex.Message
 
+    let appendToFile (path: string) (text: string) : Result<unit, string> =
+        ofTry (fun _ -> File.AppendAllText(path, text))
+
+    let appendToFile' (file: FileInfo) (text: string) : Result<unit, string> =
+        ofTry (fun _ -> File.AppendAllText(file.FullName, text))
+
     /// If the file exists, returns its FileInfo wrapped in Ok.
     /// Otherwise, returns the error wrapped in Error.
     let toFileInfoR (err: 'err) (fileName: string) : Result<FileInfo,'err> =

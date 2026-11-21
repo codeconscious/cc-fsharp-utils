@@ -16,12 +16,12 @@ module Common =
         /// The value is greater than the target.
         | GT
 
-    /// Helper for try/with -> Result.
+    /// Helper for try/with -> Result. Wraps only the exception's message the Error.
     let ofTry (f: unit -> 'a) : Result<'a, string> =
         try Ok (f())
         with exn -> Error exn.Message
 
-    /// Helper for try/with -> Validation.
+    /// Helper for try/with -> Validation.  Wraps only the exception's message the Error.
     let ofTry' (f: unit -> 'a) : Validation<string list, 'a> =
         try Success (f())
         with exn -> Failure [exn.Message]
