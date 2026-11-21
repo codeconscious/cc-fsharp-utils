@@ -321,49 +321,6 @@ module String =
         let pluralized = plur word pluralType count
         String.concat " " [formattedNum; pluralized]
 
-    /// Pluralize text conditionally using a specified count.
-    [<Obsolete("This will be replaced with `plur` before long.")>]
-    let inline pluralize (ifOne: 'a) (ifNotOne: 'a) (count: ^b) : 'a =
-        if Num.isOne count then ifOne else ifNotOne
-
-    /// Pluralize text conditionally with "s" via a specified count.
-    [<Obsolete("This will be replaced with `plur` before long.")>]
-    let inline pluralizeS (word: string) (count: ^a) : string =
-        pluralize word $"{word}s" count
-
-    /// Pluralize text conditionally with "es" via a specified count.
-    [<Obsolete("This will be replaced with `plur` before long.")>]
-    let inline pluralizeEs (word: string) (count: ^a) : string =
-        pluralize word $"{word}es" count
-
-    /// Pluralize text conditionally including its count, such as "1 file", "30 URLs".
-    [<Obsolete("This will be replaced with `plur` before long.")>]
-    let inline pluralizeWithCount (ifOne: string) (ifNotOne: string) (count: ^a) : string =
-        sprintf "%d %s" count (pluralize ifOne ifNotOne count)
-
-    /// Pluralize text conditionally with "s" including its count, such as "1 file", "30 URLs".
-    [<Obsolete("This will be replaced with `plur` before long.")>]
-    let inline pluralizeSWithCount (word: string) (count: ^a) : string =
-        sprintf "%d %s" count (pluralizeS word count)
-
-    /// Pluralize text conditionally with "es" including its count, such as "1 file", "30 URLs".
-    [<Obsolete("This will be replaced with `plur` before long.")>]
-    let inline pluralizeEsWithCount (word: string) (count: ^a) : string =
-        sprintf "%d %s" count (pluralizeEs word count)
-
-    let inline private fileLabeller (description: string option) (count: int) : string =
-        match description with
-        | None   -> $"""%s{formatNumber count} %s{pluralize "file" "files" count}"""
-        | Some d -> $"""%s{formatNumber count} %s{d} {pluralize "file" "files" count}"""
-
-    /// Returns a file-count string, such as "0 files" or 1 file" or "140 files".
-    let fileLabel (count: int) : string =
-        fileLabeller None count
-
-    /// Returns a file-count string with a descriptor, such as "0 audio files" or "140 deleted files".
-    let fileLabelWithDesc (description: string) (count: int) : string =
-        fileLabeller (Some (description.Trim())) count
-
     /// If a string contains non-whitespace text, encloses it in Some. Otherwise, returns None.
     let toOption (x: string) : string option =
         if hasText x then Some x else None

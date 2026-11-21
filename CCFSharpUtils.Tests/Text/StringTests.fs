@@ -6,20 +6,6 @@ open CCFSharpUtils.Text
 
 module StringTests =
 
-    [<Fact>]
-    let ``fileLabel formats correctly`` () =
-        Assert.True <| (String.fileLabel 0 = "0 files")
-        Assert.True <| (String.fileLabel 1 = "1 file")
-        Assert.True <| (String.fileLabel 2 = "2 files")
-        Assert.True <| (String.fileLabel 1_000_000 = "1,000,000 files")
-
-    [<Fact>]
-    let ``fileLabelWithDescriptor formats correctly`` () =
-        Assert.True <| (String.fileLabelWithDesc "audio" 0 = "0 audio files")
-        Assert.True <| (String.fileLabelWithDesc " temporary " 1 = "1 temporary file")
-        Assert.True <| (String.fileLabelWithDesc "deleted" 2 = "2 deleted files")
-        Assert.True <| (String.fileLabelWithDesc "image" 1_000_000 = "1,000,000 image files")
-
     module ReplaceInvalidPathCharsTests =
         open System.IO
 
