@@ -8,6 +8,8 @@ open System.IO
 [<RequireQualifiedAccess>]
 module Dir =
 
+    let dirMissing str = not (Directory.Exists str)
+
     let private isEmptyRecursiveWith attributesToSkip dirPath =
         let options = EnumerationOptions()
         options.RecurseSubdirectories <- true
