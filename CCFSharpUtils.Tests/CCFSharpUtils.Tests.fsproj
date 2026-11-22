@@ -16,6 +16,7 @@
         <Compile Include="Collections\NonEmptyListTests.fs" />
         <Compile Include="OptionTests.fs" />
         <Compile Include="IO/FileTests.fs" />
+        <Compile Include="IO/DirTests.fs" />
     </ItemGroup>
 
     <ItemGroup>
