@@ -8,7 +8,7 @@ open System
 module Validation =
 
     /// Converts a Validation to a Result.
-    [<Obsolete("This might be removed, though this is unconfirmed.")>]
+    [<Obsolete("This might be removed, though this is undecided.")>]
     let validationToResult (customError: (string list -> 'b)) (v: Validation<'a, string>) : Result<'a, 'b> =
         match v with
         | Ok x -> Ok x
