@@ -334,6 +334,10 @@ module String =
     let concatNL (xs: string seq) : string =
         xs |> String.concat nl
 
+    /// Formats a string to a bulleted format (e.g., `item` -> `• item`).
+    let bulletize: string -> string =
+        sprintf "• %s"
+
     /// Concatenates each tuple's sequence of strings using innerSeparator, then joins those concatenated strings
     /// using outerSeparator, producing a single combined string. The tuple keys are ignored; only the
     /// string sequences are used.
